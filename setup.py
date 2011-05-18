@@ -5,7 +5,7 @@ version = '1.0'
 
 setup(name='shell',
       version=version,
-      description='A modern version of cmd.Cmd',
+      description='A modern version of cmd.Cmd using rl readline bindings',
       long_description=open('README.txt').read() + '\n' +
                        open('CHANGES.txt').read(),
       classifiers=[
