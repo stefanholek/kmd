@@ -6,12 +6,12 @@ from rl import completer
 from rl import completion
 from rl import print_exc
 
-from quoting import QUOTE_CHARACTERS
-from quoting import BASH_QUOTE_CHARACTERS
-from quoting import backslash_dequote
-from quoting import backslash_quote
-from quoting import char_is_quoted
-from quoting import is_fully_quoted
+from shell.quoting import QUOTE_CHARACTERS
+from shell.quoting import BASH_QUOTE_CHARACTERS
+from shell.quoting import backslash_dequote
+from shell.quoting import backslash_quote
+from shell.quoting import char_is_quoted
+from shell.quoting import is_fully_quoted
 
 
 def decompose(text):
