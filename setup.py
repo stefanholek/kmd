@@ -29,7 +29,7 @@ setup(name='shell',
       test_suite='shell.tests',
       install_requires=[
           'setuptools',
-          'rl >= 1.14',
+          'rl > 1.14',
       ],
       entry_points = {
           'console_scripts': 'testshell=shell.shell:main',
