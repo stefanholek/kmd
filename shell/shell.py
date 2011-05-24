@@ -168,6 +168,7 @@ class Shell(cmd.Cmd, object):
         """Called when the input line starts with a '#'."""
         self.lastcmd = ''
 
+    @print_exc
     def complete(self, text, state):
         """Return the next possible completion for 'text'.
 
