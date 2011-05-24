@@ -33,7 +33,7 @@ class Shell(cmd.Cmd, object):
     """
 
     prompt = '(Shell) '
-
+    shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
 
@@ -127,7 +127,7 @@ class Shell(cmd.Cmd, object):
             return None, None, line
         elif line[0] == '?':
             line = 'help ' + line[1:]
-        elif line[0] in '!.':
+        elif line[0] in self.shell_escape_chars:
             if hasattr(self, 'do_shell'):
                 line = 'shell ' + line[1:]
             else:
@@ -202,14 +202,14 @@ class Shell(cmd.Cmd, object):
     def word_break_hook(self, begidx, endidx):
         """When completing '?<topic>' make '?' a word break character.
 
-        Ditto for '!<command>' and '.<command>'. This has a flaw as we cannot
-        complete names that contain the new word break character.
+        Ditto for '!<command>'. This has a flaw as we cannot complete names
+        that contain the new word break character.
         """
         origline = completion.line_buffer
         line = origline.lstrip()
         stripped = len(origline) - len(line)
         if begidx - stripped == 0:
-            if line[0] == '?' or (line[0] in '!.' and hasattr(self, 'do_shell')):
+            if line[0] == '?' or line[0] in self.shell_escape_chars:
                 if line[0] not in completer.word_break_characters:
                     return line[0] + completer.word_break_characters
 
