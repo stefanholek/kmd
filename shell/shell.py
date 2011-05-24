@@ -33,8 +33,9 @@ class Shell(cmd.Cmd, object):
     """
 
     prompt = '(Shell) '
-    history_max_entries = -1
+
     history_file = ''
+    history_max_entries = -1
 
     def __init__(self, completekey='tab', stdin=None, stdout=None):
         """Instantiate a line-oriented interpreter framework.
@@ -53,9 +54,8 @@ class Shell(cmd.Cmd, object):
         off the received input, and dispatch to action methods, passing them
         the remainder of the line as argument.
         """
-        self.enter_cmdloop()
+        self.preloop()
         try:
-            self.preloop()
             if intro is not None:
                 self.intro = intro
             if self.intro:
@@ -81,16 +81,14 @@ class Shell(cmd.Cmd, object):
                 line = self.precmd(line)
                 stop = self.onecmd(line)
                 stop = self.postcmd(stop, line)
-            self.postloop()
         finally:
-            self.exit_cmdloop()
+            self.postloop()
 
-    def enter_cmdloop(self):
+    def preloop(self):
         """Called when the cmdloop() method is entered. Configures the
         readline completer and loads the history file.
         """
         if self.use_rawinput:
-            history.reset()
             history.max_entries = self.history_max_entries
 
             if self.history_file:
@@ -106,14 +104,13 @@ class Shell(cmd.Cmd, object):
                 completer.completer = self.complete
                 completer.parse_and_bind(self.completekey+': complete')
 
-    def exit_cmdloop(self):
+    def postloop(self):
         """Called when the cmdloop() method is exited. Disables the readline
         completer and saves the history file.
         """
         if self.use_rawinput:
             if self.history_file:
                 history.write_file(self.history_file)
-                history.reset()
 
             if self.completekey:
                 completer.reset()
@@ -145,7 +142,7 @@ class Shell(cmd.Cmd, object):
             return func(arg)
 
     def comment(self, line):
-        """Called when the input line starts with '#'."""
+        """Called when the input line starts with a '#'."""
         self.lastcmd = ''
 
     def complete(self, text, state):
@@ -163,7 +160,7 @@ class Shell(cmd.Cmd, object):
             if begidx == 0:
                 compfunc = self.completenames
             else:
-                cmd, args, foo = self.parseline(line)
+                cmd, arg, foo = self.parseline(line)
                 if cmd == '':
                     compfunc = self.completedefault
                 else:
@@ -223,14 +220,6 @@ class Shell(cmd.Cmd, object):
                 return getattr(self, matches.pop())
         raise AttributeError(name)
 
-    def do_EOF(self, args):
-        # Break the cmdloop
-        return True
-
-    def do_help(self, args):
-        # Provide interactive help
-        return super(Shell, self).do_help(args)
-
     def run(self, args=None):
         """Run the shell."""
         if args is None:
@@ -239,8 +228,8 @@ class Shell(cmd.Cmd, object):
         if args:
             line = ' '.join(args)
             line = self.precmd(line)
-            self.onecmd(line)
-            self.postcmd(True, line)
+            stop = self.onecmd(line)
+            self.postcmd(stop, line)
         else:
             try:
                 self.cmdloop()
