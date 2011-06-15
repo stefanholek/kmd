@@ -70,7 +70,7 @@ Example Code
     import shell
 
     from shell.completions.filename import FilenameCompletion
-    from shell.completions.environ import EnvironmentCompletion
+    from shell.completions.environment import EnvironmentCompletion
 
     class MyShell(shell.Shell):
 
