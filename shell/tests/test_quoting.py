@@ -12,12 +12,12 @@ from shell import Shell
 from shell.testing import JailSetup
 from shell.testing import reset
 
-from shell.quoting import backslash_dequote
-from shell.quoting import backslash_quote
-from shell.quoting import is_fully_quoted
-from shell.quoting import dequote_string
-from shell.quoting import quote_string
-from shell.quoting import backslash_quote_string
+from shell.completions.quoting import backslash_dequote
+from shell.completions.quoting import backslash_quote
+from shell.completions.quoting import is_fully_quoted
+from shell.completions.quoting import dequote_string
+from shell.completions.quoting import quote_string
+from shell.completions.quoting import backslash_quote_string
 
 from shell.completions.filename import dequote_filename
 from shell.completions.filename import quote_filename
