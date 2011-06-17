@@ -8,8 +8,6 @@ from rl import print_exc
 
 from quoting import QUOTE_CHARACTERS
 from quoting import BASH_QUOTE_CHARACTERS
-from quoting import WORD_BREAK_CHARACTERS
-from quoting import FILENAME_QUOTE_CHARACTERS
 from quoting import backslash_dequote
 from quoting import backslash_quote
 from quoting import char_is_quoted
@@ -91,8 +89,6 @@ class FilenameCompletion(object):
     def __init__(self, quote_char='\\'):
         """Configure the readline completer for filename completion."""
         completer.quote_characters = QUOTE_CHARACTERS
-        completer.word_break_characters = WORD_BREAK_CHARACTERS
-        completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
         completer.char_is_quoted_function = self.char_is_quoted
         completer.filename_quoting_function = self.quote_filename
         if quote_char == "'":
