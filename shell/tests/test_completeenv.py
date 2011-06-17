@@ -45,3 +45,6 @@ class CompleterTests(unittest.TestCase):
     def test_with_dollar(self):
         self.assertEqual(self.complete('$SHE'), '$SHELL ')
 
+    def test_dollar_is_delimiter(self):
+        self.assertEqual(self.complete('FOO$SHE'), 'FOO$SHELL ')
+

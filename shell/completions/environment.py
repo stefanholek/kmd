@@ -9,6 +9,8 @@ class EnvironmentCompletion(object):
 
     def __init__(self):
         """Configure the completer for environment variable completion."""
+        if '$' not in completer.word_break_characters:
+            completer.word_break_characters += '$'
         if '$' not in completer.special_prefixes:
             completer.special_prefixes += '$'
 
