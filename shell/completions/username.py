@@ -1,5 +1,3 @@
-import os
-
 from rl import completion
 from rl import print_exc
 
