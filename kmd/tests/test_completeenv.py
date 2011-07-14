@@ -7,18 +7,18 @@ from rl import generator
 from rl import readline
 from rl import print_exc
 
-from shell import Shell
-from shell.testing import reset
+from kmd import Kmd
+from kmd.testing import reset
 
-from shell.completions.environment import EnvironmentCompletion
+from kmd.completions.environment import EnvironmentCompletion
 
 TAB = '\t'
 
 
-class TestShell(Shell):
+class TestKmd(Kmd):
 
     def preloop(self):
-        Shell.preloop(self)
+        Kmd.preloop(self)
         self.completeenviron = EnvironmentCompletion()
 
     @print_exc
@@ -31,7 +31,7 @@ class CompleterTests(unittest.TestCase):
 
     def setUp(self):
         reset()
-        self.cmd = TestShell()
+        self.cmd = TestKmd()
         self.cmd.preloop()
 
     def complete(self, text):

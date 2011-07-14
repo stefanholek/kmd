@@ -8,20 +8,20 @@ from rl import generator
 from rl import readline
 from rl import print_exc
 
-from shell import Shell
-from shell.testing import JailSetup
-from shell.testing import reset
+from kmd import Kmd
+from kmd.testing import JailSetup
+from kmd.testing import reset
 
-from shell.completions.quoting import backslash_dequote
-from shell.completions.quoting import backslash_quote
-from shell.completions.quoting import is_fully_quoted
-from shell.completions.quoting import dequote_string
-from shell.completions.quoting import quote_string
-from shell.completions.quoting import backslash_quote_string
+from kmd.completions.quoting import backslash_dequote
+from kmd.completions.quoting import backslash_quote
+from kmd.completions.quoting import is_fully_quoted
+from kmd.completions.quoting import dequote_string
+from kmd.completions.quoting import quote_string
+from kmd.completions.quoting import backslash_quote_string
 
-from shell.completions.filename import dequote_filename
-from shell.completions.filename import quote_filename
-from shell.completions.filename import backslash_quote_filename
+from kmd.completions.filename import dequote_filename
+from kmd.completions.filename import quote_filename
+from kmd.completions.filename import backslash_quote_filename
 
 TAB = '\t'
 
@@ -61,7 +61,7 @@ class BackslashDequoteTests(unittest.TestCase):
 
     def setUp(self):
         reset()
-        self.cmd = Shell()
+        self.cmd = Kmd()
         self.cmd.preloop()
 
     def test_backslash_dequote(self):
@@ -82,7 +82,7 @@ class BackslashQuoteTests(unittest.TestCase):
 
     def setUp(self):
         reset()
-        self.cmd = Shell()
+        self.cmd = Kmd()
         self.cmd.preloop()
 
     def test_backslash_quote(self):
@@ -102,7 +102,7 @@ class FullyQuotedTests(unittest.TestCase):
 
     def setUp(self):
         reset()
-        self.cmd = Shell()
+        self.cmd = Kmd()
         self.cmd.preloop()
 
     def test_fully_quoted(self):
@@ -119,7 +119,7 @@ class DequoteStringTests(FileSetup):
     def setUp(self):
         FileSetup.setUp(self)
         reset()
-        self.cmd = Shell()
+        self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
         completer.filename_dequoting_function = print_exc(dequote_string)
@@ -150,7 +150,7 @@ class QuoteStringTests(FileSetup):
     def setUp(self):
         FileSetup.setUp(self)
         reset()
-        self.cmd = Shell()
+        self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
         completer.filename_dequoting_function = print_exc(dequote_string)
@@ -188,7 +188,7 @@ class BackslashQuoteStringTests(FileSetup):
     def setUp(self):
         FileSetup.setUp(self)
         reset()
-        self.cmd = Shell()
+        self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
         completer.filename_dequoting_function = print_exc(dequote_string)
@@ -226,7 +226,7 @@ class DequoteFilenameTests(FileSetup):
     def setUp(self):
         FileSetup.setUp(self)
         reset()
-        self.cmd = Shell()
+        self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
         completer.filename_dequoting_function = print_exc(dequote_filename)
@@ -257,7 +257,7 @@ class QuoteFilenameTests(FileSetup):
     def setUp(self):
         FileSetup.setUp(self)
         reset()
-        self.cmd = Shell()
+        self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
         completer.filename_dequoting_function = print_exc(dequote_filename)
@@ -295,7 +295,7 @@ class BackslashQuoteFilenameTests(FileSetup):
     def setUp(self):
         FileSetup.setUp(self)
         reset()
-        self.cmd = Shell()
+        self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
         completer.filename_dequoting_function = print_exc(dequote_filename)

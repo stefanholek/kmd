@@ -1,5 +1,5 @@
 =====
-shell
+kmd
 =====
 ------------------------------------------------------
 A modern version of cmd.Cmd using rl readline bindings
@@ -8,13 +8,13 @@ A modern version of cmd.Cmd using rl readline bindings
 Introduction
 ============
 
-**shell** allows to easily build command line driven shells
+**kmd** allows to easily build command line driven shells
 with powerful TAB-completion capabilities.
 
-The shell.Shell class derives from `cmd.Cmd`_ and modifies it in the
+The kmd.Kmd class derives from `cmd.Cmd`_ and modifies it in the
 following ways:
 
-1. Instead of Python's readline_ module, shell.Shell uses the alternative
+1. Instead of Python's readline_ module, kmd.Kmd uses the alternative
    rl_ readline bindings.
 
 2. Setup and tear-down of the readline completer have been moved to *preloop*
@@ -30,10 +30,10 @@ following ways:
 5. It is now possible to configure the *shell_escape_characters*.
    The default set is '!'.
 
-6. If a *history_file* is configured, shell.Shell loads and saves the history
+6. If a *history_file* is configured, kmd.Kmd loads and saves the history
    during *preloop* and *postloop*.
 
-7. The new *run* method encapsulates execution of a shell.Shell.
+7. The new *run* method encapsulates execution of a kmd.Kmd.
 
 .. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
 .. _readline: http://docs.python.org/library/readline.html
@@ -41,10 +41,10 @@ following ways:
 Package Contents
 ----------------
 
-shell.Shell
+kmd.Kmd
     Implements the mechanics of a command shell, similar to cmd.Cmd.
 
-shell.completions
+kmd.completions
     Implements a set of ready-to-use completions.
 
 Completions
@@ -67,12 +67,12 @@ Example Code
 ::
 
     import os
-    import shell
+    import kmd
 
-    from shell.completions.filename import FilenameCompletion
-    from shell.completions.environment import EnvironmentCompletion
+    from kmd.completions.filename import FilenameCompletion
+    from kmd.completions.environment import EnvironmentCompletion
 
-    class MyShell(shell.Shell):
+    class MyShell(kmd.Kmd):
 
         def preloop(self):
             super(MyShell, self).preloop()
@@ -101,20 +101,20 @@ Also see gpgkeys_, a front-end for GnuPG built entirely around tab completion.
 Repository Access
 -----------------
 
-shell development is hosted on github_.
+kmd development is hosted on github_.
 
-.. _github: http://github.com/stefanholek/shell
+.. _github: http://github.com/stefanholek/kmd
 
 Installation
 ============
 
-shell uses the rl_ library. Since rl_ contains a C extension, it is
+kmd uses the rl_ library. Since rl_ contains a C extension, it is
 a good idea to review its `installation instructions`_ and make sure
 all dependencies are in place.
 
-To install the ``shell`` package, type::
+To install the ``kmd`` package, type::
 
-    easy_install shell
+    easy_install kmd
 
 .. _rl: http://pypi.python.org/pypi/rl
 .. _`installation instructions`: http://pypi.python.org/pypi/rl#installation

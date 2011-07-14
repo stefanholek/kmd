@@ -8,23 +8,23 @@ from rl import generator
 from rl import readline
 from rl import print_exc
 
-from shell import Shell
-from shell.testing import JailSetup
-from shell.testing import reset
+from kmd import Kmd
+from kmd.testing import JailSetup
+from kmd.testing import reset
 
-from shell.completions.filename import FilenameCompletion
+from kmd.completions.filename import FilenameCompletion
 
 TAB = '\t'
 
 
-class TestShell(Shell):
+class TestKmd(Kmd):
 
     def __init__(self, quote_char='\\'):
-        Shell.__init__(self)
+        Kmd.__init__(self)
         self.quote_char = quote_char
 
     def preloop(self):
-        Shell.preloop(self)
+        Kmd.preloop(self)
         self.completefilename = FilenameCompletion(self.quote_char)
 
     @print_exc
@@ -39,39 +39,39 @@ class InitQuoteCharactersTests(unittest.TestCase):
         reset()
 
     def test_double_quote(self):
-        self.cmd = TestShell(quote_char='"')
+        self.cmd = TestKmd(quote_char='"')
         self.cmd.preloop()
         self.assertEqual(completer.quote_characters, '"\'')
 
     def test_single_quote(self):
-        self.cmd = TestShell(quote_char="'")
+        self.cmd = TestKmd(quote_char="'")
         self.cmd.preloop()
         self.assertEqual(completer.quote_characters, '\'"')
 
     def test_backslash(self):
-        self.cmd = TestShell(quote_char='\\')
+        self.cmd = TestKmd(quote_char='\\')
         self.cmd.preloop()
         self.assertEqual(completer.quote_characters, '"\'')
 
     def test_reconfigure(self):
-        self.cmd = TestShell(quote_char='"')
+        self.cmd = TestKmd(quote_char='"')
         self.cmd.preloop()
         self.assertEqual(completer.quote_characters, '"\'')
-        self.cmd = TestShell(quote_char="'")
+        self.cmd = TestKmd(quote_char="'")
         self.cmd.preloop()
         self.assertEqual(completer.quote_characters, '\'"')
-        self.cmd = TestShell(quote_char='"')
+        self.cmd = TestKmd(quote_char='"')
         self.cmd.preloop()
         self.assertEqual(completer.quote_characters, '"\'')
-        self.cmd = TestShell(quote_char="'")
+        self.cmd = TestKmd(quote_char="'")
         self.cmd.preloop()
         self.assertEqual(completer.quote_characters, '\'"')
-        self.cmd = TestShell(quote_char='\\')
+        self.cmd = TestKmd(quote_char='\\')
         self.cmd.preloop()
         self.assertEqual(completer.quote_characters, '"\'')
 
     def test_invalid(self):
-        self.cmd = TestShell(quote_char='A')
+        self.cmd = TestKmd(quote_char='A')
         self.assertRaises(ValueError, self.cmd.preloop)
 
 
@@ -80,7 +80,7 @@ class CompleterTests(JailSetup):
     def setUp(self):
         JailSetup.setUp(self)
         reset()
-        self.cmd = TestShell(quote_char='"')
+        self.cmd = TestKmd(quote_char='"')
         self.cmd.preloop()
         self.mkfiles()
 
@@ -186,7 +186,7 @@ class CharIsQuotedTests(unittest.TestCase):
 
     def setUp(self):
         reset()
-        self.cmd = TestShell(quote_char='"')
+        self.cmd = TestKmd(quote_char='"')
         self.cmd.preloop()
         self.is_quoted = self.cmd.completefilename.char_is_quoted
 
@@ -262,7 +262,7 @@ class DirectoryCompletionHookTests(JailSetup):
     def setUp(self):
         JailSetup.setUp(self)
         reset()
-        self.cmd = TestShell(quote_char='\\')
+        self.cmd = TestKmd(quote_char='\\')
         self.cmd.preloop()
         self.mkfiles()
 

@@ -14,7 +14,7 @@ from completions.quoting import FILENAME_QUOTE_CHARACTERS
 from completions.quoting import char_is_quoted
 
 
-class Shell(cmd.Cmd, object):
+class Kmd(cmd.Cmd, object):
     """A cmd.Cmd subclass using rl readline bindings.
 
     This is a subclass of the standard library's `cmd.Cmd`_
@@ -26,13 +26,13 @@ class Shell(cmd.Cmd, object):
 
         from shell import shell
 
-        class MyShell(shell.Shell):
+        class MyShell(kmd.Kmd):
             ...
 
     .. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
     """
 
-    prompt = '(Shell) '
+    prompt = '(Kmd) '
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
@@ -47,7 +47,7 @@ class Shell(cmd.Cmd, object):
         specify alternate input and output file objects; if not specified,
         sys.stdin and sys.stdout are used.
         """
-        super(Shell, self).__init__(completekey, stdin, stdout)
+        super(Kmd, self).__init__(completekey, stdin, stdout)
 
     def cmdloop(self, intro=None):
         """Repeatedly issue a prompt, accept input, parse an initial prefix
@@ -222,7 +222,7 @@ class Shell(cmd.Cmd, object):
         raise AttributeError(name)
 
     def run(self, args=None):
-        """Run the shell."""
+        """Run the Kmd."""
         if args is None:
             args = sys.argv[1:]
 
@@ -241,6 +241,6 @@ class Shell(cmd.Cmd, object):
 
 
 def main(args=None):
-    shell = Shell()
+    shell = Kmd()
     return shell.run(args)
 

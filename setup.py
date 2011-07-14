@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 version = '1.0'
 
 
-setup(name='shell',
+setup(name='kmd',
       version=version,
       description='A modern version of cmd.Cmd using rl readline bindings',
       long_description=open('README.txt').read() + '\n' +
@@ -20,13 +20,13 @@ setup(name='shell',
       keywords='command line shell',
       author='Stefan H. Holek',
       author_email='stefan@epy.co.at',
-      url='http://pypi.python.org/pypi/shell',
+      url='http://pypi.python.org/pypi/kmd',
       license='GPL or PSF',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
       use_2to3=True,
-      test_suite='shell.tests',
+      test_suite='kmd.tests',
       install_requires=[
           'setuptools',
           'rl > 1.14',

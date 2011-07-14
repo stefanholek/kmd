@@ -9,11 +9,11 @@ from rl import generator
 from rl import readline
 from rl import print_exc
 
-from shell import Shell
-from shell.testing import JailSetup
-from shell.testing import reset
+from kmd import Kmd
+from kmd.testing import JailSetup
+from kmd.testing import reset
 
-from shell.completions.hostname import HostnameCompletion
+from kmd.completions.hostname import HostnameCompletion
 
 TAB = '\t'
 
@@ -30,14 +30,14 @@ HOSTSFILE2 = """\
 """
 
 
-class TestShell(Shell):
+class TestKmd(Kmd):
 
     def __init__(self, hostsfile=None):
-        Shell.__init__(self)
+        Kmd.__init__(self)
         self.hostsfile = hostsfile
 
     def preloop(self):
-        Shell.preloop(self)
+        Kmd.preloop(self)
         self.completehostname = HostnameCompletion(self.hostsfile)
 
     @print_exc
@@ -52,7 +52,7 @@ class CompleterTests(JailSetup):
         JailSetup.setUp(self)
         reset()
         self.mkhosts(HOSTSFILE)
-        self.cmd = TestShell(hostsfile=join(self.tempdir, 'hosts'))
+        self.cmd = TestKmd(hostsfile=join(self.tempdir, 'hosts'))
         self.cmd.preloop()
 
     def mkhosts(self, content):
