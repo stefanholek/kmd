@@ -24,7 +24,7 @@ class Kmd(cmd.Cmd, object):
 
     Example::
 
-        from shell import shell
+        import kmd
 
         class MyShell(kmd.Kmd):
             ...
