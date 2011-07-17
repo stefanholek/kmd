@@ -230,7 +230,7 @@ class Kmd(cmd.Cmd, object):
             line = ' '.join(args)
             line = self.precmd(line)
             stop = self.onecmd(line)
-            self.postcmd(stop, line)
+            stop = self.postcmd(stop, line)
         else:
             try:
                 self.cmdloop()
