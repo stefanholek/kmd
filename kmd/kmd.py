@@ -36,7 +36,7 @@ class Kmd(cmd.Cmd, object):
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
-    alias_header = ''
+    aliases_header = ''
 
     def __init__(self, completekey='tab', stdin=None, stdout=None):
         """Instantiate a line-oriented interpreter framework.
@@ -49,7 +49,6 @@ class Kmd(cmd.Cmd, object):
         sys.stdin and sys.stdout are used.
         """
         super(Kmd, self).__init__(completekey, stdin, stdout)
-
         self.aliases = {'?': 'help'}
         for char in self.shell_escape_chars:
             self.aliases[char] = 'shell'
@@ -262,8 +261,8 @@ class Kmd(cmd.Cmd, object):
         # Omit sections with empty headers
         if self.doc_header:
             self.print_topics(self.doc_header, cmds_doc, 15, 80)
-        if self.alias_header:
-            self.print_topics(self.alias_header, sorted(self.aliases.keys()), 15, 80)
+        if self.aliases_header:
+            self.print_topics(self.aliases_header, sorted(self.aliases.keys()), 15, 80)
         if self.misc_header:
             self.print_topics(self.misc_header, sorted(help.keys()), 15, 80)
         if self.undoc_header:
