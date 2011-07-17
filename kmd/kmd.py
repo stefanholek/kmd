@@ -36,6 +36,7 @@ class Kmd(cmd.Cmd, object):
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
+    alias_header = 'Shortcut commands (type help <topic>):'
 
     def __init__(self, completekey='tab', stdin=None, stdout=None):
         """Instantiate a line-oriented interpreter framework.
@@ -228,10 +229,40 @@ class Kmd(cmd.Cmd, object):
         raise AttributeError(name)
 
     def do_help(self, topic):
-        # No docstring
         if topic:
             topic = self.aliases.get(topic, topic)
-        return super(Kmd, self).do_help(topic)
+            super(Kmd, self).do_help(topic)
+        self.helpdefault()
+
+    def helpdefault(self):
+        """Print the default help."""
+        names = self.get_names()
+        cmds_doc = []
+        cmds_undoc = []
+        help = {}
+        for name in names:
+            if name[:5] == 'help_':
+                help[name[5:]] = 1
+        names.sort()
+        prevname = ''
+        for name in names:
+            if name[:3] == 'do_':
+                if name == prevname:
+                    continue
+                prevname = name
+                cmd = name[3:]
+                if cmd in help:
+                    cmds_doc.append(cmd)
+                    del help[cmd]
+                elif getattr(self, name).__doc__:
+                    cmds_doc.append(cmd)
+                else:
+                    cmds_undoc.append(cmd)
+        self.stdout.write("%s\n" % self.doc_leader)
+        self.print_topics(self.doc_header, cmds_doc, 15, 80)
+        self.print_topics(self.alias_header, sorted(self.aliases.keys()), 15, 80)
+        self.print_topics(self.misc_header, sorted(help.keys()), 15, 80)
+        self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
 
     def run(self, args=None):
         """Run the Kmd."""
