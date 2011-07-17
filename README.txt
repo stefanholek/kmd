@@ -15,7 +15,7 @@ The kmd.Kmd class derives from `cmd.Cmd`_ and modifies it in the
 following ways:
 
 1. Instead of Python's readline_ module, kmd.Kmd uses the alternative
-   rl_ readline bindings.
+   `rl.readline`_ bindings.
 
 2. Setup and tear-down of the readline completer have been moved to *preloop*
    and *postloop* respectively. Subclasses must now make sure to call their
@@ -31,12 +31,14 @@ following ways:
    The default set is '!'.
 
 6. If a *history_file* is configured, kmd.Kmd loads and saves the history
-   during *preloop* and *postloop*.
+   during *preloop* and *postloop*. The history size can be limited by
+   setting *history_max_entries*.
 
 7. The new *run* method encapsulates execution of a kmd.Kmd.
 
 .. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
 .. _readline: http://docs.python.org/library/readline.html
+.. _`rl.readline`: http://pypi.python.org/pypi/rl
 
 Package Contents
 ----------------
