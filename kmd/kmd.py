@@ -231,7 +231,8 @@ class Kmd(cmd.Cmd, object):
         if topic:
             topic = self.aliases.get(topic, topic)
             super(Kmd, self).do_help(topic)
-        self.helpdefault()
+        else:
+            self.helpdefault()
 
     def helpdefault(self):
         """Print the default help."""
