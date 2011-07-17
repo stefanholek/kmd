@@ -49,6 +49,10 @@ class Kmd(cmd.Cmd, object):
         """
         super(Kmd, self).__init__(completekey, stdin, stdout)
 
+        self.aliases = {'?': 'help'}
+        for char in self.shell_escape_chars:
+            self.aliases[char] = 'shell'
+
     def cmdloop(self, intro=None):
         """Repeatedly issue a prompt, accept input, parse an initial prefix
         off the received input, and dispatch to action methods, passing them
@@ -158,6 +162,7 @@ class Kmd(cmd.Cmd, object):
         if cmd == '':
             return self.default(line)
         else:
+            cmd = self.aliases.get(cmd, cmd)
             try:
                 func = getattr(self, 'do_' + cmd)
             except AttributeError:
@@ -188,6 +193,7 @@ class Kmd(cmd.Cmd, object):
                 if cmd == '':
                     compfunc = self.completedefault
                 else:
+                    cmd = self.aliases.get(cmd, cmd)
                     try:
                         compfunc = getattr(self, 'complete_' + cmd)
                     except AttributeError:
@@ -220,6 +226,12 @@ class Kmd(cmd.Cmd, object):
             if len(matches) == 1:
                 return getattr(self, matches.pop())
         raise AttributeError(name)
+
+    def do_help(self, topic):
+        # No docstring
+        if topic:
+            topic = self.aliases.get(topic, topic)
+        return super(Kmd, self).do_help(topic)
 
     def run(self, args=None):
         """Run the Kmd."""
