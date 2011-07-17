@@ -36,7 +36,7 @@ class Kmd(cmd.Cmd, object):
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
-    alias_header = 'Shortcut commands (type help <topic>):'
+    alias_header = ''
 
     def __init__(self, completekey='tab', stdin=None, stdout=None):
         """Instantiate a line-oriented interpreter framework.
@@ -259,10 +259,15 @@ class Kmd(cmd.Cmd, object):
                 else:
                     cmds_undoc.append(cmd)
         self.stdout.write("%s\n" % self.doc_leader)
-        self.print_topics(self.doc_header, cmds_doc, 15, 80)
-        self.print_topics(self.alias_header, sorted(self.aliases.keys()), 15, 80)
-        self.print_topics(self.misc_header, sorted(help.keys()), 15, 80)
-        self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
+        # Omit sections with empty headers
+        if self.doc_header:
+            self.print_topics(self.doc_header, cmds_doc, 15, 80)
+        if self.alias_header:
+            self.print_topics(self.alias_header, sorted(self.aliases.keys()), 15, 80)
+        if self.misc_header:
+            self.print_topics(self.misc_header, sorted(help.keys()), 15, 80)
+        if self.undoc_header:
+            self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
 
     def run(self, args=None):
         """Run the Kmd."""
