@@ -15,30 +15,34 @@ The kmd.Kmd class derives from `cmd.Cmd`_ and modifies it in the
 following ways:
 
 1. Instead of Python's readline_ module, kmd.Kmd uses the alternative
-   `rl.readline`_ bindings.
+   rl_ readline bindings.
 
 2. Setup and tear-down of the readline completer have been moved to *preloop*
    and *postloop* respectively. Subclasses must now make sure to call their
    parent's implementations.
 
-3. Lines starting with '#' are treated as comments. The new *comment* method
-   is invoked, passing the line as argument. By default this method clears the
-   *lastcmd*.
+3. Command aliases can be setup simply by extending the *aliases*
+   dictionary. Alias names apply to all *do_*, *complete_*, and *help_*
+   attributes.
 
-4. Incomplete command names are automatically expanded given they are unique.
+4. Incomplete command names are automatically expanded provided they are
+   unique.
 
-5. It is now possible to configure the *shell_escape_characters*.
-   The default set is '!'.
+5. Lines starting with '#' are treated as comments. The new *comment* method
+   is invoked, receiving the line as argument. By default this method clears
+   the *lastcmd*.
 
-6. If a *history_file* is configured, kmd.Kmd loads and saves the history
+6. It is now possible to configure the *shell_escape_characters*.
+   The default set is '!' for backward compatibility.
+
+7. If a *history_file* is configured, kmd.Kmd loads and saves the history
    during *preloop* and *postloop*. The history size can be limited by
    setting *history_max_entries*.
 
-7. The new *run* method encapsulates execution of a kmd.Kmd.
+8. The new *run* method encapsulates the full execution cycle of a Kmd.
 
 .. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
 .. _readline: http://docs.python.org/library/readline.html
-.. _`rl.readline`: http://pypi.python.org/pypi/rl
 
 Package Contents
 ----------------
@@ -53,16 +57,25 @@ Completions
 -----------
 
 FilenameCompletion
-    Complete file and directory names.
+    Complete file and directory names. This is the real deal, thanks to
+    the rl_ readline bindings providing access to all necessary settings
+    and hooks. Includes full quoting support as well as support for
+    decomposed UTF-8 in HFS Plus.
 
 UsernameCompletion
-    Complete user names.
+    Complete user names. This is normally only useful as part of filename
+    completion.
+
+HostnameCompletion
+    Complete host names. For this to work host names must be configured
+    in ``/etc/hosts``.
 
 EnvironmentCompletion
-    Complete environment variables.
+    Complete environment variables. What it says.
 
 CommandCompletion
-    Complete system commands.
+    Complete system commands. This finds executables but not built-in
+    shell commands.
 
 Example Code
 ------------
