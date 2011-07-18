@@ -21,11 +21,10 @@ following ways:
    and *postloop* respectively. Subclasses must now make sure to call their
    parent's implementations.
 
-3. Command aliases can be setup simply by extending the *aliases*
-   dictionary. Alias names apply to all *do_*, *complete_*, and *help_*
-   attributes.
+3. Command aliases can be configured by calling the new *define_alias* method.
+   Alias names apply to all *do_*, *complete_*, and *help_* attributes.
 
-4. Incomplete command names are automatically expanded provided they are
+4. Incomplete command names are automatically expanded if they are
    unique.
 
 5. Lines starting with '#' are treated as comments. The new *comment* method
@@ -33,10 +32,10 @@ following ways:
    the *lastcmd*.
 
 6. It is now possible to configure the *shell_escape_characters*.
-   The default set is '!' for backward compatibility.
+   The default is '!' for backward compatibility.
 
 7. If a *history_file* is configured, kmd.Kmd loads and saves the history
-   during *preloop* and *postloop*. The history size can be limited by
+   in *preloop* and *postloop*. The history size can be limited by
    setting *history_max_entries*.
 
 8. The new *run* method encapsulates the full execution cycle of a Kmd.
@@ -57,25 +56,25 @@ Completions
 -----------
 
 FilenameCompletion
-    Complete file and directory names. This is the real deal, thanks to
-    the rl_ readline bindings providing access to all necessary settings
-    and hooks. Includes full quoting support as well as support for
-    decomposed UTF-8 in HFS Plus.
+    Completes names of files and directories starting at the current
+    directory. This is the real deal, thanks to rl_ providing access to all
+    required readline features. Includes full quoting support as well as
+    support for decomposed UTF-8 on HFS Plus.
 
 UsernameCompletion
-    Complete user names. This is normally only useful as part of filename
-    completion.
+    Completes names of users known to the system.
 
 HostnameCompletion
-    Complete host names. For this to work host names must be configured
-    in ``/etc/hosts``.
+    Completes names of hosts configured in the system's
+    ``/etc/hosts`` file.
 
 EnvironmentCompletion
-    Complete environment variables. What it says.
+    Completes names of variables in the process
+    environment.
 
 CommandCompletion
-    Complete system commands. This finds executables but not built-in
-    shell commands.
+    Completes names of executables on the system
+    PATH.
 
 Example Code
 ------------
