@@ -18,7 +18,7 @@ class Kmd(cmd.Cmd, object):
     """A cmd.Cmd subclass using rl readline bindings.
 
     This is a subclass of the standard library's `cmd.Cmd`_
-    class using the rl bindings for GNU readline. The standard
+    class using the rl bindings for GNU Readline. The standard
     library documentation applies. Applications must use
     this base class instead of `cmd.Cmd`_ to use rl features.
 
@@ -228,6 +228,7 @@ class Kmd(cmd.Cmd, object):
         raise AttributeError(name)
 
     def do_help(self, topic):
+        # Print the help screen for 'topic' or the default help.
         if topic:
             topic = self.aliases.get(topic, topic)
             super(Kmd, self).do_help(topic)
