@@ -21,7 +21,7 @@ following ways:
    and *postloop* respectively. Subclasses must now make sure to call their
    parent's implementations.
 
-3. Command aliases can be configured by calling the new *define_alias* method.
+3. Command aliases can be configured simply by extending the *aliases* dict.
    Alias names apply to all *do_*, *complete_*, and *help_* attributes.
 
 4. Incomplete command names are automatically expanded if they are
