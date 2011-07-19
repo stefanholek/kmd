@@ -162,7 +162,6 @@ class Kmd(cmd.Cmd, object):
         if cmd == '':
             return self.default(line)
         else:
-            cmd = self.aliases.get(cmd, cmd)
             try:
                 func = getattr(self, 'do_' + cmd)
             except AttributeError:
@@ -193,7 +192,6 @@ class Kmd(cmd.Cmd, object):
                 if cmd == '':
                     compfunc = self.completedefault
                 else:
-                    cmd = self.aliases.get(cmd, cmd)
                     try:
                         compfunc = getattr(self, 'complete_' + cmd)
                     except AttributeError:
@@ -219,18 +217,9 @@ class Kmd(cmd.Cmd, object):
                 if line[0] not in completer.word_break_characters:
                     return line[0] + completer.word_break_characters
 
-    def __getattr__(self, name):
-        """Expand unique command prefixes."""
-        if name.startswith(('do_', 'complete_', 'help_')):
-            matches = set(x for x in self.get_names() if x.startswith(name))
-            if len(matches) == 1:
-                return getattr(self, matches.pop())
-        raise AttributeError(name)
-
     def do_help(self, topic):
         # Print the help screen for 'topic' or the default help.
         if topic:
-            topic = self.aliases.get(topic, topic)
             super(Kmd, self).do_help(topic)
         else:
             self.helpdefault()
@@ -269,6 +258,24 @@ class Kmd(cmd.Cmd, object):
             self.print_topics(self.misc_header, sorted(help), 15, 80)
         if self.undoc_header:
             self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
+
+    def __getattr__(self, name):
+        """Expand aliases and unique command prefixes."""
+        if name[:3] == 'do_':
+            prefix, cmd = name[:3], name[3:]
+        elif name[:9] == 'complete_':
+            prefix, cmd = name[:9], name[9:]
+        elif name[:5] == 'help_':
+            prefix, cmd = name[:5], name[5:]
+        else:
+            raise AttributeError(name)
+        expanded = prefix + self.aliases.get(cmd, cmd)
+        if expanded in self.get_names():
+            return getattr(self, expanded)
+        expanded = set(x for x in self.get_names() if x.startswith(name))
+        if len(expanded) == 1:
+            return getattr(self, expanded.pop())
+        raise AttributeError(name)
 
     def run(self, args=None):
         """Run the Kmd."""
