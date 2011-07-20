@@ -1,4 +1,4 @@
-"""A version of cmd.Cmd using rl readline bindings."""
+"""A modern version of cmd.Cmd using rl readline bindings."""
 
 import sys
 import cmd
@@ -260,7 +260,7 @@ class Kmd(cmd.Cmd, object):
             self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
 
     def __getattr__(self, name):
-        """Expand aliases and unique command prefixes."""
+        """Expand aliases and incomplete command names."""
         if name[:3] == 'do_':
             prefix, cmd = name[:3], name[3:]
         elif name[:9] == 'complete_':
