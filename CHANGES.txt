@@ -4,6 +4,15 @@ Changelog
 1.1 - Unreleased
 ----------------
 
+- Add *aliases* dictionary to define command aliases.
+  [stefan]
+
+- Add *helpdefault* method to print the default help.
+  [stefan]
+
+- Require rl >= 1.16.
+  [stefan]
+
 
 1.0 - 2011-07-14
 ----------------

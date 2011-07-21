@@ -1,4 +1,4 @@
-"""A version of cmd.Cmd using rl readline bindings."""
+"""A modern version of cmd.Cmd using rl readline bindings."""
 
 import sys
 import cmd
@@ -18,7 +18,7 @@ class Kmd(cmd.Cmd, object):
     """A cmd.Cmd subclass using rl readline bindings.
 
     This is a subclass of the standard library's `cmd.Cmd`_
-    class using the rl bindings for GNU readline. The standard
+    class using the rl bindings for GNU Readline. The standard
     library documentation applies. Applications must use
     this base class instead of `cmd.Cmd`_ to use rl features.
 
@@ -36,6 +36,7 @@ class Kmd(cmd.Cmd, object):
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
+    aliases_header = ''
 
     def __init__(self, completekey='tab', stdin=None, stdout=None):
         """Instantiate a line-oriented interpreter framework.
@@ -48,6 +49,9 @@ class Kmd(cmd.Cmd, object):
         sys.stdin and sys.stdout are used.
         """
         super(Kmd, self).__init__(completekey, stdin, stdout)
+        self.aliases = {'?': 'help'}
+        for char in self.shell_escape_chars:
+            self.aliases[char] = 'shell'
 
     def cmdloop(self, intro=None):
         """Repeatedly issue a prompt, accept input, parse an initial prefix
@@ -117,7 +121,7 @@ class Kmd(cmd.Cmd, object):
 
     def parseline(self, line):
         """Parse the line into a command name and a string containing
-        the arguments.  Returns a tuple containing (command, args, line).
+        the arguments. Returns a tuple containing (command, args, line).
         'command' and 'args' may be None if the line couldn't be parsed.
         """
         line = line.strip()
@@ -213,12 +217,64 @@ class Kmd(cmd.Cmd, object):
                 if line[0] not in completer.word_break_characters:
                     return line[0] + completer.word_break_characters
 
+    def do_help(self, topic):
+        # Print the help screen for 'topic' or the default help.
+        if topic:
+            super(Kmd, self).do_help(topic)
+        else:
+            self.helpdefault()
+
+    def helpdefault(self):
+        """Print the default help."""
+        names = self.get_names()
+        cmds_doc = []
+        cmds_undoc = []
+        help = {}
+        for name in names:
+            if name[:5] == 'help_':
+                help[name[5:]] = 1
+        names.sort()
+        prevname = ''
+        for name in names:
+            if name[:3] == 'do_':
+                if name == prevname:
+                    continue
+                prevname = name
+                cmd = name[3:]
+                if cmd in help:
+                    cmds_doc.append(cmd)
+                    del help[cmd]
+                elif getattr(self, name).__doc__:
+                    cmds_doc.append(cmd)
+                else:
+                    cmds_undoc.append(cmd)
+        self.stdout.write("%s\n" % self.doc_leader)
+        # Omit sections with empty headers
+        if self.doc_header:
+            self.print_topics(self.doc_header, cmds_doc, 15, 80)
+        if self.aliases_header:
+            self.print_topics(self.aliases_header, sorted(self.aliases), 15, 80)
+        if self.misc_header:
+            self.print_topics(self.misc_header, sorted(help), 15, 80)
+        if self.undoc_header:
+            self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
+
     def __getattr__(self, name):
-        """Expand unique command prefixes."""
-        if name.startswith(('do_', 'complete_', 'help_')):
-            matches = set(x for x in self.get_names() if x.startswith(name))
-            if len(matches) == 1:
-                return getattr(self, matches.pop())
+        """Expand aliases and incomplete command names."""
+        if name[:3] == 'do_':
+            prefix, cmd = name[:3], name[3:]
+        elif name[:9] == 'complete_':
+            prefix, cmd = name[:9], name[9:]
+        elif name[:5] == 'help_':
+            prefix, cmd = name[:5], name[5:]
+        else:
+            raise AttributeError(name)
+        expanded = prefix + self.aliases.get(cmd, cmd)
+        if expanded in self.get_names():
+            return getattr(self, expanded)
+        expanded = set(x for x in self.get_names() if x.startswith(name))
+        if len(expanded) == 1:
+            return getattr(self, expanded.pop())
         raise AttributeError(name)
 
     def run(self, args=None):
@@ -230,7 +286,7 @@ class Kmd(cmd.Cmd, object):
             line = ' '.join(args)
             line = self.precmd(line)
             stop = self.onecmd(line)
-            self.postcmd(stop, line)
+            stop = self.postcmd(stop, line)
         else:
             try:
                 self.cmdloop()
