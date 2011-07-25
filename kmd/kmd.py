@@ -269,10 +269,11 @@ class Kmd(cmd.Cmd, object):
             prefix, cmd = name[:5], name[5:]
         else:
             raise AttributeError(name)
+        names = self.get_names()
         expanded = prefix + self.aliases.get(cmd, cmd)
-        if expanded in self.get_names():
+        if expanded in names:
             return getattr(self, expanded)
-        expanded = set(x for x in self.get_names() if x.startswith(name))
+        expanded = set(x for x in names if x.startswith(name))
         if len(expanded) == 1:
             return getattr(self, expanded.pop())
         raise AttributeError(name)
