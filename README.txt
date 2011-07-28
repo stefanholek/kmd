@@ -24,7 +24,7 @@ following ways:
 3. Command aliases can be configured simply by extending the *aliases* dict.
    Alias names apply to all *do_*, *complete_*, and *help_* attributes.
 
-4. Incomplete command names are automatically expanded if they are
+4. Incomplete command names are automatically expanded given they are
    unique.
 
 5. Lines starting with '#' are treated as comments. The new *comment* method
@@ -32,11 +32,11 @@ following ways:
    the *lastcmd*.
 
 6. It is now possible to configure the *shell_escape_characters*.
-   The default is '!' for backward compatibility.
+   The default is '!'.
 
 7. If a *history_file* is configured, kmd.Kmd loads and saves the history
-   in *preloop* and *postloop*. The history size can be limited by
-   setting *history_max_entries*.
+   in *preloop* and *postloop*; the history size can be limited by setting
+   *history_max_entries*.
 
 8. The new *run* method encapsulates the full execution cycle of a Kmd.
 
