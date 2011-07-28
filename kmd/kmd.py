@@ -47,6 +47,9 @@ class Kmd(cmd.Cmd, object):
         is done automatically. The optional arguments stdin and stdout
         specify alternate input and output file objects; if not specified,
         sys.stdin and sys.stdout are used.
+
+        Overrides **cmd.Cmd.__init__**, contrary to what epydoc might claim
+        below.
         """
         super(Kmd, self).__init__(completekey, stdin, stdout)
         self.aliases = {'?': 'help'}
@@ -169,12 +172,16 @@ class Kmd(cmd.Cmd, object):
             return func(arg)
 
     def comment(self, line):
-        """Called when the input line starts with a '#'."""
+        """Called when the input line starts with a '#'.
+        By default clears the lastcmd.
+        """
         self.lastcmd = ''
 
     @print_exc
     def complete(self, text, state):
-        """Return the next possible completion for 'text'.
+        """complete(self, text, state)
+
+        Return the next possible completion for 'text'.
 
         If a command has not been entered, then complete against command list.
         Otherwise try to call complete_<command> to get list of completions.
@@ -204,8 +211,9 @@ class Kmd(cmd.Cmd, object):
 
     @print_exc
     def word_break_hook(self, begidx, endidx):
-        """When completing '?<topic>' make '?' a word break character.
+        """word_break_hook(self, begidx, endidx)
 
+        When completing '?<topic>' make '?' a word break character.
         Ditto for '!<command>'. This has a flaw as we cannot complete names
         that contain the new word break character.
         """
@@ -225,7 +233,9 @@ class Kmd(cmd.Cmd, object):
             self.helpdefault()
 
     def helpdefault(self):
-        """Print the default help."""
+        """Print the default help.
+        Does not print empty sections or sections with empty headers.
+        """
         names = self.get_names()
         cmds_doc = []
         cmds_undoc = []
@@ -259,6 +269,26 @@ class Kmd(cmd.Cmd, object):
         if self.undoc_header:
             self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
 
+    def run(self, args=None):
+        """Run the Kmd.
+        If 'args' is None, run uses sys.argv[1:].
+        """
+        if args is None:
+            args = sys.argv[1:]
+
+        if args:
+            line = ' '.join(args)
+            line = self.precmd(line)
+            stop = self.onecmd(line)
+            stop = self.postcmd(stop, line)
+        else:
+            try:
+                self.cmdloop()
+            except KeyboardInterrupt:
+                self.stdout.write('\n')
+                return 1
+        return 0
+
     def __getattr__(self, name):
         """Expand aliases and incomplete command names."""
         if name[:3] == 'do_':
@@ -277,24 +307,6 @@ class Kmd(cmd.Cmd, object):
         if len(expanded) == 1:
             return getattr(self, expanded.pop())
         raise AttributeError(name)
-
-    def run(self, args=None):
-        """Run the Kmd."""
-        if args is None:
-            args = sys.argv[1:]
-
-        if args:
-            line = ' '.join(args)
-            line = self.precmd(line)
-            stop = self.onecmd(line)
-            stop = self.postcmd(stop, line)
-        else:
-            try:
-                self.cmdloop()
-            except KeyboardInterrupt:
-                self.stdout.write('\n')
-                return 1
-        return 0
 
 
 def main(args=None):
