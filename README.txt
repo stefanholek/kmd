@@ -56,10 +56,10 @@ Completions
 -----------
 
 FilenameCompletion
-    Completes names of files and directories starting at the current
-    directory. This is the real deal, thanks to rl_ providing access to all
-    required readline features. Includes full quoting support as well as
-    support for decomposed UTF-8 on HFS Plus.
+    Completes names of files and directories. This is the real deal,
+    thanks to rl_ providing access to all necessary readline features.
+    Includes full quoting support as well as support for decomposed
+    UTF-8 on HFS Plus.
 
 UsernameCompletion
     Completes names of users known to the system.
