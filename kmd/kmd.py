@@ -228,7 +228,21 @@ class Kmd(cmd.Cmd, object):
     def do_help(self, topic):
         # Print the help screen for 'topic' or the default help.
         if topic:
-            super(Kmd, self).do_help(topic)
+            try:
+                helpfunc = getattr(self, 'help_' + topic)
+            except AttributeError:
+                try:
+                    dofunc = getattr(self, 'do_' + topic)
+                except AttributeError:
+                    pass
+                else:
+                    doc = dofunc.__doc__
+                    if doc:
+                        self.stdout.write("%s\n" % doc)
+                        return
+                self.stdout.write("%s\n" % (self.nohelp % (topic,)))
+            else:
+                helpfunc()
         else:
             self.helpdefault()
 
@@ -259,7 +273,6 @@ class Kmd(cmd.Cmd, object):
                 else:
                     cmds_undoc.append(cmd)
         self.stdout.write("%s\n" % self.doc_leader)
-        # Omit sections with empty headers
         if self.doc_header:
             self.print_topics(self.doc_header, cmds_doc, 15, 80)
         if self.alias_header:
