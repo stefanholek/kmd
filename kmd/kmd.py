@@ -180,7 +180,6 @@ class Kmd(cmd.Cmd, object):
     @print_exc
     def complete(self, text, state):
         """complete(self, text, state)
-
         Return the next possible completion for 'text'.
 
         If a command has not been entered, then complete against command list.
@@ -212,7 +211,6 @@ class Kmd(cmd.Cmd, object):
     @print_exc
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(self, begidx, endidx)
-
         When completing '?<topic>' make '?' a word break character.
         Ditto for '!<command>'. This has a flaw as we cannot complete names
         that contain the new word break character.
