@@ -177,6 +177,12 @@ class Kmd(cmd.Cmd, object):
         """
         self.lastcmd = ''
 
+    def default(self, line):
+        """Called when the command prefix is not recognized.
+        By default prints an error message.
+        """
+        self.stderr.write('*** Unknown syntax: %s\n' % (line,))
+
     @print_exc
     def complete(self, text, state):
         """complete(self, text, state)
@@ -238,7 +244,7 @@ class Kmd(cmd.Cmd, object):
                     if doc:
                         self.stdout.write("%s\n" % doc)
                         return
-                self.stdout.write("%s\n" % (self.nohelp % (topic,)))
+                self.helpdefault(topic)
             else:
                 try:
                     helpfunc(topic)
@@ -246,6 +252,12 @@ class Kmd(cmd.Cmd, object):
                     helpfunc()
         else:
             self.help()
+
+    def helpdefault(self, topic):
+        """Called when a help topic is not recognized.
+        By default prints an error message.
+        """
+        self.stderr.write('*** No help on %s\n' % (topic,))
 
     def help(self):
         """Called when no help topic is specified.
