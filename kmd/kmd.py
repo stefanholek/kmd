@@ -38,20 +38,26 @@ class Kmd(cmd.Cmd, object):
     history_max_entries = -1
     alias_header = ''
 
-    def __init__(self, completekey='tab', stdin=None, stdout=None):
+    def __init__(self, completekey='tab', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
 
         The optional argument 'completekey' is the readline name of a
         completion key; it defaults to the Tab key. If completekey is
         not None and the rl module is available, command completion
-        is done automatically. The optional arguments stdin and stdout
+        is done automatically. The optional arguments stdin, stdout, and stderr
         specify alternate input and output file objects; if not specified,
-        sys.stdin and sys.stdout are used.
+        sys.stdin, sys.stdout, and sys.stderr are used.
 
         Overrides **cmd.Cmd.__init__**, contrary to what epydoc might claim
         below.
         """
         super(Kmd, self).__init__(completekey, stdin, stdout)
+
+        if stderr is not None:
+            self.stderr = stderr
+        else:
+            self.stderr = sys.stderr
+
         self.aliases = {'?': 'help'}
         for char in self.shell_escape_chars:
             self.aliases[char] = 'shell'
