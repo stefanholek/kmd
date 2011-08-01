@@ -242,7 +242,10 @@ class Kmd(cmd.Cmd, object):
                         return
                 self.stdout.write("%s\n" % (self.nohelp % (topic,)))
             else:
-                helpfunc()
+                try:
+                    helpfunc(topic)
+                except TypeError:
+                    helpfunc()
         else:
             self.helpdefault()
 
