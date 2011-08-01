@@ -166,10 +166,10 @@ class Kmd(cmd.Cmd, object):
             return self.default(line)
         else:
             try:
-                func = getattr(self, 'do_' + cmd)
+                dofunc = getattr(self, 'do_' + cmd)
             except AttributeError:
                 return self.default(line)
-            return func(arg)
+            return dofunc(arg)
 
     def comment(self, line):
         """Called when the input line starts with a '#'.
