@@ -248,7 +248,7 @@ class Kmd(cmd.Cmd, object):
             self.helpdefault()
 
     def helpdefault(self):
-        """Print the default help.
+        """Print the default help screen.
         Does not print empty sections or sections with empty headers.
         """
         names = self.get_names()
