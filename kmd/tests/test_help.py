@@ -40,20 +40,25 @@ class HelpTests(unittest.TestCase):
         self.assertEqual(shell.stdout.getvalue(), 'Usage: chdir <dirname>\n')
 
 
-class StdoutTests(unittest.TestCase):
+class StderrTests(unittest.TestCase):
+
+    def test_helpdefault(self):
+        shell = TestKmd(stderr=StringIO())
+        shell.helpdefault('foo')
+        self.assertEqual(shell.stderr.getvalue(), '*** No help on foo\n')
 
     def test_helpdefault_via_do_help(self):
-        shell = TestKmd(stdout=StringIO())
+        shell = TestKmd(stderr=StringIO())
         shell.do_help('foo')
-        self.assertEqual(shell.stdout.getvalue(), '*** No help on foo\n')
+        self.assertEqual(shell.stderr.getvalue(), '*** No help on foo\n')
 
     def test_default(self):
-        shell = TestKmd(stdout=StringIO())
+        shell = TestKmd(stderr=StringIO())
         shell.default('foo')
-        self.assertEqual(shell.stdout.getvalue(), '*** Unknown syntax: foo\n')
+        self.assertEqual(shell.stderr.getvalue(), '*** Unknown syntax: foo\n')
 
     def test_default_via_onecmd(self):
-        shell = TestKmd(stdout=StringIO())
+        shell = TestKmd(stderr=StringIO())
         shell.onecmd('foo')
-        self.assertEqual(shell.stdout.getvalue(), '*** Unknown syntax: foo\n')
+        self.assertEqual(shell.stderr.getvalue(), '*** Unknown syntax: foo\n')
 
