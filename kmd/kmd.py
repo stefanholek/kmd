@@ -223,7 +223,7 @@ class Kmd(cmd.Cmd, object):
                 if line[0] not in completer.word_break_characters:
                     return line[0] + completer.word_break_characters
 
-    def do_help(self, topic):
+    def do_help(self, topic=''):
         # Print the help screen for 'topic' or the default help.
         if topic:
             try:
