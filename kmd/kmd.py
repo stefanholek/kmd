@@ -259,12 +259,6 @@ class Kmd(cmd.Cmd, object):
         else:
             self.help()
 
-    def helpdefault(self, topic):
-        """Called when the help topic is not recognized.
-        By default prints an error message.
-        """
-        self.stderr.write('%s\n' % (self.nohelp % (topic,)))
-
     def help(self):
         """Called when no help topic is specified.
         Prints the default help screen.
@@ -300,6 +294,12 @@ class Kmd(cmd.Cmd, object):
             self.print_topics(self.misc_header, sorted(help), 15, 80)
         if self.undoc_header:
             self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
+
+    def helpdefault(self, topic):
+        """Called when the help topic is not recognized.
+        By default prints an error message.
+        """
+        self.stderr.write('%s\n' % (self.nohelp % (topic,)))
 
     def run(self, args=None):
         """Run the Kmd.
