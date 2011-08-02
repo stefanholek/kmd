@@ -260,10 +260,10 @@ class Kmd(cmd.Cmd, object):
             self.help()
 
     def helpdefault(self, topic):
-        """Called when a help topic is not recognized.
+        """Called when the help topic is not recognized.
         By default prints an error message.
         """
-        self.stderr.write('*** No help on %s\n' % (topic,))
+        self.stderr.write('%s\n' % (self.nohelp % (topic,)))
 
     def help(self):
         """Called when no help topic is specified.
