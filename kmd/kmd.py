@@ -286,7 +286,7 @@ class Kmd(cmd.Cmd, object):
 
     def run(self, args=None):
         """Run the Kmd.
-        If 'args' is None, run uses sys.argv[1:].
+        If 'args' is None, it defaults to sys.argv[1:].
         """
         if args is None:
             args = sys.argv[1:]
