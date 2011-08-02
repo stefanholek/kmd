@@ -245,9 +245,9 @@ class Kmd(cmd.Cmd, object):
                 except TypeError:
                     helpfunc()
         else:
-            self.helpdefault()
+            self.help()
 
-    def helpdefault(self):
+    def help(self):
         """Print the default help screen.
         Does not print empty sections or sections with empty headers.
         """
