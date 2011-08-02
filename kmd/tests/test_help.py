@@ -62,3 +62,21 @@ class StderrTests(unittest.TestCase):
         shell.onecmd('foo')
         self.assertEqual(shell.stderr.getvalue(), '*** Unknown syntax: foo\n')
 
+
+class StdoutTests(unittest.TestCase):
+
+    def test_helpdefault_via_do_help(self):
+        shell = TestKmd(stdout=StringIO())
+        shell.do_help('foo')
+        self.assertEqual(shell.stdout.getvalue(), '*** No help on foo\n')
+
+    def test_default(self):
+        shell = TestKmd(stdout=StringIO())
+        shell.default('foo')
+        self.assertEqual(shell.stdout.getvalue(), '*** Unknown syntax: foo\n')
+
+    def test_default_via_onecmd(self):
+        shell = TestKmd(stdout=StringIO())
+        shell.onecmd('foo')
+        self.assertEqual(shell.stdout.getvalue(), '*** Unknown syntax: foo\n')
+
