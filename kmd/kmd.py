@@ -42,7 +42,7 @@ class Kmd(cmd.Cmd, object):
         """Instantiate a line-oriented interpreter framework.
 
         The optional argument 'completekey' is the readline name of a
-        completion key; it defaults to the Tab key. If completekey is
+        completion key; it defaults to the TAB key. If completekey is
         not None and the rl module is available, command completion
         is done automatically. The optional arguments stdin, stdout, and stderr
         specify alternate input and output file objects; if not specified,
