@@ -100,7 +100,9 @@ class FilenameCompletion(object):
 
     @print_exc
     def __call__(self, text):
-        """Return filenames matching 'text'."""
+        """__call__(self, text)
+        Return filenames matching 'text'.
+        """
         matches = []
         # Dequoting early allows us to skip some hooks
         if completion.found_quote:
@@ -118,17 +120,29 @@ class FilenameCompletion(object):
 
     @print_exc
     def char_is_quoted(self, text, index):
+        """char_is_quoted(self, text, index)
+        Return true if the character at index is quoted.
+        """
         return char_is_quoted(text, index)
 
     @print_exc
     def dequote_filename(self, text, quote_char):
+        """dequote_filename(self, text, quote_char)
+        Return a dequoted version of text.
+        """
         return dequote_filename(text, quote_char)
 
     @print_exc
     def quote_filename(self, text, single_match, quote_char):
+        """quote_filename(self, text, single_match, quote_char)
+        Return a quoted version of text.
+        """
         return quote_filename(text, single_match, quote_char)
 
     @print_exc
     def backslash_quote_filename(self, text, single_match, quote_char):
+        """backslash_quote_filename(self, text, single_match, quote_char)
+        Return a backslash-quoted version of text.
+        """
         return backslash_quote_filename(text, single_match, quote_char)
 
