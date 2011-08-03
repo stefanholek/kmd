@@ -38,20 +38,26 @@ class Kmd(cmd.Cmd, object):
     history_max_entries = -1
     alias_header = ''
 
-    def __init__(self, completekey='tab', stdin=None, stdout=None):
+    def __init__(self, completekey='tab', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
 
         The optional argument 'completekey' is the readline name of a
         completion key; it defaults to the Tab key. If completekey is
         not None and the rl module is available, command completion
-        is done automatically. The optional arguments stdin and stdout
+        is done automatically. The optional arguments stdin, stdout, and stderr
         specify alternate input and output file objects; if not specified,
-        sys.stdin and sys.stdout are used.
+        sys.stdin, sys.stdout, and sys.stderr are used.
 
         Overrides **cmd.Cmd.__init__**, contrary to what epydoc might claim
         below.
         """
         super(Kmd, self).__init__(completekey, stdin, stdout)
+
+        if stderr is not None:
+            self.stderr = stderr
+        else:
+            self.stderr = sys.stderr
+
         self.aliases = {'?': 'help'}
         for char in self.shell_escape_chars:
             self.aliases[char] = 'shell'
@@ -166,10 +172,10 @@ class Kmd(cmd.Cmd, object):
             return self.default(line)
         else:
             try:
-                func = getattr(self, 'do_' + cmd)
+                dofunc = getattr(self, 'do_' + cmd)
             except AttributeError:
                 return self.default(line)
-            return func(arg)
+            return dofunc(arg)
 
     def comment(self, line):
         """Called when the input line starts with a '#'.
@@ -177,10 +183,15 @@ class Kmd(cmd.Cmd, object):
         """
         self.lastcmd = ''
 
+    def default(self, line):
+        """Called when the command prefix is not recognized.
+        By default prints an error message.
+        """
+        self.stderr.write('*** Unknown syntax: %s\n' % (line,))
+
     @print_exc
     def complete(self, text, state):
         """complete(self, text, state)
-
         Return the next possible completion for 'text'.
 
         If a command has not been entered, then complete against command list.
@@ -212,7 +223,6 @@ class Kmd(cmd.Cmd, object):
     @print_exc
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(self, begidx, endidx)
-
         When completing '?<topic>' make '?' a word break character.
         Ditto for '!<command>'. This has a flaw as we cannot complete names
         that contain the new word break character.
@@ -225,16 +235,33 @@ class Kmd(cmd.Cmd, object):
                 if line[0] not in completer.word_break_characters:
                     return line[0] + completer.word_break_characters
 
-    def do_help(self, topic):
+    def do_help(self, topic=''):
         # Print the help screen for 'topic' or the default help.
         if topic:
-            super(Kmd, self).do_help(topic)
+            try:
+                helpfunc = getattr(self, 'help_' + topic)
+            except AttributeError:
+                try:
+                    dofunc = getattr(self, 'do_' + topic)
+                except AttributeError:
+                    pass
+                else:
+                    doc = dofunc.__doc__
+                    if doc:
+                        self.stdout.write("%s\n" % doc)
+                        return
+                self.helpdefault(topic)
+            else:
+                try:
+                    helpfunc(topic)
+                except TypeError:
+                    helpfunc()
         else:
-            self.helpdefault()
+            self.help()
 
-    def helpdefault(self):
-        """Print the default help.
-        Does not print empty sections or sections with empty headers.
+    def help(self):
+        """Called when no help topic is specified.
+        Prints the default help screen.
         """
         names = self.get_names()
         cmds_doc = []
@@ -259,7 +286,6 @@ class Kmd(cmd.Cmd, object):
                 else:
                     cmds_undoc.append(cmd)
         self.stdout.write("%s\n" % self.doc_leader)
-        # Omit sections with empty headers
         if self.doc_header:
             self.print_topics(self.doc_header, cmds_doc, 15, 80)
         if self.alias_header:
@@ -269,9 +295,15 @@ class Kmd(cmd.Cmd, object):
         if self.undoc_header:
             self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
 
+    def helpdefault(self, topic):
+        """Called when the help topic is not recognized.
+        By default prints an error message.
+        """
+        self.stderr.write('%s\n' % (self.nohelp % (topic,)))
+
     def run(self, args=None):
         """Run the Kmd.
-        If 'args' is None, run uses sys.argv[1:].
+        If 'args' is None, it defaults to sys.argv[1:].
         """
         if args is None:
             args = sys.argv[1:]
