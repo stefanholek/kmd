@@ -7,5 +7,7 @@ class UsernameCompletion(object):
 
     @print_exc
     def __call__(self, text):
-        """Return users matching 'text'."""
+        """__call__(self, text)
+        Return users matching 'text'.
+        """
         return completion.complete_username(text)

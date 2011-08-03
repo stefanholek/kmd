@@ -18,7 +18,9 @@ class HostnameCompletion(object):
 
     @print_exc
     def __call__(self, text):
-        """Return host names matching 'text'."""
+        """__call__(self, text)
+        Return host names matching 'text'.
+        """
         if text[0] == '@':
             text = text[1:]
         return ['@'+x for x in self.get_hostnames() if x.startswith(text)]

@@ -16,7 +16,9 @@ class EnvironmentCompletion(object):
 
     @print_exc
     def __call__(self, text):
-        """Return environment variables matching 'text'."""
+        """__call__(self, text)
+        Return environment variables matching 'text'.
+        """
         if text[0] == '$':
             text = text[1:]
         return ['$'+x for x in os.environ if x.startswith(text)]

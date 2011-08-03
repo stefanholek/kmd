@@ -8,7 +8,9 @@ class CommandCompletion(object):
 
     @print_exc
     def __call__(self, text):
-        """Return system commands matching 'text'."""
+        """__call__(self, text)
+        Return system commands matching 'text'.
+        """
         matches = []
         for dir in os.environ.get('PATH').split(':'):
             dir = os.path.expanduser(dir)
