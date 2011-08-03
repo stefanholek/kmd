@@ -1,3 +1,5 @@
+"""System command completion."""
+
 import os
 
 from rl import print_exc
@@ -5,6 +7,9 @@ from rl import print_exc
 
 class CommandCompletion(object):
     """Complete names of commands on the system PATH."""
+
+    def __init__(self):
+        """Configure the readline completer for system command completion."""
 
     @print_exc
     def __call__(self, text):

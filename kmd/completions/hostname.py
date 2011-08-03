@@ -1,3 +1,5 @@
+"""Host name completion."""
+
 import os
 
 from rl import completer
@@ -7,8 +9,8 @@ from rl import print_exc
 class HostnameCompletion(object):
     """Complete host names found in /etc/hosts."""
 
-    def __init__(self, hostsfile):
-        """Configure the completer for host name completion."""
+    def __init__(self, hostsfile='/etc/hosts'):
+        """Configure the readline completer for host name completion."""
         self.hostsfile = hostsfile
 
         if '@' not in completer.word_break_characters:

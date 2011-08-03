@@ -1,3 +1,5 @@
+"""Quoting and dequoting support."""
+
 from rl import completer
 from rl import completion
 

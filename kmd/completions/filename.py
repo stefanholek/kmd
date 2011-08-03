@@ -1,3 +1,5 @@
+"""File and directory name completion."""
+
 import os
 import sys
 import unicodedata

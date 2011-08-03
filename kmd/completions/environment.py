@@ -1,3 +1,5 @@
+"""Environment variable completion."""
+
 import os
 
 from rl import completer
@@ -5,10 +7,10 @@ from rl import print_exc
 
 
 class EnvironmentCompletion(object):
-    """Complete environment variables."""
+    """Complete names of variables in the process environment."""
 
     def __init__(self):
-        """Configure the completer for environment variable completion."""
+        """Configure the readline completer for environment variable completion."""
         if '$' not in completer.word_break_characters:
             completer.word_break_characters += '$'
         if '$' not in completer.special_prefixes:
