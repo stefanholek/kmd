@@ -42,11 +42,6 @@ class HelpTests(unittest.TestCase):
 
 class StderrTests(unittest.TestCase):
 
-    def test_helpdefault(self):
-        shell = TestKmd(stderr=StringIO())
-        shell.helpdefault('foo')
-        self.assertEqual(shell.stderr.getvalue(), '*** No help on foo\n')
-
     def test_helpdefault_via_do_help(self):
         shell = TestKmd(stderr=StringIO())
         shell.do_help('foo')
