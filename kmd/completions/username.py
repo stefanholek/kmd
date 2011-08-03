@@ -8,6 +8,7 @@ class UsernameCompletion(object):
     """Complete user names.
 
     User names are returned without decoration.
+    Home directories start with a '~' and end with a '/'.
     """
 
     def __init__(self):
@@ -17,6 +18,7 @@ class UsernameCompletion(object):
     def __call__(self, text):
         """__call__(self, text)
         Return user names matching 'text'.
-        The search string may start with a '~' character.
+        The search string may start with a '~' character, in which case
+        the users' home directories are matched instead.
         """
         return completion.complete_username(text)
