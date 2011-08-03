@@ -7,7 +7,10 @@ from rl import print_exc
 
 
 class HostnameCompletion(object):
-    """Complete host names found in /etc/hosts."""
+    """Complete host names found in /etc/hosts.
+
+    Host names are returned with a leading '@'.
+    """
 
     def __init__(self, hostsfile='/etc/hosts'):
         """Configure the readline completer for host name completion."""
@@ -22,6 +25,7 @@ class HostnameCompletion(object):
     def __call__(self, text):
         """__call__(self, text)
         Return host names matching 'text'.
+        The search string may start with an '@' character.
         """
         if text[0] == '@':
             text = text[1:]

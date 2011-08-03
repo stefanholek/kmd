@@ -7,7 +7,10 @@ from rl import print_exc
 
 
 class EnvironmentCompletion(object):
-    """Complete names of variables in the process environment."""
+    """Complete names of variables in the process environment.
+
+    Variable names are returned with a leading '$'.
+    """
 
     def __init__(self):
         """Configure the readline completer for environment variable completion."""
@@ -20,6 +23,7 @@ class EnvironmentCompletion(object):
     def __call__(self, text):
         """__call__(self, text)
         Return environment variables matching 'text'.
+        The search string may start with a '$' character.
         """
         if text[0] == '$':
             text = text[1:]

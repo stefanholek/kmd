@@ -104,6 +104,7 @@ class FilenameCompletion(object):
     def __call__(self, text):
         """__call__(self, text)
         Return filenames matching 'text'.
+        Starts at the current working directory.
         """
         matches = []
         # Dequoting early allows us to skip some hooks
