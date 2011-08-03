@@ -7,7 +7,10 @@ Changelog
 - Add *aliases* dictionary to define command aliases.
   [stefan]
 
-- Add *helpdefault* method to print the default help.
+- Refactor *do_help* for easier customization.
+  [stefan]
+
+- Make sure error messages go to stderr.
   [stefan]
 
 - Require rl >= 1.16.
