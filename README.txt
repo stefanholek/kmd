@@ -31,7 +31,7 @@ following ways:
    is invoked, receiving the line as argument. By default this method clears
    the *lastcmd*.
 
-6. It is now possible to configure the *shell_escape_characters*.
+6. It is now possible to configure the *shell_escape_chars*.
    The default is '!'.
 
 7. If a *history_file* is configured, kmd.Kmd loads and saves the history
@@ -65,7 +65,7 @@ UsernameCompletion
     Completes names of users known to the system.
 
 HostnameCompletion
-    Completes names of hosts configured in the system's
+    Completes names of hosts in the system's
     ``/etc/hosts`` file.
 
 EnvironmentCompletion
@@ -93,17 +93,17 @@ Example Code
             self.completefilename = FilenameCompletion()
             self.completeenviron = EnvironmentCompletion()
 
-        def do_echo(self, args):
-            os.system('echo ' + args)
-
-        def complete_echo(self, text, line, begidx, endidx):
-            return self.completeenviron(text)
-
         def do_cat(self, args):
             os.system('cat ' + args)
 
         def complete_cat(self, text, line, begidx, endidx):
             return self.completefilename(text)
+
+        def do_echo(self, args):
+            os.system('echo ' + args)
+
+        def complete_echo(self, text, line, begidx, endidx):
+            return self.completeenviron(text)
 
     def main():
         MyShell().run()
