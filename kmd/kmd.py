@@ -249,8 +249,7 @@ class Kmd(cmd.Cmd, object):
 
     def help(self):
         """Called when no help topic is specified.
-        Prints the default help screen. Omits sections with
-        empty headers.
+        Prints the default help screen.
         """
         names = self.get_names()
         cmds_doc = []
