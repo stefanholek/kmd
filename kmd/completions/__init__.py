@@ -20,4 +20,7 @@ Package Contents
 
 `quoting`
     String quoting and dequoting support.
+
+`filename`
+    Filename quoting and dequoting support.
 """

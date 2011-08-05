@@ -1,4 +1,5 @@
-"""File and directory name completion."""
+"""File and directory name completion.
+Filename quoting and dequoting support."""
 
 import os
 import sys
