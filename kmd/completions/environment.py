@@ -9,7 +9,7 @@ from rl import print_exc
 class EnvironmentCompletion(object):
     """Complete names of variables in the process environment.
 
-    Variable names are returned with a leading '$'.
+    Variable names are returned with a leading '$' character.
     """
 
     def __init__(self):

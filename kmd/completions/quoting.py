@@ -18,14 +18,18 @@ QUOTED = dict((x, '\\'+x) for x in BASH_FILENAME_QUOTE_CHARACTERS)
 
 
 def backslash_dequote(text, chars=''):
-    """Backslash-dequote text."""
+    """Backslash-dequote text.
+    If 'chars' is passed and not empty, only characters in 'chars' are dequoted.
+    """
     for c in (chars or BASH_FILENAME_QUOTE_CHARACTERS):
         text = text.replace(QUOTED[c], c)
     return text
 
 
 def backslash_quote(text, chars=''):
-    """Backslash-quote text."""
+    """Backslash-quote text.
+    If 'chars' is passed and not empty, only characters in 'chars' are quoted.
+    """
     for c in (chars or completer.filename_quote_characters):
         text = text.replace(c, QUOTED[c])
     return text

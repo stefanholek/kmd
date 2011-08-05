@@ -9,7 +9,7 @@ from rl import print_exc
 class HostnameCompletion(object):
     """Complete host names found in /etc/hosts.
 
-    Host names are returned with a leading '@'.
+    Host names are returned with a leading '@' character.
     """
 
     def __init__(self, hostsfile='/etc/hosts'):

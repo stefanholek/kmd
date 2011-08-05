@@ -4,17 +4,20 @@ Package Contents
 ================
 
 `CommandCompletion`
-    Complete system commands.
+    Complete names of commands on the system PATH.
 
 `EnvironmentCompletion`
-    Complete environment variables.
+    Complete names of variables in the process environment.
 
 `FilenameCompletion`
     Complete file and directory names.
 
 `HostnameCompletion`
-    Complete host names.
+    Complete host names found in ``/etc/hosts``.
 
 `UsernameCompletion`
     Complete user names.
+
+`quoting`
+    String quoting and dequoting support.
 """

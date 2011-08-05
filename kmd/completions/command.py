@@ -17,7 +17,7 @@ class CommandCompletion(object):
     @print_exc
     def __call__(self, text):
         """__call__(self, text)
-        Return system commands matching 'text'.
+        Return executables matching 'text'.
         """
         matches = []
         for dir in os.environ.get('PATH').split(':'):
