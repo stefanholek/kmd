@@ -5,7 +5,7 @@ version = '1.1'
 
 setup(name='kmd',
       version=version,
-      description='A modern version of cmd.Cmd using rl readline bindings',
+      description='A cmd.Cmd replacement using rl readline bindings',
       long_description=open('README.txt').read() + '\n' +
                        open('CHANGES.txt').read(),
       classifiers=[
