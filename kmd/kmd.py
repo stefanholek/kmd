@@ -1,4 +1,4 @@
-"""A modern version of cmd.Cmd."""
+"""A base class for custom command interpreters."""
 
 import sys
 import cmd
