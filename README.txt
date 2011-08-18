@@ -122,9 +122,11 @@ kmd development is hosted on github_.
 Installation
 ============
 
-kmd uses the rl_ library. Since rl_ contains a C extension, it is
-a good idea to review its `installation instructions`_ and make sure
-all dependencies are in place.
+Installation requires Python 2.5 or higher.
+
+Note: kmd uses the rl_ library. Since rl contains a C extension, we recommend
+to review its `installation instructions`_ and make sure all dependencies are
+in place.
 
 To install the ``kmd`` package, type::
 
