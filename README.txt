@@ -108,6 +108,10 @@ Example Code
     def main():
         MyShell().run()
 
+For further details, please refer to the `API Documentation`_.
+
+.. _`API Documentation`: http://packages.python.org/kmd
+
 Also see gpgkeys_, a front-end for GnuPG built entirely around tab completion.
 
 .. _gpgkeys: http://pypi.python.org/pypi/gpgkeys
@@ -115,9 +119,9 @@ Also see gpgkeys_, a front-end for GnuPG built entirely around tab completion.
 Repository Access
 -----------------
 
-kmd development is hosted on github_.
+kmd development is hosted on GitHub_.
 
-.. _github: http://github.com/stefanholek/kmd
+.. _GitHub: http://github.com/stefanholek/kmd
 
 Installation
 ============
