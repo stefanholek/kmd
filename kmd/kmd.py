@@ -20,7 +20,7 @@ class Kmd(cmd.Cmd, object):
     This is a subclass of the standard library's `cmd.Cmd`_ class,
     using the new rl bindings for GNU Readline. The standard
     library documentation applies otherwise. Applications must use
-    this base class instead of `cmd.Cmd`_ to use rl features.
+    this base class instead of cmd.Cmd to use rl features.
 
     Example::
 

@@ -23,4 +23,17 @@ Package Contents
 
 `filename`
     Filename quoting and dequoting support.
+
+Custom Completions
+==================
+
+A *custom completion* is a class that implements at least two methods:
+
+``__init__(self)``
+    Initializes the completion and configures the readline completer
+    for the type of completion instantiated. May accept additional arguments
+    if the completion is configurable.
+
+``__call__(self, text)``
+    Returns an iterable of matches for ``text``.
 """
