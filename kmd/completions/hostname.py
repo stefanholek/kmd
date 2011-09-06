@@ -29,9 +29,9 @@ class HostnameCompletion(object):
         """
         if text[0] == '@':
             text = text[1:]
-        return ['@'+x for x in self.get_hostnames() if x.startswith(text)]
+        return ['@'+x for x in self.read_hostnames() if x.startswith(text)]
 
-    def get_hostnames(self):
+    def read_hostnames(self):
         """Read host names from the hosts file."""
         f = open(self.hostsfile, 'rt')
         lines = f.readlines()

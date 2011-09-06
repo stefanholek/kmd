@@ -19,8 +19,25 @@ class Kmd(cmd.Cmd, object):
 
     This is a subclass of the standard library's `cmd.Cmd`_ class,
     using the new rl bindings for GNU Readline. The standard
-    library documentation applies otherwise. Applications must use
-    this base class instead of cmd.Cmd to use rl features.
+    library documentation applies unless noted otherwise. Applications must
+    use this base class instead of cmd.Cmd to use rl features.
+
+    Changes include:
+
+    #. Kmd is a new-style class.
+    #. The Kmd constructor accepts an additional 'stderr' argument; all error
+       messages are printed to 'stderr'.
+    #. `preloop` and `postloop` are no longer stubs but contain important
+       code bits. Subclasses must make sure to call their parent's
+       implementations. `postloop` is called even if `cmdloop` exits with
+       an exception.
+    #. New methods: `comment`, `help`, `run`, and `word_break_hook`.
+    #. Command aliases can be defined by overriding `__init__` and extending
+       the 'aliases' dictionary.
+    #. Incomplete command names are automatically expanded if they are
+       unique.
+    #. ``help_`` methods optionally receive the help topic as argument.
+    #. ``complete_`` methods may return any kind of iterable, not just lists.
 
     Example::
 
@@ -38,18 +55,14 @@ class Kmd(cmd.Cmd, object):
     history_max_entries = -1
     alias_header = ''
 
-    def __init__(self, completekey='tab', stdin=None, stdout=None, stderr=None):
+    def __init__(self, completekey='TAB', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
 
         The optional argument 'completekey' is the readline name of a
-        completion key; it defaults to the TAB key. If completekey is
-        not None and the rl module is available, command completion
-        is done automatically. The optional arguments stdin, stdout, and stderr
+        completion key; it defaults to the TAB key.
+        The optional arguments stdin, stdout, and stderr
         specify alternate input and output file objects; if not specified,
         sys.stdin, sys.stdout, and sys.stderr are used.
-
-        Overrides **cmd.Cmd.__init__**, contrary to what epydoc might claim
-        below.
         """
         super(Kmd, self).__init__(completekey, stdin, stdout)
 
@@ -195,7 +208,7 @@ class Kmd(cmd.Cmd, object):
         Return the next possible completion for 'text'.
 
         If a command has not been entered, then complete against command list.
-        Otherwise try to call complete_<command> to get list of completions.
+        Otherwise try to call complete_<command> to get a list of completions.
         """
         if state == 0:
             origline = completion.line_buffer
@@ -261,7 +274,8 @@ class Kmd(cmd.Cmd, object):
 
     def help(self):
         """Called when no help topic is specified.
-        Prints the default help screen.
+        Prints the default help screen; sections with empty headers are
+        omitted.
         """
         names = self.get_names()
         cmds_doc = []
