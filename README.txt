@@ -1,9 +1,9 @@
 =====
 kmd
 =====
-------------------------------------------------
-A cmd.Cmd replacement using rl readline bindings
-------------------------------------------------
+------------------------------------------------------
+A modern version of cmd.Cmd using rl readline bindings
+------------------------------------------------------
 
 Introduction
 ============
@@ -18,7 +18,7 @@ following ways:
    rl_ readline bindings.
 
 2. Setup and tear-down of the readline completer have been moved to *preloop*
-   and *postloop* respectively. Subclasses must now make sure to call their
+   and *postloop* respectively. Subclasses must make sure to call their
    parent's implementations.
 
 3. Command aliases can be configured simply by extending the *aliases* dict.
