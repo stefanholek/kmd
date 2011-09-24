@@ -1,5 +1,4 @@
-"""File and directory name completion.
-Filename quoting and dequoting support."""
+"""File and directory name completion."""
 
 import os
 import sys
@@ -34,7 +33,7 @@ def compose(text):
 
 
 def dequote_filename(text, quote_char):
-    """Return a dequoted version of text."""
+    """Return a dequoted version of 'text'."""
     if len(text) > 1:
         qc = quote_char
         # Don't backslash-dequote characters between single quotes,
@@ -47,7 +46,7 @@ def dequote_filename(text, quote_char):
 
 
 def quote_filename(text, single_match, quote_char):
-    """Return a quoted version of text."""
+    """Return a quoted version of 'text'."""
     if text:
         qc = quote_char or completer.quote_characters[0]
         # Don't backslash-quote backslashes between single quotes
@@ -72,7 +71,7 @@ def quote_filename(text, single_match, quote_char):
 
 
 def backslash_quote_filename(text, single_match, quote_char):
-    """Return a backslash-quoted version of text."""
+    """Return a backslash-quoted version of 'text'."""
     if text:
         # If the user has typed a quote character, use it.
         if quote_char:
@@ -84,7 +83,6 @@ def backslash_quote_filename(text, single_match, quote_char):
 
 class FilenameCompletion(object):
     """Complete file and directory names.
-
     Extends readline's default filename quoting by taking
     care of backslash-quoted characters.
     """
@@ -103,7 +101,7 @@ class FilenameCompletion(object):
 
     @print_exc
     def __call__(self, text):
-        """__call__(self, text)
+        """__call__(text)
         Return filenames matching 'text'.
         Starts at the current working directory.
         """
@@ -124,29 +122,29 @@ class FilenameCompletion(object):
 
     @print_exc
     def char_is_quoted(self, text, index):
-        """char_is_quoted(self, text, index)
-        Return true if the character at index is quoted.
+        """char_is_quoted(text, index)
+        Return true if the character at 'index' is quoted.
         """
         return char_is_quoted(text, index)
 
     @print_exc
     def dequote_filename(self, text, quote_char):
-        """dequote_filename(self, text, quote_char)
-        Return a dequoted version of text.
+        """dequote_filename(text, quote_char)
+        Return a dequoted version of 'text'.
         """
         return dequote_filename(text, quote_char)
 
     @print_exc
     def quote_filename(self, text, single_match, quote_char):
-        """quote_filename(self, text, single_match, quote_char)
-        Return a quoted version of text.
+        """quote_filename(text, single_match, quote_char)
+        Return a quoted version of 'text'.
         """
         return quote_filename(text, single_match, quote_char)
 
     @print_exc
     def backslash_quote_filename(self, text, single_match, quote_char):
-        """backslash_quote_filename(self, text, single_match, quote_char)
-        Return a backslash-quoted version of text.
+        """backslash_quote_filename(text, single_match, quote_char)
+        Return a backslash-quoted version of 'text'.
         """
         return backslash_quote_filename(text, single_match, quote_char)
 

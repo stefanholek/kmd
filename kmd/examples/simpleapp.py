@@ -37,7 +37,7 @@ class SimpleApp(kmd.Kmd):
         # This function is called when the command line starts
         # with an exclamation mark. It further dispatches to
         # filename completion or command completion, depending
-        # on the format and position of the completion word.
+        # on position and format of the completion word.
         if line[0:begidx].strip() in ('!', 'shell'):
             if not text.startswith('~') and (os.sep not in text):
                 return self.completecommand(text)
@@ -45,7 +45,7 @@ class SimpleApp(kmd.Kmd):
 
 
 def main():
-    SimpleApp().cmdloop()
+    SimpleApp().run()
 
 
 if __name__ == '__main__':
