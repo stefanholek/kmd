@@ -11,8 +11,8 @@ Kmd Class
 
 .. autoattribute:: kmd.Kmd.alias_header
 
-    Header for the aliases section of the default help screen. If this
-    is set to the empty string, the aliases section is omitted.
+    Header for the aliases section of the default help screen.
+    Set to the empty string to suppress the aliases section.
 
 .. autoattribute:: kmd.Kmd.shell_escape_chars
 
@@ -43,7 +43,7 @@ Kmd Class
 
     Call help_<topic> if it exists. Otherwise, and if 'topic' is a
     command, print do_<command>'s docstring.
-    If 'topic' is empty, print the default help.
+    If 'topic' is empty, print the default help screen.
 
 .. automethod:: kmd.Kmd.help
 .. automethod:: kmd.Kmd.run

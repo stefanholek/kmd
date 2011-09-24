@@ -16,7 +16,7 @@ kmd exports the following components:
 Command Interpreters
 ====================
 
-The :class:`~kmd.Kmd` class provides a simple framework for writing
+The :class:`kmd.Kmd` class provides a simple framework for writing
 line-oriented command
 interpreters, also known as *shells*. These are often useful for test harnesses,
 prototypes, and administrative tools.
@@ -29,7 +29,7 @@ base class for interpreter classes you define.
 Custom Completions
 ==================
 
-The :mod:`~kmd.completions` package implements all OS-related completions known from
+The :mod:`kmd.completions` package implements all OS-related completions known from
 Bash. In addition, it establishes the *custom completion protocol* and
 provides utility functions for string and filename quoting.
 """

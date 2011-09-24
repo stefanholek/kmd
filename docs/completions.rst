@@ -1,14 +1,11 @@
 ==========================================
-Kmd Completions
+Completions
 ==========================================
-
-.. toctree::
-   :maxdepth: 2
 
 .. automodule:: kmd.completions
 
-API Documentation
-=====================
+Included Completions
+====================
 
 .. toctree::
    :maxdepth: 2
@@ -20,3 +17,4 @@ API Documentation
    username-completion
    quoting
    filename-quoting
+

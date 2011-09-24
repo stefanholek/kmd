@@ -6,8 +6,8 @@
 import os
 import kmd
 
-from kmd.completions.filename import FilenameCompletion
 from kmd.completions.command import CommandCompletion
+from kmd.completions.filename import FilenameCompletion
 
 
 class SimpleApp(kmd.Kmd):
@@ -16,9 +16,10 @@ class SimpleApp(kmd.Kmd):
     prompt = 'simpleapp> '
 
     def preloop(self):
+        # Set up custom completions
         super(SimpleApp, self).preloop()
-        self.completefilename = FilenameCompletion()
         self.completecommand = CommandCompletion()
+        self.completefilename = FilenameCompletion()
 
     def emptyline(self):
         # Do nothing

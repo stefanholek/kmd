@@ -24,7 +24,8 @@ class HostnameCompletion(object):
         Return host names matching 'text'.
 
         Host names are returned with a leading '@' character.
-        The search string may start with an '@' character which is ignored.
+        The search string may start with an '@' character which is stripped
+        before matching.
         """
         if text[0] == '@':
             text = text[1:]

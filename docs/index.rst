@@ -2,9 +2,6 @@
 :mod:`kmd` -- cmd.Cmd Replacement
 =========================================================
 
-.. toctree::
-   :maxdepth: 2
-
 .. automodule:: kmd
 
 API Documentation

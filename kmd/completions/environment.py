@@ -22,7 +22,8 @@ class EnvironmentCompletion(object):
         Return environment variables matching 'text'.
 
         Variable names are returned with a leading '$' character.
-        The search string may start with a '$' character which is ignored.
+        The search string may start with a '$' character which is stripped
+        before matching.
         """
         if text[0] == '$':
             text = text[1:]
