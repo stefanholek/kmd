@@ -50,10 +50,10 @@ class Kmd(cmd.Cmd, object):
     """
 
     prompt = '(Kmd) '
+    alias_header = 'Command aliases (type help <topic>):'
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
-    alias_header = ''
 
     def __init__(self, completekey='TAB', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
