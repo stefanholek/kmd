@@ -2,17 +2,6 @@
 
 .. _rl: http://pypi.python.org/pypi/rl
 
-Package Contents
-================
-
-kmd exports the following components:
-
-:class:`kmd.Kmd <kmd.Kmd>`
-    Implements the mechanics of a command shell.
-
-:mod:`kmd.completions`
-    Implements a set of ready-to-use completions.
-
 Command Interpreters
 ====================
 
@@ -33,12 +22,5 @@ The :mod:`kmd.completions` package implements all OS-related completions known f
 Bash. In addition, it establishes the *custom completion protocol* and
 provides utility functions for string and filename quoting.
 """
-
-# Upstream Documentation
-# ======================
-#
-# The standard library documentation for `cmd.Cmd`_.
-#
-# .. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
 
 from kmd import Kmd

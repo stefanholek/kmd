@@ -7,7 +7,7 @@ from rl import print_exc
 
 
 class HostnameCompletion(object):
-    """Complete host names found in 'hostsfile'."""
+    """Complete host names found in the system's hosts file."""
 
     def __init__(self, hostsfile='/etc/hosts'):
         """Configure the readline completer for host name completion."""

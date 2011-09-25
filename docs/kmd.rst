@@ -12,7 +12,7 @@ Kmd Class
 .. autoattribute:: kmd.Kmd.alias_header
 
     Header for the aliases section of the default help screen.
-    Set to the empty string to suppress the aliases section.
+    If set to the empty string, the aliases section is omitted.
 
 .. autoattribute:: kmd.Kmd.shell_escape_chars
 

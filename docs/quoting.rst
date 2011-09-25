@@ -7,10 +7,6 @@ String Quoting
 
 .. automodule:: kmd.completions.quoting
 
-.. autodata:: kmd.completions.quoting.QUOTE_CHARACTERS
-.. autodata:: kmd.completions.quoting.WORD_BREAK_CHARACTERS
-.. autodata:: kmd.completions.quoting.FILENAME_QUOTE_CHARACTERS
-
 .. autofunction:: kmd.completions.quoting.backslash_dequote
 .. autofunction:: kmd.completions.quoting.backslash_quote
 .. autofunction:: kmd.completions.quoting.is_fully_quoted

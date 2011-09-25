@@ -4,8 +4,8 @@ Completions
 
 .. automodule:: kmd.completions
 
-Included Completions
-====================
+Available Completions
+=====================
 
 .. toctree::
    :maxdepth: 2
@@ -15,6 +15,14 @@ Included Completions
    filename-completion
    hostname-completion
    username-completion
+
+Quoting and Dequoting Support
+=============================
+
+.. toctree::
+   :maxdepth: 2
+
    quoting
    filename-quoting
+   constants
 

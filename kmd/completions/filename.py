@@ -12,8 +12,8 @@ from quoting import QUOTE_CHARACTERS
 from quoting import BASH_QUOTE_CHARACTERS
 from quoting import backslash_dequote
 from quoting import backslash_quote
-from quoting import char_is_quoted
 from quoting import is_fully_quoted
+from quoting import char_is_quoted
 
 
 def decompose(text):
@@ -83,7 +83,7 @@ def backslash_quote_filename(text, single_match, quote_char):
 
 class FilenameCompletion(object):
     """Complete file and directory names.
-    Extends readline's default filename quoting by taking
+    Extends readline's default filename completion by taking
     care of backslash-quoted characters.
     """
 

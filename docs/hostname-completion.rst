@@ -11,3 +11,4 @@ Hostname Completion
 
 .. automethod:: kmd.completions.hostname.HostnameCompletion.__call__
 
+.. automethod:: kmd.completions.hostname.HostnameCompletion.read_hostnames
