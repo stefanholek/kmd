@@ -24,6 +24,5 @@ Quoting and Dequoting Support
 
    quoting
    filename-quoting
-   filename-utils
    constants
 
