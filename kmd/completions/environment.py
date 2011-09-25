@@ -10,7 +10,9 @@ class EnvironmentCompletion(object):
     """Complete names of variables in the process environment."""
 
     def __init__(self):
-        """Configure the readline completer for environment variable completion."""
+        """Configure the readline completer for environment variable
+        completion.
+        """
         if '$' not in completer.word_break_characters:
             completer.word_break_characters += '$'
         if '$' not in completer.special_prefixes:
@@ -22,8 +24,8 @@ class EnvironmentCompletion(object):
         Return environment variables matching 'text'.
 
         Variable names are returned with a leading '$' character.
-        The search string may start with a '$' character which is stripped
-        before matching.
+        The search string may start with a '$' character which is
+        stripped before matching.
         """
         if text[0] == '$':
             text = text[1:]

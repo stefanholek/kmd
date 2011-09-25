@@ -88,7 +88,8 @@ class FilenameCompletion(object):
     """
 
     def __init__(self, quote_char='\\'):
-        """Configure the readline completer for filename completion."""
+        """Configure the readline completer for filename completion.
+        """
         completer.quote_characters = QUOTE_CHARACTERS
         completer.char_is_quoted_function = self.char_is_quoted
         completer.filename_quoting_function = self.quote_filename

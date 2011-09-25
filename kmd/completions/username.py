@@ -8,7 +8,8 @@ class UsernameCompletion(object):
     """Complete user names."""
 
     def __init__(self):
-        """Configure the readline completer for user name completion."""
+        """Configure the readline completer for user name completion.
+        """
 
     @print_exc
     def __call__(self, text):
