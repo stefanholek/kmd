@@ -5,24 +5,35 @@ from rl import completion
 
 #: Quote characters used by Bash.
 BASH_QUOTE_CHARACTERS = "'\""
+
 #: Word break characters used by Bash.
 BASH_COMPLETER_WORD_BREAK_CHARACTERS = " \t\n\"'@><;|&=(:"
-#: Word break characters used by Bash if hostname completion is disabled.
+
+#: Word break characters used by Bash when hostname completion is disabled.
 BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS = " \t\n\"'><;|&=(:"
+
 #: Filename quote characters used by Bash.
 BASH_FILENAME_QUOTE_CHARACTERS = "\\ \t\n\"'@><;|&=()#$`?*[!:{~" # Backslash must be first
+
 #: Command separators used by Bash.
 BASH_COMMAND_SEPARATORS = ";|&{(`"
 
-#: Whitespace characters used by kmd.
-WHITESPACE_CHARACTERS = " \t\n"
+#: Whitespace characters used by Bash.
+BASH_WHITESPACE_CHARACTERS = " \t\n"
+
 #: Quote characters used by kmd.
 QUOTE_CHARACTERS = "\"'"
+
 #: Word break characters used by kmd.
 WORD_BREAK_CHARACTERS = BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS[:-3]
+
 #: Filename quote characters used by kmd.
 FILENAME_QUOTE_CHARACTERS = BASH_FILENAME_QUOTE_CHARACTERS[:-1]
 
+# BBB
+WHITESPACE_CHARACTERS = BASH_WHITESPACE_CHARACTERS
+
+# Dict used for backslash quoting
 QUOTED = dict((x, '\\'+x) for x in BASH_FILENAME_QUOTE_CHARACTERS)
 
 
