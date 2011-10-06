@@ -2,20 +2,16 @@
 
 import os
 
-from rl import print_exc
-
 
 class CommandCompletion(object):
     """Complete names of commands on the system PATH."""
 
     def __init__(self):
-        """Configure the readline completer for system command completion.
+        """Configure the readline completer.
         """
 
-    @print_exc
     def __call__(self, text):
-        """__call__(text)
-        Return executables matching 'text'.
+        """Return executables matching 'text'.
         Does not include shell built-ins or aliases.
         """
         matches = []

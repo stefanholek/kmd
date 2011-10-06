@@ -18,11 +18,11 @@ Custom Completions
 ==================
 
 The :mod:`kmd.completions` package implements all OS-related completions known
-from Bash.  In addition, it establishes the *custom completion protocol* and
+from Bash. In addition, it establishes the *custom completion protocol* and
 provides utility functions for string and filename quoting.
 
-Applications are encouraged to create their own, domain-specific
-completions based on the code in this package.
+Applications are encouraged to add their own, domain-specific
+completions based on code in this package.
 """
 
 from kmd import Kmd

@@ -32,8 +32,8 @@ def compose(text):
         return unicodedata.normalize('NFC', text.decode('utf-8')).encode('utf-8')
 
 
-def dequote_filename(text, quote_char):
-    """Return a dequoted version of 'text'."""
+def dequote_filename(text, quote_char=''):
+    """Return a backslash-dequoted version of 'text'."""
     if len(text) > 1:
         qc = quote_char
         # Don't backslash-dequote characters between single quotes,
@@ -45,8 +45,12 @@ def dequote_filename(text, quote_char):
     return text
 
 
-def quote_filename(text, single_match, quote_char):
-    """Return a quoted version of 'text'."""
+def quote_filename(text, single_match=True, quote_char=''):
+    """Return a quoted version of 'text'.
+    The default 'quote_char' is the first character in
+    :attr:`rl.completer.quote_characters`. If 'single_match' is
+    False, the quotes are not closed.
+    """
     if text:
         qc = quote_char or completer.quote_characters[0]
         # Don't backslash-quote backslashes between single quotes
@@ -70,8 +74,10 @@ def quote_filename(text, single_match, quote_char):
     return text
 
 
-def backslash_quote_filename(text, single_match, quote_char):
-    """Return a backslash-quoted version of 'text'."""
+def backslash_quote_filename(text, single_match=True, quote_char=''):
+    """Return a backslash-quoted version of 'text'.
+    If a 'quote_char' is given, behave exactly like :func:`quote_filename`.
+    """
     if text:
         # If the user has typed a quote character, use it.
         if quote_char:
@@ -88,7 +94,7 @@ class FilenameCompletion(object):
     """
 
     def __init__(self, quote_char='\\'):
-        """Configure the readline completer for filename completion.
+        """Configure the readline completer.
         """
         completer.quote_characters = QUOTE_CHARACTERS
         completer.char_is_quoted_function = self.char_is_quoted
@@ -100,10 +106,8 @@ class FilenameCompletion(object):
         elif quote_char != '"':
             raise ValueError('quote_char must be one of " \' \\')
 
-    @print_exc
     def __call__(self, text):
-        """__call__(text)
-        Return filenames matching 'text'.
+        """Return filenames matching 'text'.
         Starts at the current working directory.
         """
         matches = []
@@ -128,10 +132,9 @@ class FilenameCompletion(object):
         """
         return char_is_quoted(text, index)
 
-    @print_exc
     def dequote_filename(self, text, quote_char):
         """dequote_filename(text, quote_char)
-        Return a dequoted version of 'text'.
+        Return a backslash-dequoted version of 'text'.
         """
         return dequote_filename(text, quote_char)
 

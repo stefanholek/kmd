@@ -3,14 +3,13 @@
 import os
 
 from rl import completer
-from rl import print_exc
 
 
 class HostnameCompletion(object):
     """Complete host names found in the system's hosts file."""
 
     def __init__(self, hostsfile='/etc/hosts'):
-        """Configure the readline completer for host name completion.
+        """Configure the readline completer.
         """
         self.hostsfile = hostsfile
 
@@ -19,10 +18,8 @@ class HostnameCompletion(object):
         if '@' not in completer.special_prefixes:
             completer.special_prefixes += '@'
 
-    @print_exc
     def __call__(self, text):
-        """__call__(text)
-        Return host names matching 'text'.
+        """Return host names matching 'text'.
 
         Host names are returned with a leading '@' character.
         The search string may start with an '@' character which is

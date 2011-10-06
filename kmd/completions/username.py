@@ -1,20 +1,17 @@
 """User name completion."""
 
 from rl import completion
-from rl import print_exc
 
 
 class UsernameCompletion(object):
     """Complete user names."""
 
     def __init__(self):
-        """Configure the readline completer for user name completion.
+        """Configure the readline completer.
         """
 
-    @print_exc
     def __call__(self, text):
-        """__call__(text)
-        Return user names matching 'text'.
+        """Return user names matching 'text'.
 
         User names are returned without decoration.
         The search string may start with a '~' character, in which case
