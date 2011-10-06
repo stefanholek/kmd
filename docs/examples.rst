@@ -14,7 +14,7 @@ A bare-bones application demonstrating command and filename completion:
 Custom Completion
 =================
 
-An implementation of environment completion:
+An implementation of environment variable completion:
 
 .. literalinclude:: ../kmd/completions/environment.py
 
