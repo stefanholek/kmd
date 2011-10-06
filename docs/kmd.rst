@@ -1,8 +1,11 @@
 =========================
-Kmd Class
+Interpreters
 =========================
 
 .. automodule:: kmd.kmd
+
+Kmd Class
+=========
 
 .. autoclass:: kmd.Kmd
 
