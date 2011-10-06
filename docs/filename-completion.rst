@@ -2,9 +2,6 @@
 Filename Completion
 ==========================================
 
-.. toctree::
-   :maxdepth: 2
-
 .. automodule:: kmd.completions.filename
 
 .. autoclass:: kmd.completions.filename.FilenameCompletion

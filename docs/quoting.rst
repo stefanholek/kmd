@@ -2,9 +2,6 @@
 String Quoting
 ==========================================
 
-.. toctree::
-   :maxdepth: 2
-
 .. automodule:: kmd.completions.quoting
 
 .. autofunction:: kmd.completions.quoting.backslash_dequote

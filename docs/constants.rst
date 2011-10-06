@@ -2,9 +2,6 @@
 Constants
 ==========================================
 
-.. toctree::
-   :maxdepth: 2
-
 .. currentmodule:: kmd.completions.quoting
 
 Global constants.

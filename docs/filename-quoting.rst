@@ -2,9 +2,6 @@
 Filename Quoting
 ==========================================
 
-.. toctree::
-   :maxdepth: 2
-
 .. currentmodule:: kmd.completions.filename
 
 Filename quoting and dequoting support.

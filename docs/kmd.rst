@@ -2,9 +2,6 @@
 Kmd Class
 =========================
 
-.. toctree::
-   :maxdepth: 2
-
 .. automodule:: kmd.kmd
 
 .. autoclass:: kmd.Kmd
