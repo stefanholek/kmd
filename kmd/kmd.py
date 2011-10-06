@@ -27,17 +27,18 @@ class Kmd(cmd.Cmd, object):
     #. Kmd is a new-style class.
     #. The Kmd constructor accepts an additional 'stderr' argument; all error
        messages are printed to 'stderr'.
-    #. `preloop` and `postloop` are no longer stubs but contain important
+    #. :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop` are no longer stubs but contain important
        code bits. Subclasses must make sure to call their parent's
-       implementations. `postloop` is called even if `cmdloop` exits with
-       an exception.
-    #. New methods: `comment`, `help`, `run`, and `word_break_hook`.
-    #. Command aliases can be defined by overriding `__init__` and extending
+       implementations. Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
+       exits with an exception.
+    #. New methods: :meth:`~kmd.Kmd.comment`, :meth:`~kmd.Kmd.help`, :meth:`~kmd.Kmd.run`,
+       and :meth:`~kmd.Kmd.word_break_hook`.
+    #. Command aliases can be defined by overriding :meth:`~kmd.Kmd.__init__` and extending
        the 'aliases' dictionary.
     #. Incomplete command names are automatically expanded if they are
        unique.
-    #. ``help_`` methods optionally receive the help topic as argument.
-    #. ``complete_`` methods may return any kind of iterable, not just lists.
+    #. :meth:`help_*` methods optionally receive the help topic as argument.
+    #. :meth:`complete_*` methods may return any kind of iterable, not just lists.
 
     Example::
 
@@ -50,10 +51,10 @@ class Kmd(cmd.Cmd, object):
     """
 
     prompt = '(Kmd) '
+    alias_header = 'Command aliases (type help <topic>):'
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
-    alias_header = ''
 
     def __init__(self, completekey='TAB', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
@@ -111,7 +112,7 @@ class Kmd(cmd.Cmd, object):
             self.postloop()
 
     def preloop(self):
-        """Called when the cmdloop() method is entered. Configures the
+        """Called when the :meth:`~kmd.Kmd.cmdloop` method is entered. Configures the
         readline completer and loads the history file.
         """
         if self.use_rawinput:
@@ -131,7 +132,7 @@ class Kmd(cmd.Cmd, object):
                 completer.parse_and_bind(self.completekey+': complete')
 
     def postloop(self):
-        """Called when the cmdloop() method is exited. Disables the readline
+        """Called when the :meth:`~kmd.Kmd.cmdloop` method is exited. Resets the readline
         completer and saves the history file.
         """
         if self.use_rawinput:
@@ -169,7 +170,7 @@ class Kmd(cmd.Cmd, object):
         to the prompt.
 
         This may be overridden, but should not normally need to be;
-        see the precmd() and postcmd() methods for useful execution hooks.
+        see the :meth:`precmd` and :meth:`postcmd` methods for useful execution hooks.
         The return value is a flag indicating whether interpretation of
         commands by the interpreter should stop.
         """
@@ -204,7 +205,7 @@ class Kmd(cmd.Cmd, object):
 
     @print_exc
     def complete(self, text, state):
-        """complete(self, text, state)
+        """complete(text, state)
         Return the next possible completion for 'text'.
 
         If a command has not been entered, then complete against command list.
@@ -235,7 +236,7 @@ class Kmd(cmd.Cmd, object):
 
     @print_exc
     def word_break_hook(self, begidx, endidx):
-        """word_break_hook(self, begidx, endidx)
+        """word_break_hook(begidx, endidx)
         When completing '?<topic>' make '?' a word break character.
         Ditto for '!<command>'. This has a flaw as we cannot complete names
         that contain the new word break character.
@@ -274,8 +275,8 @@ class Kmd(cmd.Cmd, object):
 
     def help(self):
         """Called when no help topic is specified.
-        Prints the default help screen; sections with empty headers are
-        omitted.
+        Prints the default help screen; empty sections and sections with
+        empty headers are omitted.
         """
         names = self.get_names()
         cmds_doc = []

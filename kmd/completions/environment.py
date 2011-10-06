@@ -3,27 +3,25 @@
 import os
 
 from rl import completer
-from rl import print_exc
 
 
 class EnvironmentCompletion(object):
-    """Complete names of variables in the process environment.
-
-    Variable names are returned with a leading '$' character.
-    """
+    """Complete names of variables in the process environment."""
 
     def __init__(self):
-        """Configure the readline completer for environment variable completion."""
+        """Configure the readline completer.
+        """
         if '$' not in completer.word_break_characters:
             completer.word_break_characters += '$'
         if '$' not in completer.special_prefixes:
             completer.special_prefixes += '$'
 
-    @print_exc
     def __call__(self, text):
-        """__call__(self, text)
-        Return environment variables matching 'text'.
-        The search string may start with a '$' character.
+        """Return environment variables matching 'text'.
+
+        Variable names are returned with a leading '$' character.
+        The search string may start with a '$' character which is
+        stripped before matching.
         """
         if text[0] == '$':
             text = text[1:]

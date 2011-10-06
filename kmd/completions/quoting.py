@@ -1,25 +1,45 @@
-"""Quoting and dequoting support."""
+"""String quoting and dequoting support."""
 
 from rl import completer
 from rl import completion
 
+#: Quote characters used by Bash.
 BASH_QUOTE_CHARACTERS = "'\""
+
+#: Word break characters used by Bash.
 BASH_COMPLETER_WORD_BREAK_CHARACTERS = " \t\n\"'@><;|&=(:"
+
+#: Word break characters used by Bash when hostname completion is disabled.
 BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS = " \t\n\"'><;|&=(:"
+
+#: Filename quote characters used by Bash.
 BASH_FILENAME_QUOTE_CHARACTERS = "\\ \t\n\"'@><;|&=()#$`?*[!:{~" # Backslash must be first
+
+#: Command separators used by Bash.
 BASH_COMMAND_SEPARATORS = ";|&{(`"
 
-WHITESPACE_CHARACTERS = " \t\n"
+#: Whitespace characters used by Bash.
+BASH_WHITESPACE_CHARACTERS = " \t\n"
+
+#: Quote characters used by kmd.
 QUOTE_CHARACTERS = "\"'"
+
+#: Word break characters used by kmd.
 WORD_BREAK_CHARACTERS = BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS[:-3]
+
+#: Filename quote characters used by kmd.
 FILENAME_QUOTE_CHARACTERS = BASH_FILENAME_QUOTE_CHARACTERS[:-1]
 
+# BBB
+WHITESPACE_CHARACTERS = BASH_WHITESPACE_CHARACTERS
+
+# Dict used for backslash quoting
 QUOTED = dict((x, '\\'+x) for x in BASH_FILENAME_QUOTE_CHARACTERS)
 
 
 def backslash_dequote(text, chars=''):
-    """Backslash-dequote text.
-    If 'chars' is passed and not empty, only characters in 'chars' are dequoted.
+    """Backslash-dequote 'text'.
+    If 'chars' is given, only characters in 'chars' are dequoted.
     """
     for c in (chars or BASH_FILENAME_QUOTE_CHARACTERS):
         text = text.replace(QUOTED[c], c)
@@ -27,8 +47,8 @@ def backslash_dequote(text, chars=''):
 
 
 def backslash_quote(text, chars=''):
-    """Backslash-quote text.
-    If 'chars' is passed and not empty, only characters in 'chars' are quoted.
+    """Backslash-quote 'text'.
+    If 'chars' is given, only characters in 'chars' are quoted.
     """
     for c in (chars or completer.filename_quote_characters):
         text = text.replace(c, QUOTED[c])
@@ -36,8 +56,8 @@ def backslash_quote(text, chars=''):
 
 
 def is_fully_quoted(text):
-    """Return true if all filename_quote_characters in text
-    are backslash-quoted."""
+    """Return true if all :attr:`rl.completer.filename_quote_characters`
+    in 'text' are backslash-quoted."""
     skip_next = False
     size = len(text)
     for i in range(size):
@@ -54,7 +74,7 @@ def is_fully_quoted(text):
 
 
 def char_is_quoted(text, index):
-    """Return true if the character at index is quoted."""
+    """Return true if the character at 'index' is quoted."""
     skip_next = False
     quote_char = ''
     for i in range(index):
@@ -76,8 +96,8 @@ def char_is_quoted(text, index):
     return bool(quote_char)
 
 
-def dequote_string(text, quote_char):
-    """Return a dequoted version of text."""
+def dequote_string(text, quote_char=''):
+    """Return a backslash-dequoted version of 'text'."""
     if len(text) > 1:
         qc = quote_char
         # Don't backslash-dequote characters between single quotes,
@@ -89,8 +109,12 @@ def dequote_string(text, quote_char):
     return text
 
 
-def quote_string(text, single_match, quote_char):
-    """Return a quoted version of text."""
+def quote_string(text, single_match=True, quote_char=''):
+    """Return a quoted version of 'text'.
+    The default 'quote_char' is the first character in
+    :attr:`rl.completer.quote_characters`. If 'single_match' is
+    False, the quotes are not closed.
+    """
     if text:
         qc = quote_char or completer.quote_characters[0]
         # Don't backslash-quote backslashes between single quotes
@@ -107,8 +131,10 @@ def quote_string(text, single_match, quote_char):
     return text
 
 
-def backslash_quote_string(text, single_match, quote_char):
-    """Return a backslash-quoted version of text."""
+def backslash_quote_string(text, single_match=True, quote_char=''):
+    """Return a backslash-quoted version of 'text'.
+    If a 'quote_char' is given, behave exactly like :func:`quote_string`.
+    """
     if text:
         # If the user has typed a quote character, use it.
         if quote_char:
