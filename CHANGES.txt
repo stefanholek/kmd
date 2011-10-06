@@ -1,7 +1,10 @@
 Changelog
 =========
 
-2.0 - Unreleased
+2.1 - Unreleased
+
+
+2.0 - 2011-10-06
 ----------------
 
 - Add *aliases* dictionary to define command aliases.
