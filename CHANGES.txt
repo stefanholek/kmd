@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1 - Unreleased
+2.0 - Unreleased
 ----------------
 
 - Add *aliases* dictionary to define command aliases.
@@ -13,10 +13,10 @@ Changelog
 - Make sure error messages go to stderr.
   [stefan]
 
-- Require rl >= 1.16.
+- Switch to pretty Sphinx-based docs.
   [stefan]
 
-- Switch to Sphinx 1.1. based docs.
+- Require rl >= 2.0.
   [stefan]
 
 
