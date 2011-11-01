@@ -31,12 +31,13 @@ class HostnameCompletion(object):
 
     def read_hostnames(self):
         """Read host names from the hosts file."""
-        f = open(self.hostsfile, 'rt')
-        lines = f.readlines()
-        f.close()
+        if os.path.isfile(self.hostsfile):
+            f = open(self.hostsfile, 'rt')
+            lines = f.readlines()
+            f.close()
 
-        for line in lines:
-            line = line.split()
-            if line and not line[0].startswith('#'):
-                for hostname in line[1:]:
-                    yield hostname
+            for line in lines:
+                line = line.split()
+                if line and not line[0].startswith('#'):
+                    for hostname in line[1:]:
+                        yield hostname

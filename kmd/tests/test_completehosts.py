@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+import os
 
 from os.path import join
 
@@ -78,4 +79,8 @@ class CompleterTests(JailSetup):
         self.assertEqual(self.complete('@bar'), '@barney ')
         self.mkhosts(HOSTSFILE2)
         self.assertEqual(self.complete('@bar'), '@barcelona ')
+
+    def test_missing_file(self):
+        os.remove('hosts')
+        self.assertEqual(self.complete('bar'), 'bar')
 
