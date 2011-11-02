@@ -1,7 +1,14 @@
 Changelog
 =========
 
-2.1 - Unreleased
+2.0.1 - Unreleased
+------------------
+
+- Make sure hostname completion survives a missing hosts file.
+  [stefan]
+
+- Require rl >= 2.0.1.
+  [stefan]
 
 
 2.0 - 2011-10-06
