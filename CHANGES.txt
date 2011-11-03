@@ -4,6 +4,9 @@ Changelog
 2.1 - Unreleased
 ----------------
 
+- Add *Kmd.input* method as extension point for subclasses.
+  [stefan]
+
 - Make sure hostname completion survives a missing hosts file.
   [stefan]
 
@@ -14,10 +17,10 @@ Changelog
 2.0 - 2011-10-06
 ----------------
 
-- Add *aliases* dictionary to define command aliases.
+- Add *Kmd.aliases* dictionary to define command aliases.
   [stefan]
 
-- Refactor *do_help* for easier customization.
+- Refactor *Kmd.do_help* for easier customization.
   [stefan]
 
 - Make sure error messages go to stderr.

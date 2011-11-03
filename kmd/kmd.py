@@ -31,8 +31,8 @@ class Kmd(cmd.Cmd, object):
        code bits. Subclasses must make sure to call their parent's
        implementations. Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
        exits with an exception.
-    #. New methods: :meth:`~kmd.Kmd.comment`, :meth:`~kmd.Kmd.help`, :meth:`~kmd.Kmd.run`,
-       and :meth:`~kmd.Kmd.word_break_hook`.
+    #. New methods: :meth:`~kmd.Kmd.input`, :meth:`~kmd.Kmd.comment`, :meth:`~kmd.Kmd.help`,
+       :meth:`~kmd.Kmd.run`, and :meth:`~kmd.Kmd.word_break_hook`.
     #. Command aliases can be defined by overriding :meth:`~kmd.Kmd.__init__` and extending
        the 'aliases' dictionary.
     #. Incomplete command names are automatically expanded if they are
@@ -94,7 +94,7 @@ class Kmd(cmd.Cmd, object):
                 else:
                     if self.use_rawinput:
                         try:
-                            line = raw_input(self.prompt)
+                            line = self.input(self.prompt)
                         except EOFError:
                             line = 'EOF'
                     else:
@@ -141,6 +141,12 @@ class Kmd(cmd.Cmd, object):
 
             if self.completekey:
                 completer.reset()
+
+    def input(self, prompt):
+        """Read a line from the keyboard using 'raw_input'.
+        Subclasses may override to use alternative input methods.
+        """
+        return raw_input(prompt)
 
     def parseline(self, line):
         """Parse the line into a command name and a string containing
