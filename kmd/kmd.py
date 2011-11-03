@@ -143,19 +143,25 @@ class Kmd(cmd.Cmd, object):
                 completer.reset()
 
     def input(self, prompt):
-        """Read a line from the keyboard using 'raw_input'.
+        """Read a line from the keyboard using 'raw_input' ('input' in Python 3).
         Subclasses may override to use alternative input methods.
         """
         return raw_input(prompt)
 
     def onecmd(self, line):
-        """Interpret the argument as though it had been typed in response
-        to the prompt.
+        """Interpret a command line.
 
         This may be overridden, but should not normally need to be;
-        see the :meth:`precmd` and :meth:`postcmd` methods for useful execution hooks.
+        see the :meth:`precmd` and :meth:`postcmd` methods for useful
+        execution hooks.
         The return value is a flag indicating whether interpretation of
         commands by the interpreter should stop.
+
+        If there is a do_<command> method for the command prefix, that
+        method is called, with the remainder of the line as argument,
+        and its return value is returned.
+        Otherwise the return value of the :meth:`~kmd.Kmd.default` method
+        is returned.
         """
         cmd, arg, line = self.parseline(line)
         if not line:
@@ -214,7 +220,7 @@ class Kmd(cmd.Cmd, object):
         """complete(text, state)
         Return the next possible completion for 'text'.
 
-        If a command has not been entered, then complete against command list.
+        If a command has not been entered, complete against the command list.
         Otherwise try to call complete_<command> to get a list of completions.
         """
         if state == 0:
@@ -244,9 +250,10 @@ class Kmd(cmd.Cmd, object):
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(begidx, endidx)
         When completing '?<topic>' make '?' a word break character.
-        Ditto for '!<command>'. This has a flaw as we cannot complete names
-        that contain the new word break character.
+        Ditto for '!<command>' and '!'.
         """
+        # This has a flaw as we cannot complete names that contain
+        # the new word break character.
         origline = completion.line_buffer
         line = origline.lstrip()
         stripped = len(origline) - len(line)
@@ -359,4 +366,8 @@ class Kmd(cmd.Cmd, object):
 def main(args=None):
     shell = Kmd()
     return shell.run(args)
+
+
+if __name__ == '__main__':
+    sys.exit(main())
 
