@@ -148,29 +148,6 @@ class Kmd(cmd.Cmd, object):
         """
         return raw_input(prompt)
 
-    def parseline(self, line):
-        """Parse the line into a command name and a string containing
-        the arguments. Returns a tuple containing (command, args, line).
-        'command' and 'args' may be None if the line couldn't be parsed.
-        """
-        line = line.strip()
-        if not line:
-            return None, None, line
-        elif line[0] == '#':
-            return None, None, line
-        elif line[0] == '?':
-            line = 'help ' + line[1:]
-        elif line[0] in self.shell_escape_chars:
-            if hasattr(self, 'do_shell'):
-                line = 'shell ' + line[1:]
-            else:
-                return None, None, line
-        i, n = 0, len(line)
-        while i < n and line[i] in self.identchars:
-            i = i+1
-        cmd, arg = line[:i], line[i:].strip()
-        return cmd, arg, line
-
     def onecmd(self, line):
         """Interpret the argument as though it had been typed in response
         to the prompt.
@@ -196,6 +173,29 @@ class Kmd(cmd.Cmd, object):
             except AttributeError:
                 return self.default(line)
             return dofunc(arg)
+
+    def parseline(self, line):
+        """Parse the line into a command name and a string containing
+        the arguments. Returns a tuple containing (command, args, line).
+        'command' and 'args' may be None if the line couldn't be parsed.
+        """
+        line = line.strip()
+        if not line:
+            return None, None, line
+        elif line[0] == '#':
+            return None, None, line
+        elif line[0] == '?':
+            line = 'help ' + line[1:]
+        elif line[0] in self.shell_escape_chars:
+            if hasattr(self, 'do_shell'):
+                line = 'shell ' + line[1:]
+            else:
+                return None, None, line
+        i, n = 0, len(line)
+        while i < n and line[i] in self.identchars:
+            i = i+1
+        cmd, arg = line[:i], line[i:].strip()
+        return cmd, arg, line
 
     def comment(self, line):
         """Called when the input line starts with a '#'.
