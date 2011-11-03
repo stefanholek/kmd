@@ -30,6 +30,7 @@ Kmd Class
 .. automethod:: kmd.Kmd.cmdloop
 .. automethod:: kmd.Kmd.preloop
 .. automethod:: kmd.Kmd.postloop
+.. automethod:: kmd.Kmd.input
 .. automethod:: kmd.Kmd.parseline
 .. automethod:: kmd.Kmd.onecmd
 .. automethod:: kmd.Kmd.comment
