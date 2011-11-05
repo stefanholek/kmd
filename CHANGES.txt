@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1 - Unreleased
+2.1 - 2011-11-05
 ----------------
 
 - Add *Kmd.input* method as extension point for subclasses.
