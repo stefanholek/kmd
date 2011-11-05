@@ -128,7 +128,7 @@ Installation
 
 Installation requires Python 2.5 or higher.
 
-Note: kmd uses the rl_ library. Since rl contains a C extension, we recommend
+Note: kmd uses the rl_ library. Since rl contains a C extension, it is a good idea
 to review its `installation instructions`_ and make sure all dependencies are
 in place.
 
