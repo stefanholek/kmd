@@ -33,7 +33,10 @@ def compose(text):
 
 
 def dequote_filename(text, quote_char=''):
-    """Return a backslash-dequoted version of 'text'."""
+    """Return a backslash-dequoted version of 'text'.
+    If 'quote_char' is the single-quote, backslash-dequoting is
+    restricted to single-quotes.
+    """
     if len(text) > 1:
         qc = quote_char
         # Don't backslash-dequote characters between single quotes,
