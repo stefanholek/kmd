@@ -114,9 +114,9 @@ def dequote_string(text, quote_char=''):
 
 def quote_string(text, single_match=True, quote_char=''):
     """Return a quoted version of 'text'.
+    If 'single_match' is False, the quotes are not closed.
     The default 'quote_char' is the first character in
     :attr:`rl.completer.quote_characters`.
-    If 'single_match' is False, quotes are not closed.
     """
     if text:
         qc = quote_char or completer.quote_characters[0]
