@@ -35,12 +35,12 @@ def compose(text):
 def dequote_filename(text, quote_char=''):
     """Return a backslash-dequoted version of 'text'.
     If 'quote_char' is the single-quote, backslash-dequoting is
-    restricted to single-quotes.
+    limited to single-quotes.
     """
     if len(text) > 1:
         qc = quote_char
-        # Don't backslash-dequote characters between single quotes,
-        # except single quotes.
+        # Don't backslash-dequote characters between single-quotes,
+        # except single-quotes.
         if qc == "'":
             text = text.replace("'\\''", "'")
         elif '\\' in text:
@@ -51,8 +51,8 @@ def dequote_filename(text, quote_char=''):
 def quote_filename(text, single_match=True, quote_char=''):
     """Return a quoted version of 'text'.
     The default 'quote_char' is the first character in
-    :attr:`rl.completer.quote_characters`. If 'single_match' is
-    False, the quotes are not closed.
+    :attr:`rl.completer.quote_characters`.
+    If 'single_match' is False, quotes are not closed.
     """
     if text:
         qc = quote_char or completer.quote_characters[0]
