@@ -4,6 +4,9 @@ Changelog
 2.2 - Unreleased
 ----------------
 
+- Update documentation.
+  [stefan]
+
 
 2.1 - 2011-11-05
 ----------------
