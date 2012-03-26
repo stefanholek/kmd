@@ -113,7 +113,7 @@ def dequote_string(text, quote_char=''):
 
 
 def quote_string(text, single_match=True, quote_char=''):
-    """Return a quoted version of 'text'.
+    """Return a quote-char quoted version of 'text'.
     If 'single_match' is False, the quotes are not closed.
     The default 'quote_char' is the first character in
     :attr:`rl.completer.quote_characters`.
@@ -136,7 +136,7 @@ def quote_string(text, single_match=True, quote_char=''):
 
 def backslash_quote_string(text, single_match=True, quote_char=''):
     """Return a backslash-quoted version of 'text'.
-    If a 'quote_char' is given, behave exactly like :func:`quote_string`.
+    If a 'quote_char' is given, behave like :func:`quote_string`.
     """
     if text:
         # If the user has typed a quote character, use it.

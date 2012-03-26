@@ -16,8 +16,8 @@ Available Completions
    hostname-completion
    username-completion
 
-Quoting and Dequoting Support
-=============================
+Quoting and Dequoting
+=====================
 
 .. toctree::
    :maxdepth: 2

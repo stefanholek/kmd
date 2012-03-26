@@ -17,12 +17,12 @@ base class for interpreter classes you define.
 Custom Completions
 ==================
 
-The :mod:`kmd.completions` package implements all OS-related completions known
-from Bash. In addition, it establishes the *custom completion protocol* and
-provides utility functions for string and filename quoting.
+The :mod:`kmd.completions` package defines the *custom completion
+protocol* and, using the protocol, implements a set of ready-to-use
+completions for :class:`kmd.Kmd`.
 
-Applications are encouraged to add their own, domain-specific
-completions based on code in this package.
+Applications may want to use the built-in completions or add their own,
+domain-specific completions based on code in this package.
 """
 
 from kmd import Kmd
