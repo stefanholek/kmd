@@ -148,7 +148,7 @@ class FilenameCompletion(object):
         """quote_filename(text, single_match, quote_char)
         Return a quote-char quoted version of 'text'.
         Installed as :attr:`rl.completer.filename_quoting_function`
-        when the completion is initialized with quote_char='"' or
+        if the completion is initialized with quote_char='"' or
         quote_char="'".
         """
         return quote_filename(text, single_match, quote_char)
@@ -158,7 +158,7 @@ class FilenameCompletion(object):
         """backslash_quote_filename(text, single_match, quote_char)
         Return a backslash-quoted version of 'text'.
         Installed as :attr:`rl.completer.filename_quoting_function`
-        when the completion is initialized with quote_char='\\\\'
+        if the completion is initialized with quote_char='\\\\'
         (the default).
         """
         return backslash_quote_filename(text, single_match, quote_char)
