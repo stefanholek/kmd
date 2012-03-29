@@ -21,7 +21,7 @@ The :mod:`kmd.completions` package defines the *custom completion
 protocol* and, using the protocol, implements a set of ready-to-use
 completions for :class:`kmd.Kmd`.
 
-Applications may want to use the built-in completions or add their own,
+Applications may use the built-in completions and/or add their own,
 domain-specific completions based on code in this package.
 """
 
