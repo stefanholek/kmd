@@ -31,12 +31,12 @@ Kmd Class
 .. automethod:: kmd.Kmd.preloop
 .. automethod:: kmd.Kmd.postloop
 .. automethod:: kmd.Kmd.input
-.. automethod:: kmd.Kmd.parseline
-.. automethod:: kmd.Kmd.onecmd
-.. automethod:: kmd.Kmd.comment
-.. automethod:: kmd.Kmd.default
 .. automethod:: kmd.Kmd.complete
 .. automethod:: kmd.Kmd.word_break_hook
+.. automethod:: kmd.Kmd.onecmd
+.. automethod:: kmd.Kmd.parseline
+.. automethod:: kmd.Kmd.comment
+.. automethod:: kmd.Kmd.default
 
 .. automethod:: kmd.Kmd.do_help
 
@@ -45,6 +45,8 @@ Kmd Class
     Call help_<topic> if it exists. Otherwise, and if 'topic' is a
     command, print do_<command>'s docstring.
     If 'topic' is empty, print the default help screen.
+    If neither condition is met, set self.rc to 1 and print an error
+    message.
 
 .. automethod:: kmd.Kmd.help
 .. automethod:: kmd.Kmd.run
