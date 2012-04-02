@@ -45,8 +45,6 @@ Kmd Class
     Call help_<topic> if it exists. Otherwise, and if 'topic' is a
     command, print do_<command>'s docstring.
     If 'topic' is empty, print the default help screen.
-    If neither condition is met, set self.rc to 1 and print an error
-    message.
 
 .. automethod:: kmd.Kmd.help
 .. automethod:: kmd.Kmd.run

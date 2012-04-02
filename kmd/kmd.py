@@ -34,8 +34,6 @@ class Kmd(cmd.Cmd, object):
     #. Incomplete command names are automatically expanded if they are unique.
     #. Command aliases can be defined by overriding :meth:`~kmd.Kmd.__init__` and extending
        the 'aliases' dictionary.
-    #. :meth:`do_*` methods can control the return value of :meth:`~kmd.Kmd.run` by setting
-       self.rc.
     #. :meth:`help_*` methods optionally receive the help topic as argument.
     #. :meth:`complete_*` methods may return any kind of iterable, not just lists.
 
@@ -54,7 +52,6 @@ class Kmd(cmd.Cmd, object):
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
-    rc = 0
 
     def __init__(self, completekey='TAB', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
@@ -135,7 +132,7 @@ class Kmd(cmd.Cmd, object):
         """Called when the :meth:`~kmd.Kmd.cmdloop` method exits. Resets the readline
         completer and saves the history file.
        Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
-       exits with an exception.
+       exits with an exception!
         """
         if self.use_rawinput:
             if self.history_file:
@@ -188,7 +185,6 @@ class Kmd(cmd.Cmd, object):
         Otherwise the return value of the :meth:`~kmd.Kmd.default` method
         is returned.
         """
-        self.rc = 0
         cmd, arg, line = self.parseline(line)
         if not line:
             return self.emptyline()
@@ -214,10 +210,9 @@ class Kmd(cmd.Cmd, object):
 
     def default(self, line):
         """Called when the command prefix is not recognized.
-        By default sets self.rc to 1 and prints an error message.
+        By default prints an error message.
         """
         self.stderr.write('*** Unknown syntax: %s\n' % (line,))
-        self.rc = 1
 
     @print_exc
     def complete(self, text, state):
@@ -284,7 +279,6 @@ class Kmd(cmd.Cmd, object):
                         self.stdout.write("%s\n" % doc)
                         return
                 self.stderr.write('%s\n' % (self.nohelp % (topic,)))
-                self.rc = 1
             else:
                 try:
                     helpfunc(topic)
@@ -334,7 +328,6 @@ class Kmd(cmd.Cmd, object):
         """Run the Kmd.
 
         If 'args' is None, it defaults to sys.argv[1:].
-        Returns self.rc.
         """
         if args is None:
             args = sys.argv[1:]
@@ -349,8 +342,8 @@ class Kmd(cmd.Cmd, object):
                 self.cmdloop()
             except KeyboardInterrupt:
                 self.stdout.write('\n')
-                self.rc = 1
-        return self.rc
+                return 1
+        return 0
 
     def __getattr__(self, name):
         """Expand aliases and incomplete command names."""
