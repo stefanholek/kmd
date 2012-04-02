@@ -28,15 +28,12 @@ class Kmd(cmd.Cmd, object):
     #. The Kmd constructor accepts an additional 'stderr' argument; all error
        messages are printed to 'stderr'.
     #. :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop` are no longer stubs but contain important
-       code bits. Subclasses must make sure to call their parent's
-       implementations. Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
-       exits with an exception.
+       code bits. Subclasses must make sure to call their parents' implementations.
     #. New methods: :meth:`~kmd.Kmd.input`, :meth:`~kmd.Kmd.comment`, :meth:`~kmd.Kmd.help`,
        :meth:`~kmd.Kmd.run`, and :meth:`~kmd.Kmd.word_break_hook`.
+    #. Incomplete command names are automatically expanded if they are unique.
     #. Command aliases can be defined by overriding :meth:`~kmd.Kmd.__init__` and extending
        the 'aliases' dictionary.
-    #. Incomplete command names are automatically expanded if they are
-       unique.
     #. :meth:`help_*` methods optionally receive the help topic as argument.
     #. :meth:`complete_*` methods may return any kind of iterable, not just lists.
 
@@ -132,8 +129,10 @@ class Kmd(cmd.Cmd, object):
                 completer.parse_and_bind(self.completekey+': complete')
 
     def postloop(self):
-        """Called when the :meth:`~kmd.Kmd.cmdloop` method is exited. Resets the readline
+        """Called when the :meth:`~kmd.Kmd.cmdloop` method exits. Resets the readline
         completer and saves the history file.
+       Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
+       exits with an exception!
         """
         if self.use_rawinput:
             if self.history_file:
@@ -143,8 +142,8 @@ class Kmd(cmd.Cmd, object):
                 completer.reset()
 
     def input(self, prompt):
-        """Read a line from the keyboard using 'raw_input' ('input' in Python 3).
-        Subclasses may override to use alternative input methods.
+        """Read a line from the keyboard using :func:`raw_input` (:func:`input` in Python 3).
+        When the user presses the TAB key, invoke the readline completer.
         """
         return raw_input(prompt)
 
@@ -222,6 +221,7 @@ class Kmd(cmd.Cmd, object):
 
         If a command has not been entered, complete against the command list.
         Otherwise try to call complete_<command> to get a list of completions.
+        Installed as :attr:`rl.completer.completer`.
         """
         if state == 0:
             origline = completion.line_buffer
@@ -250,7 +250,8 @@ class Kmd(cmd.Cmd, object):
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(begidx, endidx)
         When completing '?<topic>' make '?' a word break character.
-        Ditto for '!<command>' and '!'.
+        Ditto for '!<command>'.
+        Installed as :attr:`rl.completer.word_break_hook`.
         """
         # This has a flaw as we cannot complete names that contain
         # the new word break character.
@@ -325,6 +326,7 @@ class Kmd(cmd.Cmd, object):
 
     def run(self, args=None):
         """Run the Kmd.
+
         If 'args' is None, it defaults to sys.argv[1:].
         """
         if args is None:

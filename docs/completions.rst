@@ -10,11 +10,11 @@ Available Completions
 .. toctree::
    :maxdepth: 2
 
-   command-completion
-   environment-completion
    filename-completion
-   hostname-completion
    username-completion
+   hostname-completion
+   environment-completion
+   command-completion
 
 Quoting and Dequoting
 =====================
