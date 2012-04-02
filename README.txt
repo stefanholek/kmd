@@ -19,13 +19,12 @@ following ways:
 
 2. Setup and tear-down of the readline completer have been moved to *preloop*
    and *postloop* respectively. Subclasses must make sure to call their
-   parent's implementations.
+   parents' implementations.
 
-3. Command aliases can be configured simply by extending the *aliases* dict.
+3. Incomplete command names are automatically expanded if they are unique.
+
+4. Command aliases can be configured by extending the *aliases* dictionary.
    Alias names apply to all *do_*, *complete_*, and *help_* attributes.
-
-4. Incomplete command names are automatically expanded given they are
-   unique.
 
 5. Lines starting with '#' are treated as comments. The new *comment* method
    is invoked, receiving the line as argument. By default this method clears
