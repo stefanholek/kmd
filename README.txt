@@ -34,7 +34,7 @@ following ways:
    The default is '!'.
 
 7. If a *history_file* is configured, kmd.Kmd loads and saves the history
-   in *preloop* and *postloop*; the history size can be limited by setting
+   in *preloop* and *postloop*; the history size is controlled by
    *history_max_entries*.
 
 8. The new *run* method encapsulates the full execution cycle of a Kmd.
