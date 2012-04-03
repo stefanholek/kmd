@@ -17,8 +17,8 @@ base class for interpreter classes you define.
 Custom Completions
 ==================
 
-The :mod:`kmd.completions` package defines the *custom completion
-protocol* and, using the protocol, implements a set of ready-to-use
+The :mod:`kmd.completions` package defines the *custom completion*
+protocol and, using the protocol, implements a set of ready-to-use
 completions for :class:`kmd.Kmd`.
 
 Applications may use the built-in completions and/or add their own,
