@@ -147,73 +147,6 @@ class Kmd(cmd.Cmd, object):
         """
         return raw_input(prompt)
 
-    def parseline(self, line):
-        """Parse the line into a command name and a string containing
-        the arguments. Returns a tuple containing (command, args, line).
-        'command' and 'args' may be None if the line couldn't be parsed.
-        """
-        line = line.strip()
-        if not line:
-            return None, None, line
-        elif line[0] == '#':
-            return None, None, line
-        elif line[0] == '?':
-            line = 'help ' + line[1:]
-        elif line[0] in self.shell_escape_chars:
-            if hasattr(self, 'do_shell'):
-                line = 'shell ' + line[1:]
-            else:
-                return None, None, line
-        i, n = 0, len(line)
-        while i < n and line[i] in self.identchars:
-            i = i+1
-        cmd, arg = line[:i], line[i:].strip()
-        return cmd, arg, line
-
-    def onecmd(self, line):
-        """Interpret a command line.
-
-        This may be overridden, but should not normally need to be;
-        see the :meth:`precmd` and :meth:`postcmd` methods for useful
-        execution hooks.
-        The return value is a flag indicating whether interpretation of
-        commands by the interpreter should stop.
-
-        If there is a do_<command> method for the command prefix, that
-        method is called, with the remainder of the line as argument,
-        and its return value is returned.
-        Otherwise the return value of the :meth:`~kmd.Kmd.default` method
-        is returned.
-        """
-        cmd, arg, line = self.parseline(line)
-        if not line:
-            return self.emptyline()
-        if line[0] == '#':
-            return self.comment(line)
-        if cmd is None:
-            return self.default(line)
-        self.lastcmd = line
-        if cmd == '':
-            return self.default(line)
-        else:
-            try:
-                dofunc = getattr(self, 'do_' + cmd)
-            except AttributeError:
-                return self.default(line)
-            return dofunc(arg)
-
-    def comment(self, line):
-        """Called when the input line starts with a '#'.
-        By default clears the lastcmd.
-        """
-        self.lastcmd = ''
-
-    def default(self, line):
-        """Called when the command prefix is not recognized.
-        By default prints an error message.
-        """
-        self.stderr.write('*** Unknown syntax: %s\n' % (line,))
-
     @print_exc
     def complete(self, text, state):
         """complete(text, state)
@@ -262,6 +195,73 @@ class Kmd(cmd.Cmd, object):
             if line[0] == '?' or line[0] in self.shell_escape_chars:
                 if line[0] not in completer.word_break_characters:
                     return line[0] + completer.word_break_characters
+
+    def onecmd(self, line):
+        """Interpret a command line.
+
+        This may be overridden, but should not normally need to be;
+        see the :meth:`precmd` and :meth:`postcmd` methods for useful
+        execution hooks.
+        The return value is a flag indicating whether interpretation of
+        commands by the interpreter should stop.
+
+        If there is a do_<command> method for the command prefix, that
+        method is called, with the remainder of the line as argument,
+        and its return value is returned.
+        Otherwise the return value of the :meth:`~kmd.Kmd.default` method
+        is returned.
+        """
+        cmd, arg, line = self.parseline(line)
+        if not line:
+            return self.emptyline()
+        if line[0] == '#':
+            return self.comment(line)
+        if cmd is None:
+            return self.default(line)
+        self.lastcmd = line
+        if cmd == '':
+            return self.default(line)
+        else:
+            try:
+                dofunc = getattr(self, 'do_' + cmd)
+            except AttributeError:
+                return self.default(line)
+            return dofunc(arg)
+
+    def parseline(self, line):
+        """Parse the line into a command name and a string containing
+        the arguments. Returns a tuple containing (command, args, line).
+        'command' and 'args' may be None if the line couldn't be parsed.
+        """
+        line = line.strip()
+        if not line:
+            return None, None, line
+        elif line[0] == '#':
+            return None, None, line
+        elif line[0] == '?':
+            line = 'help ' + line[1:]
+        elif line[0] in self.shell_escape_chars:
+            if hasattr(self, 'do_shell'):
+                line = 'shell ' + line[1:]
+            else:
+                return None, None, line
+        i, n = 0, len(line)
+        while i < n and line[i] in self.identchars:
+            i = i+1
+        cmd, arg = line[:i], line[i:].strip()
+        return cmd, arg, line
+
+    def comment(self, line):
+        """Called when the input line starts with a '#'.
+        By default clears the lastcmd.
+        """
+        self.lastcmd = ''
+
+    def default(self, line):
+        """Called when the command prefix is not recognized.
+        By default prints an error message.
+        """
+        self.stderr.write('*** Unknown syntax: %s\n' % (line,))
 
     def do_help(self, topic=''):
         # Print the help screen for 'topic' or the default help.
