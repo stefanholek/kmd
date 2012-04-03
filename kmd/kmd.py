@@ -18,7 +18,7 @@ class Kmd(cmd.Cmd, object):
     """A cmd.Cmd replacement using rl readline bindings.
 
     This is a subclass of the standard library's `cmd.Cmd`_ class,
-    using the new rl bindings for GNU Readline. The standard
+    that uses the new rl_ bindings for GNU Readline. The standard
     library documentation applies unless noted otherwise. Applications must
     use this base class instead of cmd.Cmd to use rl features.
 
@@ -45,6 +45,7 @@ class Kmd(cmd.Cmd, object):
             ...
 
     .. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
+    .. _rl: http://pypi.python.org/pypi/rl
     """
 
     prompt = '(Kmd) '
