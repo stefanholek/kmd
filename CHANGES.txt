@@ -7,9 +7,6 @@ Changelog
 - More documentation updates.
   [stefan]
 
-- More documentation updates.
-  [stefan]
-
 
 2.1.1 - 2012-03-29
 ------------------
