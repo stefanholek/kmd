@@ -31,12 +31,12 @@ Kmd Class
 .. automethod:: kmd.Kmd.preloop
 .. automethod:: kmd.Kmd.postloop
 .. automethod:: kmd.Kmd.input
-.. automethod:: kmd.Kmd.parseline
-.. automethod:: kmd.Kmd.onecmd
-.. automethod:: kmd.Kmd.comment
-.. automethod:: kmd.Kmd.default
 .. automethod:: kmd.Kmd.complete
 .. automethod:: kmd.Kmd.word_break_hook
+.. automethod:: kmd.Kmd.onecmd
+.. automethod:: kmd.Kmd.parseline
+.. automethod:: kmd.Kmd.comment
+.. automethod:: kmd.Kmd.default
 
 .. automethod:: kmd.Kmd.do_help
 

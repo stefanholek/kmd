@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'kmd'
-copyright = u'%s, Stefan H. Holek' % time.strftime('%Y')
+copyright = u'2011-%s, Stefan H. Holek' % time.strftime('%Y')
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

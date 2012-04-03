@@ -28,15 +28,12 @@ class Kmd(cmd.Cmd, object):
     #. The Kmd constructor accepts an additional 'stderr' argument; all error
        messages are printed to 'stderr'.
     #. :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop` are no longer stubs but contain important
-       code bits. Subclasses must make sure to call their parent's
-       implementations. Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
-       exits with an exception.
+       code bits. Subclasses must make sure to call their parents' implementations.
     #. New methods: :meth:`~kmd.Kmd.input`, :meth:`~kmd.Kmd.comment`, :meth:`~kmd.Kmd.help`,
        :meth:`~kmd.Kmd.run`, and :meth:`~kmd.Kmd.word_break_hook`.
+    #. Incomplete command names are automatically expanded if they are unique.
     #. Command aliases can be defined by overriding :meth:`~kmd.Kmd.__init__` and extending
        the 'aliases' dictionary.
-    #. Incomplete command names are automatically expanded if they are
-       unique.
     #. :meth:`help_*` methods optionally receive the help topic as argument.
     #. :meth:`complete_*` methods may return any kind of iterable, not just lists.
 
@@ -132,8 +129,10 @@ class Kmd(cmd.Cmd, object):
                 completer.parse_and_bind(self.completekey+': complete')
 
     def postloop(self):
-        """Called when the :meth:`~kmd.Kmd.cmdloop` method is exited. Resets the readline
+        """Called when the :meth:`~kmd.Kmd.cmdloop` method exits. Resets the readline
         completer and saves the history file.
+       Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
+       exits with an exception!
         """
         if self.use_rawinput:
             if self.history_file:
@@ -143,33 +142,59 @@ class Kmd(cmd.Cmd, object):
                 completer.reset()
 
     def input(self, prompt):
-        """Read a line from the keyboard using 'raw_input' ('input' in Python 3).
-        Subclasses may override to use alternative input methods.
+        """Read a line from the keyboard using :func:`raw_input` (:func:`input` in Python 3).
+        When the user presses the TAB key, invoke the readline completer.
         """
         return raw_input(prompt)
 
-    def parseline(self, line):
-        """Parse the line into a command name and a string containing
-        the arguments. Returns a tuple containing (command, args, line).
-        'command' and 'args' may be None if the line couldn't be parsed.
+    @print_exc
+    def complete(self, text, state):
+        """complete(text, state)
+        Return the next possible completion for 'text'.
+
+        If a command has not been entered, complete against the command list.
+        Otherwise try to call complete_<command> to get a list of completions.
+        Installed as :attr:`rl.completer.completer`.
         """
-        line = line.strip()
-        if not line:
-            return None, None, line
-        elif line[0] == '#':
-            return None, None, line
-        elif line[0] == '?':
-            line = 'help ' + line[1:]
-        elif line[0] in self.shell_escape_chars:
-            if hasattr(self, 'do_shell'):
-                line = 'shell ' + line[1:]
+        if state == 0:
+            origline = completion.line_buffer
+            line = origline.lstrip()
+            stripped = len(origline) - len(line)
+            begidx = completion.begidx - stripped
+            endidx = completion.endidx - stripped
+            if begidx == 0:
+                compfunc = self.completenames
             else:
-                return None, None, line
-        i, n = 0, len(line)
-        while i < n and line[i] in self.identchars:
-            i = i+1
-        cmd, arg = line[:i], line[i:].strip()
-        return cmd, arg, line
+                cmd, arg, foo = self.parseline(line)
+                if cmd == '':
+                    compfunc = self.completedefault
+                else:
+                    try:
+                        compfunc = getattr(self, 'complete_' + cmd)
+                    except AttributeError:
+                        compfunc = self.completedefault
+            self.completion_matches = iter(compfunc(text, line, begidx, endidx))
+        try:
+            return self.completion_matches.next()
+        except StopIteration:
+            return None
+
+    @print_exc
+    def word_break_hook(self, begidx, endidx):
+        """word_break_hook(begidx, endidx)
+        When completing '?<topic>' make '?' a word break character.
+        Ditto for '!<command>'.
+        Installed as :attr:`rl.completer.word_break_hook`.
+        """
+        # This has a flaw as we cannot complete names that contain
+        # the new word break character.
+        origline = completion.line_buffer
+        line = origline.lstrip()
+        stripped = len(origline) - len(line)
+        if begidx - stripped == 0:
+            if line[0] == '?' or line[0] in self.shell_escape_chars:
+                if line[0] not in completer.word_break_characters:
+                    return line[0] + completer.word_break_characters
 
     def onecmd(self, line):
         """Interpret a command line.
@@ -203,6 +228,29 @@ class Kmd(cmd.Cmd, object):
                 return self.default(line)
             return dofunc(arg)
 
+    def parseline(self, line):
+        """Parse the line into a command name and a string containing
+        the arguments. Returns a tuple containing (command, args, line).
+        'command' and 'args' may be None if the line couldn't be parsed.
+        """
+        line = line.strip()
+        if not line:
+            return None, None, line
+        elif line[0] == '#':
+            return None, None, line
+        elif line[0] == '?':
+            line = 'help ' + line[1:]
+        elif line[0] in self.shell_escape_chars:
+            if hasattr(self, 'do_shell'):
+                line = 'shell ' + line[1:]
+            else:
+                return None, None, line
+        i, n = 0, len(line)
+        while i < n and line[i] in self.identchars:
+            i = i+1
+        cmd, arg = line[:i], line[i:].strip()
+        return cmd, arg, line
+
     def comment(self, line):
         """Called when the input line starts with a '#'.
         By default clears the lastcmd.
@@ -214,53 +262,6 @@ class Kmd(cmd.Cmd, object):
         By default prints an error message.
         """
         self.stderr.write('*** Unknown syntax: %s\n' % (line,))
-
-    @print_exc
-    def complete(self, text, state):
-        """complete(text, state)
-        Return the next possible completion for 'text'.
-
-        If a command has not been entered, complete against the command list.
-        Otherwise try to call complete_<command> to get a list of completions.
-        """
-        if state == 0:
-            origline = completion.line_buffer
-            line = origline.lstrip()
-            stripped = len(origline) - len(line)
-            begidx = completion.begidx - stripped
-            endidx = completion.endidx - stripped
-            if begidx == 0:
-                compfunc = self.completenames
-            else:
-                cmd, arg, foo = self.parseline(line)
-                if cmd == '':
-                    compfunc = self.completedefault
-                else:
-                    try:
-                        compfunc = getattr(self, 'complete_' + cmd)
-                    except AttributeError:
-                        compfunc = self.completedefault
-            self.completion_matches = iter(compfunc(text, line, begidx, endidx))
-        try:
-            return self.completion_matches.next()
-        except StopIteration:
-            return None
-
-    @print_exc
-    def word_break_hook(self, begidx, endidx):
-        """word_break_hook(begidx, endidx)
-        When completing '?<topic>' make '?' a word break character.
-        Ditto for '!<command>' and '!'.
-        """
-        # This has a flaw as we cannot complete names that contain
-        # the new word break character.
-        origline = completion.line_buffer
-        line = origline.lstrip()
-        stripped = len(origline) - len(line)
-        if begidx - stripped == 0:
-            if line[0] == '?' or line[0] in self.shell_escape_chars:
-                if line[0] not in completer.word_break_characters:
-                    return line[0] + completer.word_break_characters
 
     def do_help(self, topic=''):
         # Print the help screen for 'topic' or the default help.
@@ -325,6 +326,7 @@ class Kmd(cmd.Cmd, object):
 
     def run(self, args=None):
         """Run the Kmd.
+
         If 'args' is None, it defaults to sys.argv[1:].
         """
         if args is None:
