@@ -130,7 +130,7 @@ class Kmd(cmd.Cmd, object):
                 completer.parse_and_bind(self.completekey+': complete')
 
     def postloop(self):
-        """Called when the :meth:`~kmd.Kmd.cmdloop` method exits. Resets the readline
+        """Called when the :meth:`~kmd.Kmd.cmdloop` method is exited. Resets the readline
         completer and saves the history file.
        Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
        exits with an exception!
