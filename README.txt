@@ -34,7 +34,7 @@ following ways:
    The default is '!'.
 
 7. If a *history_file* is configured, kmd.Kmd loads and saves the history
-   in *preloop* and *postloop*; the history size can be limited by setting
+   in *preloop* and *postloop*; the history size is controlled by
    *history_max_entries*.
 
 8. The new *run* method encapsulates the full execution cycle of a Kmd.
@@ -55,24 +55,24 @@ Completions
 -----------
 
 FilenameCompletion
-    Completes names of files and directories. This is the real deal,
-    thanks to rl_ providing access to all necessary readline features.
-    Includes full quoting support as well as support for decomposed
+    Completes the names of files and directories on the filesystem. This is
+    the real deal, thanks to rl_ providing access to all necessary readline
+    features.  Includes full quoting support as well as support for decomposed
     UTF-8 on HFS Plus.
 
 UsernameCompletion
-    Completes names of users known to the system.
+    Completes the names of users known to the system.
 
 HostnameCompletion
-    Completes names of hosts in the system's
+    Completes the names of hosts in the system's
     ``/etc/hosts`` file.
 
 EnvironmentCompletion
-    Completes names of variables in the process
+    Completes the names of variables in the process
     environment.
 
 CommandCompletion
-    Completes names of executables on the system
+    Completes the names of executables on the system
     PATH.
 
 Example Code

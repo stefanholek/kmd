@@ -18,7 +18,7 @@ class Kmd(cmd.Cmd, object):
     """A cmd.Cmd replacement using rl readline bindings.
 
     This is a subclass of the standard library's `cmd.Cmd`_ class,
-    using the new rl bindings for GNU Readline. The standard
+    that uses the new rl_ bindings for GNU Readline. The standard
     library documentation applies unless noted otherwise. Applications must
     use this base class instead of cmd.Cmd to use rl features.
 
@@ -45,6 +45,7 @@ class Kmd(cmd.Cmd, object):
             ...
 
     .. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
+    .. _rl: http://pypi.python.org/pypi/rl
     """
 
     prompt = '(Kmd) '
@@ -182,7 +183,7 @@ class Kmd(cmd.Cmd, object):
     @print_exc
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(begidx, endidx)
-        When completing '?<topic>' make '?' a word break character.
+        When completing '?<topic>' make sure '?' is a word break character.
         Ditto for '!<command>'.
         Installed as :attr:`rl.completer.word_break_hook`.
         """
