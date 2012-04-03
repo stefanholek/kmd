@@ -183,7 +183,7 @@ class Kmd(cmd.Cmd, object):
     @print_exc
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(begidx, endidx)
-        When completing '?<topic>' make '?' a word break character.
+        When completing '?<topic>' make sure '?' is a word break character.
         Ditto for '!<command>'.
         Installed as :attr:`rl.completer.word_break_hook`.
         """

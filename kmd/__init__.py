@@ -6,7 +6,7 @@ Command Interpreters
 ====================
 
 The :class:`kmd.Kmd` class provides a simple framework for writing
-line-oriented command interpreters, also known as *shells*. These are often
+line-oriented command interpreters, commonly known as *shells*. These are often
 useful for test harnesses, prototypes, and administrative tools.
 The main UI feature of shell-type applications is TAB completion.
 
