@@ -20,7 +20,7 @@ Kmd Class
 
 .. autoattribute:: kmd.Kmd.history_file
 
-    If a history file is configured, Kmd loads and saves the history in
+    If a history file is set, Kmd loads and saves the history in
     :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop`.
 
 .. autoattribute:: kmd.Kmd.history_max_entries
