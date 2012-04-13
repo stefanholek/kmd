@@ -15,6 +15,7 @@ from kmd.testing import reset
 from kmd.completions.quoting import backslash_dequote
 from kmd.completions.quoting import backslash_quote
 from kmd.completions.quoting import is_fully_quoted
+from kmd.completions.quoting import char_is_quoted
 from kmd.completions.quoting import dequote_string
 from kmd.completions.quoting import quote_string
 from kmd.completions.quoting import backslash_quote_string
@@ -112,6 +113,77 @@ class FullyQuotedTests(unittest.TestCase):
     def test_not_fully_quoted(self):
         self.assertEqual(is_fully_quoted('foo&bar'), False)
         self.assertEqual(is_fully_quoted('foo\\&bar\\'), False)
+
+
+class CharIsQuotedTests(unittest.TestCase):
+
+    TRUE = (
+        '" ',
+        '"foo ',
+        'f"oo ',
+        'fo"o ',
+        'foo" ',
+        '\' ',
+        '\'foo ',
+        'f\'oo ',
+        'fo\'o ',
+        'foo\' ',
+        '\\ ',
+        'foo\\ ',
+        '"foo\\ ',
+        '"foo\\" ',
+        '"foo\\"\\ ',
+        '"foo"\\ ',
+        '"foo\' ',
+        '"foo\\\' ',
+        '\'foo\\ ',
+        '\'foo\\\'\\ ',
+        '\'foo" ',
+        '\'foo\\" ',
+        '"foo \'bar\' ',
+        '\'foo "bar" ',
+        '"foo \'bar\'',
+        '\'foo "bar"',
+        '"foo \'bar\'\'',
+        '\'foo "bar""',
+        '\'foo\\\'"\'',
+        '\'foo"\'"\'',
+    )
+
+    FALSE = (
+        'foo ',
+        'fo\\o ',
+        'foo\\\\ ',
+        '"" ',
+        '"foo" ',
+        '"foo\'" ',
+        '\'\' ',
+        '\'foo\' ',
+        '\'foo\\\' ',
+        '\'foo"\' ',
+        '\'foo\'\'',
+        '\'foo\\\'\'',
+        '\'foo"\'\'',
+        '\'foo\\\'\'\'',
+        # A closing quote character does not count as "quoted"
+        '\'foo"\'\'\'',
+        '"foo \'bar\'"',
+        '\'foo "bar"\'',
+    )
+
+    def setUp(self):
+        reset()
+        completer.quote_characters = '"\''
+
+    def test_true(self):
+        # Expect the last character in s to be quoted
+        for s in self.TRUE:
+            self.assertEqual(char_is_quoted(s, len(s)-1), True, 'not True: %r' % s)
+
+    def test_false(self):
+        # Expect the last character in s to not be quoted
+        for s in self.FALSE:
+            self.assertEqual(char_is_quoted(s, len(s)-1), False, 'not False: %r' % s)
 
 
 class DequoteStringTests(FileSetup):
