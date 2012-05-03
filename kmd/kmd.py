@@ -132,8 +132,8 @@ class Kmd(cmd.Cmd, object):
     def postloop(self):
         """Called when the :meth:`~kmd.Kmd.cmdloop` method is exited. Resets the readline
         completer and saves the history file.
-       Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
-       exits with an exception!
+        Note that :meth:`~kmd.Kmd.postloop` is called even if :meth:`~kmd.Kmd.cmdloop`
+        exits with an exception!
         """
         if self.use_rawinput:
             if self.history_file:
