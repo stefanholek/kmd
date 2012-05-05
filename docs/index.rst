@@ -2,6 +2,10 @@
 :mod:`kmd` -- cmd.Cmd Replacement
 =========================================================
 
+.. image:: http://imgs.xkcd.com/comics/admin_mourning.png
+
+http://xkcd.com/686/
+
 .. automodule:: kmd
 
 API Documentation
