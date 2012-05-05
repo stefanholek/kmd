@@ -92,8 +92,10 @@ def backslash_quote_filename(text, single_match=True, quote_char=''):
 
 class FilenameCompletion(object):
     """Complete file and directory names.
-    Extends readline's default filename completion by taking
+    Extends readline's built-in filename completion by taking
     care of backslash-quoted characters.
+    The 'quote_char' argument specifies the preferred quoting style.
+    Available styles are single-quote, double-quote, and backslash (the default).
     """
 
     def __init__(self, quote_char='\\'):
@@ -147,8 +149,7 @@ class FilenameCompletion(object):
     def quote_filename(self, text, single_match, quote_char):
         """quote_filename(text, single_match, quote_char)
         Return a quote-char quoted version of 'text'.
-        Installed as :attr:`rl.completer.filename_quoting_function`
-        if the completion is initialized with a quote_char of '"' or "'".
+        Installed as :attr:`rl.completer.filename_quoting_function`.
         """
         return quote_filename(text, single_match, quote_char)
 
@@ -156,9 +157,7 @@ class FilenameCompletion(object):
     def backslash_quote_filename(self, text, single_match, quote_char):
         """backslash_quote_filename(text, single_match, quote_char)
         Return a backslash-quoted version of 'text'.
-        Installed as :attr:`rl.completer.filename_quoting_function`
-        if the completion is initialized with a quote_char of '\\\\'
-        (the default).
+        Installed as :attr:`rl.completer.filename_quoting_function`.
         """
         return backslash_quote_filename(text, single_match, quote_char)
 
