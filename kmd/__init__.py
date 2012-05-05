@@ -1,5 +1,6 @@
-"""A modern version of cmd.Cmd using rl_ readline bindings.
+"""A modern version of `cmd.Cmd`_ using rl_ readline bindings.
 
+.. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
 .. _rl: http://pypi.python.org/pypi/rl
 
 Command Interpreters
@@ -10,8 +11,8 @@ line-oriented command interpreters, commonly known as *shells*. These are often
 useful for test harnesses, prototypes, and administrative tools.
 The main UI feature of shell-type applications is TAB completion.
 
-A Kmd instance is a line-oriented interpreter framework.
-There is no good reason to instantiate Kmd itself; rather, it is used as
+A :class:`~kmd.Kmd` instance is a line-oriented interpreter framework.
+There is no good reason to instantiate :class:`~kmd.Kmd` itself; rather, it is used as
 base class for interpreter classes you define.
 
 Custom Completions
