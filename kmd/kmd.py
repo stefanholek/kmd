@@ -15,7 +15,7 @@ from completions.quoting import char_is_quoted
 
 
 class Kmd(cmd.Cmd, object):
-    """A cmd.Cmd replacement using rl readline bindings.
+    """Replacement for cmd.Cmd.
 
     This is a subclass of the standard library's `cmd.Cmd`_ class,
     using the new rl_ bindings for GNU Readline. The standard

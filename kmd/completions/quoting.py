@@ -30,7 +30,7 @@ WORD_BREAK_CHARACTERS = BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS[:-3]
 #: Filename quote characters used by kmd.
 FILENAME_QUOTE_CHARACTERS = BASH_FILENAME_QUOTE_CHARACTERS[:-1]
 
-# BBB
+#: Whitespace characters used by kmd.
 WHITESPACE_CHARACTERS = BASH_WHITESPACE_CHARACTERS
 
 # Dict used for backslash quoting

@@ -16,4 +16,5 @@ Global constants.
 .. autodata:: kmd.completions.quoting.QUOTE_CHARACTERS
 .. autodata:: kmd.completions.quoting.WORD_BREAK_CHARACTERS
 .. autodata:: kmd.completions.quoting.FILENAME_QUOTE_CHARACTERS
+.. autodata:: kmd.completions.quoting.WHITESPACE_CHARACTERS
 
