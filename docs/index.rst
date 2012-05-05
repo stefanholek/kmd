@@ -2,7 +2,7 @@
 :mod:`kmd` -- cmd.Cmd Replacement
 =========================================================
 
-.. image:: http://imgs.xkcd.com/comics/admin_mourning.png
+.. image:: _static/admin_mourning.png
 
 http://xkcd.com/686/
 
