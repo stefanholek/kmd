@@ -1,8 +1,7 @@
 # Complete system commands and filenames on the same line
 
 # The kmd.Kmd class installs its own dispatcher to invoke
-# completion functions defined by subclasses. It also enables
-# TAB completion for us.
+# completion functions defined by subclasses.
 
 import os
 import kmd
