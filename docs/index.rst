@@ -1,5 +1,5 @@
 =========================================================
-:mod:`kmd` -- cmd.Cmd Replacement
+:mod:`kmd` -- A cmd.Cmd Replacement
 =========================================================
 
 .. image:: _static/admin_mourning.png
