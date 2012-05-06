@@ -9,8 +9,7 @@ class EnvironmentCompletion(object):
     """Complete names of variables in the process environment."""
 
     def __init__(self):
-        """Configure the readline completer.
-        """
+        """Configure the readline completer."""
         if '$' not in completer.word_break_characters:
             completer.word_break_characters += '$'
         if '$' not in completer.special_prefixes:
