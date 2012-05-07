@@ -1,15 +1,15 @@
 =====
 kmd
 =====
-------------------------------------------------------
-A modern version of cmd.Cmd using rl readline bindings
-------------------------------------------------------
+--------------------------------------------------------
+An interpreter framework
+--------------------------------------------------------
 
 Introduction
 ============
 
 **kmd** allows to easily build command line driven shells
-with powerful TAB-completion capabilities.
+with powerful tab-completion capabilities.
 
 The kmd.Kmd class derives from `cmd.Cmd`_ and modifies it in the
 following ways:
@@ -23,7 +23,7 @@ following ways:
 
 3. Incomplete command names are automatically expanded if they are unique.
 
-4. Command aliases can be configured by extending the *aliases* dictionary.
+4. Command aliases can be defined by extending the *aliases* dictionary.
    Alias names apply to all *do_*, *complete_*, and *help_* attributes.
 
 5. Lines starting with '#' are treated as comments. The new *comment* method
@@ -33,8 +33,8 @@ following ways:
 6. It is now possible to configure the *shell_escape_chars*.
    The default is '!'.
 
-7. If a *history_file* is configured, kmd.Kmd loads and saves the history
-   in *preloop* and *postloop*; the history size is controlled by
+7. If a *history_file* is set, kmd.Kmd loads and saves the history
+   in *preloop* and *postloop*. The history size is controlled by setting
    *history_max_entries*.
 
 8. The new *run* method encapsulates the full execution cycle of a Kmd.
@@ -46,7 +46,7 @@ Package Contents
 ----------------
 
 kmd.Kmd
-    Implements the mechanics of a command shell, similar to cmd.Cmd.
+    Implements the mechanics of a command shell, similar to `cmd.Cmd`_.
 
 kmd.completions
     Implements a set of ready-to-use completions.
@@ -56,7 +56,7 @@ Completions
 
 FilenameCompletion
     Completes the names of files and directories on the filesystem. This is
-    the real deal, thanks to rl_ providing access to all necessary readline
+    the real deal, thanks to rl_ providing access to all the necessary readline
     features.  Includes full quoting support as well as support for decomposed
     UTF-8 on HFS Plus.
 
@@ -95,32 +95,31 @@ Example Code
         def do_cat(self, args):
             os.system('cat ' + args)
 
-        def complete_cat(self, text, line, begidx, endidx):
+        def complete_cat(self, text, *ignored):
             return self.completefilename(text)
 
         def do_echo(self, args):
             os.system('echo ' + args)
 
-        def complete_echo(self, text, line, begidx, endidx):
+        def complete_echo(self, text, *ignored):
             return self.completeenviron(text)
 
     def main():
         MyShell().run()
 
-For further details, please refer to the `API Documentation`_.
-
-.. _`API Documentation`: http://packages.python.org/kmd
-
+For further details please refer to the `API Documentation`_.
 Also see gpgkeys_, a front-end for GnuPG built entirely around tab completion.
 
+.. _`API Documentation`: http://packages.python.org/kmd
 .. _gpgkeys: http://pypi.python.org/pypi/gpgkeys
 
-Repository Access
------------------
+Development
+-----------
 
-kmd development is hosted on GitHub_.
+kmd development is hosted on GitHub_ where it also has an `issue tracker`_.
 
 .. _GitHub: http://github.com/stefanholek/kmd
+.. _`issue tracker`: http://github.com/stefanholek/kmd/issues
 
 Installation
 ============
