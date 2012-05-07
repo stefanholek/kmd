@@ -92,8 +92,6 @@ def backslash_quote_filename(text, single_match=True, quote_char=''):
 
 class FilenameCompletion(object):
     """Complete file and directory names.
-    Extends readline's built-in filename completion by taking
-    care of backslash-quoted characters.
     The 'quote_char' argument specifies the preferred quoting style.
     Available styles are single-quote, double-quote, and backslash (the default).
     """
