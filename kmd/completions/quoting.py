@@ -58,7 +58,8 @@ def backslash_quote(text, chars=''):
 
 
 def is_fully_quoted(text):
-    """Return true if all :attr:`rl.completer.filename_quote_characters <rl:rl.Completer.filename_quote_characters>`
+    """Return true if all
+    :attr:`rl.completer.filename_quote_characters <rl:rl.Completer.filename_quote_characters>`
     in 'text' are backslash-quoted."""
     skip_next = False
     size = len(text)
