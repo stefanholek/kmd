@@ -4,6 +4,10 @@ Changelog
 2.2 - Unreleased
 ----------------
 
+- String and filename quoting was not respected when *Kmd.run*
+  was called with arguments.
+  [stefan]
+
 - Switch to a happier looking Sphinx theme.
   [stefan]
 
