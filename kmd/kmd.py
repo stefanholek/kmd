@@ -197,7 +197,7 @@ class Kmd(cmd.Cmd, object):
         """Interpret a command line.
 
         This may be overridden, but should not normally need to be;
-        see the :meth:`precmd <py:cmd.Cmd.precmd>` and :meth:`postcmd <py:cmd.Cmd.postcmd>`
+        see the :meth:`precmd() <py:cmd.Cmd.precmd>` and :meth:`postcmd() <py:cmd.Cmd.postcmd>`
         methods for useful execution hooks.
         The return value is a flag indicating whether interpretation of
         commands by the interpreter should stop.
