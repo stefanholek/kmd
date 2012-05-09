@@ -56,7 +56,7 @@ def backslash_quote(text, chars=''):
 
 
 def is_fully_quoted(text):
-    """Return true if all :attr:`rl.completer.filename_quote_characters`
+    """Return true if all :attr:`rl.completer.filename_quote_characters <rl:rl.Completer.filename_quote_characters>`
     in 'text' are backslash-quoted."""
     skip_next = False
     size = len(text)
@@ -116,7 +116,7 @@ def quote_string(text, single_match=True, quote_char=''):
     """Return a quote-char quoted version of 'text'.
     If 'single_match' is False, the quotes are not closed.
     The default 'quote_char' is the first character in
-    :attr:`rl.completer.quote_characters`.
+    :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
     """
     if text:
         qc = quote_char or completer.quote_characters[0]
