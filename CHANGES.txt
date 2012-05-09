@@ -4,6 +4,9 @@ Changelog
 2.2 - Unreleased
 ----------------
 
+- Switch to a happier looking Sphinx theme.
+  [stefan]
+
 
 2.1.2 - 2012-04-14
 ------------------

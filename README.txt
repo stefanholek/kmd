@@ -55,25 +55,22 @@ Completions
 -----------
 
 FilenameCompletion
-    Completes the names of files and directories on the filesystem. This is
+    Complete names of files and directories on the filesystem. This is
     the real deal, thanks to rl_ providing access to all the necessary readline
     features.  Includes full quoting support as well as support for decomposed
-    UTF-8 on HFS Plus.
+    UTF-8 on HFS Plus!
 
 UsernameCompletion
-    Completes the names of users known to the system.
+    Complete names of users known to the system.
 
 HostnameCompletion
-    Completes the names of hosts in the system's
-    ``/etc/hosts`` file.
+    Complete names of hosts in the system's ``/etc/hosts`` file.
 
 EnvironmentCompletion
-    Completes the names of variables in the process
-    environment.
+    Complete names of variables in the process environment.
 
 CommandCompletion
-    Completes the names of executables on the system
-    PATH.
+    Complete names of executables on the system PATH.
 
 Example Code
 ------------
