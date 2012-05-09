@@ -7,13 +7,12 @@ kmd |version| -- Interpreter Framework
 Interpreters
 ====================
 
-The :class:`kmd.Kmd` class provides a simple framework for creating
+The :class:`kmd.Kmd` class provides a simple framework for writing
 line-oriented command interpreters, also known as *shells*. These are often
 useful for test harnesses, prototypes, and administrative tools.
-The main UI feature of shell-type applications is tab completion.
 
-A :class:`~kmd.Kmd` instance is a line-oriented command interpreter.
-There is no good reason to instantiate :class:`~kmd.Kmd` itself; rather, it is used as
+A :class:`kmd.Kmd` instance is a line-oriented command interpreter.
+There is no good reason to instantiate :class:`kmd.Kmd` itself; rather, it is used as
 base class for interpreter classes you define.
 
 Completions

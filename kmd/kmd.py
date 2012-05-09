@@ -15,17 +15,15 @@ from completions.quoting import char_is_quoted
 
 
 class Kmd(cmd.Cmd, object):
-    """A cmd.Cmd replacement.
+    """Interpreter base class.
 
     This is a subclass of the standard library's `cmd.Cmd`_ class,
     using the new rl_ bindings for GNU Readline. The standard
-    library documentation applies unless noted otherwise. Applications must
-    use this base class instead of cmd.Cmd to use rl features.
+    library documentation applies unless noted otherwise.
+    Differences include:
 
-    Changes include:
-
-    #. Kmd is a new-style class.
-    #. The Kmd constructor accepts an additional 'stderr' argument; all error
+    #. :class:`~kmd.Kmd` is a new-style class.
+    #. The :class:`~kmd.Kmd` constructor accepts an additional 'stderr' argument; all error
        messages are printed to 'stderr'.
     #. :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop` are no longer stubs but contain important
        code bits. Subclasses must make sure to call their parents' implementations.
