@@ -1,7 +1,4 @@
-# Complete system commands and filenames on the same line
-
-# The kmd.Kmd class installs its own dispatcher to invoke
-# completion functions defined by subclasses.
+"""Complete system commands and filenames on the same line."""
 
 import os
 import kmd
@@ -16,14 +13,13 @@ class SimpleApp(kmd.Kmd):
     prompt = 'simpleapp> '
 
     def preloop(self):
-        # Set up custom completions
+        """Set up completions."""
         super(SimpleApp, self).preloop()
         self.completecommand = CommandCompletion()
         self.completefilename = FilenameCompletion()
 
     def emptyline(self):
-        # Do nothing
-        pass
+        """Do nothing."""
 
     def do_EOF(self, args):
         """Usage: Ctrl+D"""
@@ -35,12 +31,15 @@ class SimpleApp(kmd.Kmd):
         os.system(args)
 
     def complete_shell(self, text, line, begidx, endidx):
-        # This function is called when the command line starts
-        # with an exclamation mark. It further dispatches to
-        # filename completion or command completion, depending
-        # on position and format of the completion word.
+        """Complete shell commands.
+
+        This function is called when the command line starts with
+        an exclamation mark. It further dispatches to command or
+        filename completion, depending on position and format of
+        the completion word.
+        """
         if line[0:begidx].strip() in ('!', 'shell'):
-            if not text.startswith('~') and (os.sep not in text):
+            if not text.startswith('~') and os.sep not in text:
                 return self.completecommand(text)
         return self.completefilename(text)
 
