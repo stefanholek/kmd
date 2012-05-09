@@ -22,7 +22,7 @@ class Kmd(cmd.Cmd, object):
     This is a subclass of the standard library's :class:`cmd.Cmd <py:cmd.Cmd>` class,
     using the new :mod:`rl <rl:rl>` bindings for GNU Readline. The standard
     library documentation applies unless noted otherwise.
-    Differences include:
+    Changes include:
 
     #. :class:`~kmd.Kmd` is a new-style class.
     #. The :class:`~kmd.Kmd` constructor accepts an additional 'stderr' argument; all error
