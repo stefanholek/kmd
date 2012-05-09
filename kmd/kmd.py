@@ -12,6 +12,8 @@ from completions.quoting import QUOTE_CHARACTERS
 from completions.quoting import WORD_BREAK_CHARACTERS
 from completions.quoting import FILENAME_QUOTE_CHARACTERS
 from completions.quoting import char_is_quoted
+from completions.quoting import is_fully_quoted
+from completions.quoting import backslash_quote
 
 
 class Kmd(cmd.Cmd, object):
@@ -330,7 +332,15 @@ class Kmd(cmd.Cmd, object):
             args = sys.argv[1:]
 
         if args:
-            line = ' '.join(args)
+            # Unfortunately Python has already picked apart the command line;
+            # put it back together:
+            completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
+            line = []
+            for arg in args:
+                if not is_fully_quoted(arg):
+                    arg = backslash_quote(arg)
+                line.append(arg)
+            line = ' '.join(line)
             line = self.precmd(line)
             stop = self.onecmd(line)
             self.postcmd(stop, line)
