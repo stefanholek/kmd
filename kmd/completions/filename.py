@@ -79,7 +79,7 @@ def quote_filename(text, single_match=True, quote_char=''):
 
 def backslash_quote_filename(text, single_match=True, quote_char=''):
     """Return a backslash-quoted version of 'text'.
-    If a 'quote_char' is given, behave like :func:`quote_filename`.
+    If a 'quote_char' is given, behave like :func:`~kmd.completions.filename.quote_filename`.
     """
     if text:
         # If the user has typed a quote character, use it.

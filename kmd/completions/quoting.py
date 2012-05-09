@@ -136,7 +136,7 @@ def quote_string(text, single_match=True, quote_char=''):
 
 def backslash_quote_string(text, single_match=True, quote_char=''):
     """Return a backslash-quoted version of 'text'.
-    If a 'quote_char' is given, behave like :func:`quote_string`.
+    If a 'quote_char' is given, behave like :func:`~kmd.completions.quoting.quote_string`.
     """
     if text:
         # If the user has typed a quote character, use it.
