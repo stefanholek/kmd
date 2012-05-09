@@ -49,6 +49,8 @@ def backslash_dequote(text, chars=''):
 def backslash_quote(text, chars=''):
     """Backslash-quote 'text'.
     If 'chars' is given, only characters in 'chars' are quoted.
+    Otherwise, all :attr:`rl.completer.filename_quote_characters <rl:rl.Completer.filename_quote_characters>`
+    are quoted.
     """
     for c in (chars or completer.filename_quote_characters):
         text = text.replace(c, QUOTED[c])
