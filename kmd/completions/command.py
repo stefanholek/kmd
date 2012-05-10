@@ -7,8 +7,7 @@ class CommandCompletion(object):
     """Complete names of commands on the system PATH."""
 
     def __init__(self):
-        """Configure the readline completer.
-        """
+        """Configure the readline completer."""
 
     def __call__(self, text):
         """Return executables matching 'text'.

@@ -56,8 +56,10 @@ def backslash_quote(text, chars=''):
 
 
 def is_fully_quoted(text):
-    """Return true if all :attr:`rl.completer.filename_quote_characters`
-    in 'text' are backslash-quoted."""
+    """Return True if all
+    :attr:`rl.completer.filename_quote_characters <rl:rl.Completer.filename_quote_characters>`
+    in 'text' are backslash-quoted.
+    """
     skip_next = False
     size = len(text)
     for i in range(size):
@@ -74,7 +76,7 @@ def is_fully_quoted(text):
 
 
 def char_is_quoted(text, index):
-    """Return true if the character at 'index' is quoted."""
+    """Return True if the character at 'index' is quoted."""
     skip_next = False
     quote_char = ''
     for i in range(index):
@@ -116,7 +118,7 @@ def quote_string(text, single_match=True, quote_char=''):
     """Return a quote-char quoted version of 'text'.
     If 'single_match' is False, the quotes are not closed.
     The default 'quote_char' is the first character in
-    :attr:`rl.completer.quote_characters`.
+    :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
     """
     if text:
         qc = quote_char or completer.quote_characters[0]
@@ -136,7 +138,7 @@ def quote_string(text, single_match=True, quote_char=''):
 
 def backslash_quote_string(text, single_match=True, quote_char=''):
     """Return a backslash-quoted version of 'text'.
-    If a 'quote_char' is given, behave like :func:`quote_string`.
+    If a 'quote_char' is given, behave like :func:`~kmd.completions.quoting.quote_string`.
     """
     if text:
         # If the user has typed a quote character, use it.
