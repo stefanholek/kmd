@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2 - Unreleased
+2.2 - 2012-05-10
 ----------------
 
 - String and filename quoting was not respected when *Kmd.run*
@@ -9,6 +9,9 @@ Changelog
   [stefan]
 
 - Switch to a happier looking Sphinx theme.
+  [stefan]
+
+- Require rl >= 2.2.
   [stefan]
 
 
