@@ -346,8 +346,8 @@ class Kmd(cmd.Cmd, object):
 
     def rejoin(self, args):
         """Rejoin command line arguments."""
-        line = []
         completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
+        line = []
         for arg in args:
             if not is_fully_quoted(arg):
                 arg = backslash_quote(arg)
