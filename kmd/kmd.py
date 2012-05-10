@@ -12,20 +12,20 @@ from completions.quoting import QUOTE_CHARACTERS
 from completions.quoting import WORD_BREAK_CHARACTERS
 from completions.quoting import FILENAME_QUOTE_CHARACTERS
 from completions.quoting import char_is_quoted
+from completions.quoting import is_fully_quoted
+from completions.quoting import backslash_quote
 
 
 class Kmd(cmd.Cmd, object):
-    """Replacement for cmd.Cmd.
+    """Interpreter base class.
 
-    This is a subclass of the standard library's `cmd.Cmd`_ class,
-    using the new rl_ bindings for GNU Readline. The standard
-    library documentation applies unless noted otherwise. Applications must
-    use this base class instead of cmd.Cmd to use rl features.
-
+    This is a subclass of the standard library's :class:`cmd.Cmd <py:cmd.Cmd>` class,
+    using the new :mod:`rl <rl:rl>` bindings for GNU Readline. The standard
+    library documentation applies unless noted otherwise.
     Changes include:
 
-    #. Kmd is a new-style class.
-    #. The Kmd constructor accepts an additional 'stderr' argument; all error
+    #. :class:`~kmd.Kmd` is a new-style class.
+    #. The :class:`~kmd.Kmd` constructor accepts an additional 'stderr' argument; all error
        messages are printed to 'stderr'.
     #. :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop` are no longer stubs but contain important
        code bits. Subclasses must make sure to call their parents' implementations.
@@ -43,9 +43,6 @@ class Kmd(cmd.Cmd, object):
 
         class MyShell(kmd.Kmd):
             ...
-
-    .. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
-    .. _rl: http://pypi.python.org/pypi/rl
     """
 
     prompt = '(Kmd) '
@@ -143,7 +140,8 @@ class Kmd(cmd.Cmd, object):
                 completer.reset()
 
     def input(self, prompt):
-        """Read a line from the keyboard using :func:`raw_input` (:func:`input` in Python 3).
+        """Read a line from the keyboard using :func:`raw_input() <py:raw_input>`
+        (:func:`input() <py3k:input>` in Python 3).
         When the user presses the TAB key, invoke the readline completer.
         """
         return raw_input(prompt)
@@ -155,7 +153,7 @@ class Kmd(cmd.Cmd, object):
 
         If a command has not been entered, complete against the command list.
         Otherwise try to call complete_<command> to get a list of completions.
-        Installed as :attr:`rl.completer.completer`.
+        Installed as :attr:`rl.completer.completer <rl:rl.Completer.completer>`.
         """
         if state == 0:
             origline = completion.line_buffer
@@ -185,7 +183,7 @@ class Kmd(cmd.Cmd, object):
         """word_break_hook(begidx, endidx)
         When completing '?<topic>' make sure '?' is a word break character.
         Ditto for '!<command>'.
-        Installed as :attr:`rl.completer.word_break_hook`.
+        Installed as :attr:`rl.completer.word_break_hook <rl:rl.Completer.word_break_hook>`.
         """
         # This has a flaw as we cannot complete names that contain
         # the new word break character.
@@ -201,8 +199,8 @@ class Kmd(cmd.Cmd, object):
         """Interpret a command line.
 
         This may be overridden, but should not normally need to be;
-        see the :meth:`precmd` and :meth:`postcmd` methods for useful
-        execution hooks.
+        see the :meth:`precmd() <py:cmd.Cmd.precmd>` and :meth:`postcmd() <py:cmd.Cmd.postcmd>`
+        methods for useful execution hooks.
         The return value is a flag indicating whether interpretation of
         commands by the interpreter should stop.
 
@@ -334,7 +332,7 @@ class Kmd(cmd.Cmd, object):
             args = sys.argv[1:]
 
         if args:
-            line = ' '.join(args)
+            line = self.rejoin(args)
             line = self.precmd(line)
             stop = self.onecmd(line)
             self.postcmd(stop, line)
@@ -345,6 +343,16 @@ class Kmd(cmd.Cmd, object):
                 self.stdout.write('\n')
                 return 1
         return 0
+
+    def rejoin(self, args):
+        """Rejoin command line arguments."""
+        completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
+        line = []
+        for arg in args:
+            if not is_fully_quoted(arg):
+                arg = backslash_quote(arg)
+            line.append(arg)
+        return ' '.join(line)
 
     def __getattr__(self, name):
         """Expand aliases and incomplete command names."""

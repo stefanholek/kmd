@@ -7,8 +7,7 @@ class UsernameCompletion(object):
     """Complete user names."""
 
     def __init__(self):
-        """Configure the readline completer.
-        """
+        """Configure the readline completer."""
 
     def __call__(self, text):
         """Return user names matching 'text'.

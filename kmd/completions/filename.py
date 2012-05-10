@@ -52,7 +52,7 @@ def quote_filename(text, single_match=True, quote_char=''):
     """Return a quote-char quoted version of 'text'.
     If 'single_match' is False, the quotes are not closed.
     The default 'quote_char' is the first character in
-    :attr:`rl.completer.quote_characters`.
+    :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
     """
     if text:
         qc = quote_char or completer.quote_characters[0]
@@ -79,7 +79,7 @@ def quote_filename(text, single_match=True, quote_char=''):
 
 def backslash_quote_filename(text, single_match=True, quote_char=''):
     """Return a backslash-quoted version of 'text'.
-    If a 'quote_char' is given, behave like :func:`quote_filename`.
+    If a 'quote_char' is given, behave like :func:`~kmd.completions.filename.quote_filename`.
     """
     if text:
         # If the user has typed a quote character, use it.
@@ -92,8 +92,6 @@ def backslash_quote_filename(text, single_match=True, quote_char=''):
 
 class FilenameCompletion(object):
     """Complete file and directory names.
-    Extends readline's built-in filename completion by taking
-    care of backslash-quoted characters.
     The 'quote_char' argument specifies the preferred quoting style.
     Available styles are single-quote, double-quote, and backslash (the default).
     """
@@ -133,15 +131,15 @@ class FilenameCompletion(object):
     @print_exc
     def char_is_quoted(self, text, index):
         """char_is_quoted(text, index)
-        Return true if the character at 'index' is quoted.
-        Installed as :attr:`rl.completer.char_is_quoted_function`.
+        Return True if the character at 'index' is quoted.
+        Installed as :attr:`rl.completer.char_is_quoted_function <rl:rl.Completer.char_is_quoted_function>`.
         """
         return char_is_quoted(text, index)
 
     def dequote_filename(self, text, quote_char):
         """dequote_filename(text, quote_char)
         Return a backslash-dequoted version of 'text'.
-        Installed as :attr:`rl.completer.filename_dequoting_function`.
+        Installed as :attr:`rl.completer.filename_dequoting_function <rl:rl.Completer.filename_dequoting_function>`.
         """
         return dequote_filename(text, quote_char)
 
@@ -149,7 +147,8 @@ class FilenameCompletion(object):
     def quote_filename(self, text, single_match, quote_char):
         """quote_filename(text, single_match, quote_char)
         Return a quote-char quoted version of 'text'.
-        Installed as :attr:`rl.completer.filename_quoting_function`.
+        Installed as :attr:`rl.completer.filename_quoting_function <rl:rl.Completer.filename_quoting_function>`
+        if the preferred quoting style is single- or double-quote.
         """
         return quote_filename(text, single_match, quote_char)
 
@@ -157,7 +156,8 @@ class FilenameCompletion(object):
     def backslash_quote_filename(self, text, single_match, quote_char):
         """backslash_quote_filename(text, single_match, quote_char)
         Return a backslash-quoted version of 'text'.
-        Installed as :attr:`rl.completer.filename_quoting_function`.
+        Installed as :attr:`rl.completer.filename_quoting_function <rl:rl.Completer.filename_quoting_function>`
+        if the preferred quoting style is backslash (the default).
         """
         return backslash_quote_filename(text, single_match, quote_char)
 
