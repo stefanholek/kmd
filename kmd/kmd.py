@@ -6,7 +6,6 @@ import cmd
 from rl import completer
 from rl import completion
 from rl import history
-from rl import print_exc
 
 from completions.quoting import QUOTE_CHARACTERS
 from completions.quoting import WORD_BREAK_CHARACTERS
@@ -146,7 +145,6 @@ class Kmd(cmd.Cmd, object):
         """
         return raw_input(prompt)
 
-    @print_exc
     def complete(self, text, state):
         """complete(text, state)
         Return the next possible completion for 'text'.
@@ -178,7 +176,6 @@ class Kmd(cmd.Cmd, object):
         except StopIteration:
             return None
 
-    @print_exc
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(begidx, endidx)
         When completing '?<topic>' make sure '?' is a word break character.

@@ -6,7 +6,6 @@ import unicodedata
 
 from rl import completer
 from rl import completion
-from rl import print_exc
 
 from quoting import QUOTE_CHARACTERS
 from quoting import BASH_QUOTE_CHARACTERS
@@ -128,7 +127,6 @@ class FilenameCompletion(object):
                 matches = [compose(x) for x in matches]
         return matches
 
-    @print_exc
     def char_is_quoted(self, text, index):
         """char_is_quoted(text, index)
         Return True if the character at 'index' is quoted.
@@ -143,7 +141,6 @@ class FilenameCompletion(object):
         """
         return dequote_filename(text, quote_char)
 
-    @print_exc
     def quote_filename(self, text, single_match, quote_char):
         """quote_filename(text, single_match, quote_char)
         Return a quote-char quoted version of 'text'.
@@ -152,7 +149,6 @@ class FilenameCompletion(object):
         """
         return quote_filename(text, single_match, quote_char)
 
-    @print_exc
     def backslash_quote_filename(self, text, single_match, quote_char):
         """backslash_quote_filename(text, single_match, quote_char)
         Return a backslash-quoted version of 'text'.
