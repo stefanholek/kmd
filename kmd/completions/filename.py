@@ -131,7 +131,7 @@ class FilenameCompletion(object):
     @print_exc
     def char_is_quoted(self, text, index):
         """char_is_quoted(text, index)
-        Return true if the character at 'index' is quoted.
+        Return True if the character at 'index' is quoted.
         Installed as :attr:`rl.completer.char_is_quoted_function <rl:rl.Completer.char_is_quoted_function>`.
         """
         return char_is_quoted(text, index)

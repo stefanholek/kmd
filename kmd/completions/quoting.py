@@ -58,7 +58,7 @@ def backslash_quote(text, chars=''):
 
 
 def is_fully_quoted(text):
-    """Return true if all
+    """Return True if all
     :attr:`rl.completer.filename_quote_characters <rl:rl.Completer.filename_quote_characters>`
     in 'text' are backslash-quoted."""
     skip_next = False
@@ -77,7 +77,7 @@ def is_fully_quoted(text):
 
 
 def char_is_quoted(text, index):
-    """Return true if the character at 'index' is quoted."""
+    """Return True if the character at 'index' is quoted."""
     skip_next = False
     quote_char = ''
     for i in range(index):
