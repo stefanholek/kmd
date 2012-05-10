@@ -332,15 +332,7 @@ class Kmd(cmd.Cmd, object):
             args = sys.argv[1:]
 
         if args:
-            # Unfortunately Python has already picked apart the command line;
-            # put it back together:
-            completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
-            line = []
-            for arg in args:
-                if not is_fully_quoted(arg):
-                    arg = backslash_quote(arg)
-                line.append(arg)
-            line = ' '.join(line)
+            line = self.rejoin(args)
             line = self.precmd(line)
             stop = self.onecmd(line)
             self.postcmd(stop, line)
@@ -351,6 +343,16 @@ class Kmd(cmd.Cmd, object):
                 self.stdout.write('\n')
                 return 1
         return 0
+
+    def rejoin(self, args):
+        """Rejoin command line arguments."""
+        line = []
+        completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
+        for arg in args:
+            if not is_fully_quoted(arg):
+                arg = backslash_quote(arg)
+            line.append(arg)
+        return ' '.join(line)
 
     def __getattr__(self, name):
         """Expand aliases and incomplete command names."""
