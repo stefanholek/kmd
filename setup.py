@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '2.1.2'
+version = '2.3'
 
 
 setup(name='kmd',
@@ -29,6 +29,6 @@ setup(name='kmd',
       test_suite='kmd.tests',
       install_requires=[
           'setuptools',
-          'rl > 2.0',
+          'rl >= 2.2',
       ],
 )
