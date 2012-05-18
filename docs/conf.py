@@ -247,7 +247,7 @@ class Mock(object):
         else:
             return Mock()
 
-MOCK_MODULES = ['readline', 'rl.readline']
+MOCK_MODULES = ['readline', 'rl']
 
 if os.environ.get('READTHEDOCS'):
     for mod_name in MOCK_MODULES:
