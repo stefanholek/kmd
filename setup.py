@@ -30,6 +30,6 @@ setup(name='kmd',
       test_suite='kmd.tests',
       install_requires=[
           'setuptools',
-          'rl >= 2.2',
+          'rl >= 2.4',
       ],
 )
