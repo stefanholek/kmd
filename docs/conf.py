@@ -224,5 +224,5 @@ man_pages = [
 intersphinx_mapping = {
     'rl': ('http://packages.python.org/rl', None),
     'py': ('http://docs.python.org', 'http://docs.python.org/2.7/objects.inv'),
-    'py3k': ('http://docs.python.org/py3k', 'http://docs.python.org/3.2/objects.inv'),
+    'py3k': ('http://docs.python.org/py3k', 'http://docs.python.org/3.3/objects.inv'),
 }
