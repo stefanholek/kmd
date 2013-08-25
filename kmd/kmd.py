@@ -120,6 +120,7 @@ class Kmd(cmd.Cmd, object):
                 completer.reset()
                 completer.quote_characters = QUOTE_CHARACTERS
                 completer.word_break_characters = WORD_BREAK_CHARACTERS
+                completer.special_prefixes = ''
                 completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
                 completer.char_is_quoted_function = char_is_quoted
                 completer.word_break_hook = self.word_break_hook
