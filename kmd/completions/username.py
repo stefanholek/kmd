@@ -1,4 +1,4 @@
-"""User name completion."""
+"""Username completion."""
 
 from rl import completion
 

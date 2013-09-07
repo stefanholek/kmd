@@ -1,5 +1,5 @@
 ==========================================
-String Quoting
+String and Filename Quoting
 ==========================================
 
 .. automodule:: kmd.completions.quoting
@@ -11,4 +11,8 @@ String Quoting
 .. autofunction:: kmd.completions.quoting.dequote_string
 .. autofunction:: kmd.completions.quoting.quote_string
 .. autofunction:: kmd.completions.quoting.backslash_quote_string
+
+.. autofunction:: kmd.completions.quoting.dequote_filename
+.. autofunction:: kmd.completions.quoting.quote_filename
+.. autofunction:: kmd.completions.quoting.backslash_quote_filename
 

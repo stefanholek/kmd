@@ -4,7 +4,7 @@ Completions
 
 .. automodule:: kmd.completions
 
-Available Completions
+Built-in Completions
 =====================
 
 .. toctree::
@@ -16,13 +16,12 @@ Available Completions
    environment-completion
    command-completion
 
-Quoting and Dequoting
+Quoting Support
 =====================
 
 .. toctree::
    :maxdepth: 2
 
    quoting
-   filename-quoting
    constants
 

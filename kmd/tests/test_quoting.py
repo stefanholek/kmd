@@ -19,10 +19,9 @@ from kmd.completions.quoting import char_is_quoted
 from kmd.completions.quoting import dequote_string
 from kmd.completions.quoting import quote_string
 from kmd.completions.quoting import backslash_quote_string
-
-from kmd.completions.filename import dequote_filename
-from kmd.completions.filename import quote_filename
-from kmd.completions.filename import backslash_quote_filename
+from kmd.completions.quoting import dequote_filename
+from kmd.completions.quoting import quote_filename
+from kmd.completions.quoting import backslash_quote_filename
 
 TAB = '\t'
 

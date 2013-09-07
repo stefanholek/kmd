@@ -1,4 +1,4 @@
-"""Host name completion."""
+"""Hostname completion."""
 
 import os
 

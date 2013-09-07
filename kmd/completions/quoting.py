@@ -1,4 +1,7 @@
-"""String quoting and dequoting support."""
+"""String and filename quoting support."""
+
+import os
+import sys
 
 from rl import completer
 from rl import completion
@@ -144,6 +147,64 @@ def backslash_quote_string(text, single_match=True, quote_char=''):
         # If the user has typed a quote character, use it.
         if quote_char:
             text = quote_string(text, single_match, quote_char)
+        else:
+            text = backslash_quote(text)
+    return text
+
+
+def dequote_filename(text, quote_char=''):
+    """Return a backslash-dequoted version of 'text'.
+    If 'quote_char' is the single-quote, backslash-dequoting is
+    limited to single-quotes.
+    """
+    if len(text) > 1:
+        qc = quote_char
+        # Don't backslash-dequote characters between single-quotes,
+        # except single-quotes.
+        if qc == "'":
+            text = text.replace("'\\''", "'")
+        elif '\\' in text:
+            text = backslash_dequote(text)
+    return text
+
+
+def quote_filename(text, single_match=True, quote_char=''):
+    """Return a quote-char quoted version of 'text'.
+    If 'single_match' is False, the quotes are not closed.
+    The default 'quote_char' is the first character in
+    :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
+    """
+    if text:
+        qc = quote_char or completer.quote_characters[0]
+        # Don't backslash-quote backslashes between single quotes
+        if qc == "'":
+            text = text.replace("'", "'\\''")
+        else:
+            text = backslash_quote(text, '\\'+qc)
+        # Don't add quotes if the filename is already fully quoted
+        if qc == "'" or quote_char or not is_fully_quoted(text):
+            # Quoting inhibits tilde-expansion by the shell so we
+            # must expand any tildes before adding quotes
+            if text.startswith('~') and not quote_char:
+                text = completion.expand_tilde(text)
+            if single_match:
+                # Don't append closing quotes to directory names
+                if os.path.isdir(os.path.expanduser(text)):
+                    completion.suppress_quote = True
+                if not completion.suppress_quote:
+                    text = text + qc
+            text = qc + text
+    return text
+
+
+def backslash_quote_filename(text, single_match=True, quote_char=''):
+    """Return a backslash-quoted version of 'text'.
+    If a 'quote_char' is given, behave like :func:`~kmd.completions.quoting.quote_filename`.
+    """
+    if text:
+        # If the user has typed a quote character, use it.
+        if quote_char:
+            text = quote_filename(text, single_match, quote_char)
         else:
             text = backslash_quote(text)
     return text
