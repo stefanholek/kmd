@@ -107,7 +107,7 @@ Example Code
 For further details please refer to the `API Documentation`_.
 Also see gpgkeys_, a front-end for GnuPG built entirely around tab completion.
 
-.. _`API Documentation`: http://packages.python.org/kmd
+.. _`API Documentation`: http://pythonhosted.org/kmd
 .. _gpgkeys: http://pypi.python.org/pypi/gpgkeys
 
 Development
