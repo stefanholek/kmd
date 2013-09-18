@@ -4,6 +4,12 @@ Changelog
 2.3 - Unreleased
 ----------------
 
+- Stop using *rl.completer.reset* because it overrides ~/.inputrc.
+  [stefan]
+
+- Require rl >= 2.5.
+  [stefan]
+
 
 2.2 - 2012-05-10
 ----------------

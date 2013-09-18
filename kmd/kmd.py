@@ -117,9 +117,10 @@ class Kmd(cmd.Cmd, object):
                 history.read_file(self.history_file)
 
             if self.completekey:
-                completer.reset()
+                self._clear_completer_callbacks()
                 completer.quote_characters = QUOTE_CHARACTERS
                 completer.word_break_characters = WORD_BREAK_CHARACTERS
+                completer.special_prefixes = ''
                 completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
                 completer.char_is_quoted_function = char_is_quoted
                 completer.word_break_hook = self.word_break_hook
@@ -137,7 +138,7 @@ class Kmd(cmd.Cmd, object):
                 history.write_file(self.history_file)
 
             if self.completekey:
-                completer.reset()
+                self._clear_completer_callbacks()
 
     def input(self, prompt):
         """Read a line from the keyboard using :func:`raw_input() <py:raw_input>`
@@ -372,6 +373,19 @@ class Kmd(cmd.Cmd, object):
         if len(expanded) == 1:
             return getattr(self, expanded.pop())
         raise AttributeError(name)
+
+    def _clear_completer_callbacks(self):
+        """Clear completer callbacks and hooks."""
+        completer.completer = None
+        completer.startup_hook = None
+        completer.pre_input_hook = None
+        completer.word_break_hook = None
+        completer.directory_completion_hook = None
+        completer.display_matches_hook = None
+        completer.char_is_quoted_function = None
+        completer.filename_quoting_function = None
+        completer.filename_dequoting_function = None
+        completer.ignore_some_completions_function = None
 
 
 def main(args=None):

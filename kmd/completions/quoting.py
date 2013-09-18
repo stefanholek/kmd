@@ -12,7 +12,7 @@ BASH_QUOTE_CHARACTERS = "'\""
 #: Word break characters used by Bash.
 BASH_COMPLETER_WORD_BREAK_CHARACTERS = " \t\n\"'@><;|&=(:"
 
-#: Word break characters used by Bash when hostname completion is disabled.
+#: Word break characters used by Bash with hostname completion off.
 BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS = " \t\n\"'><;|&=(:"
 
 #: Filename quote characters used by Bash.
@@ -24,13 +24,13 @@ BASH_COMMAND_SEPARATORS = ";|&{(`"
 #: Whitespace characters used by Bash.
 BASH_WHITESPACE_CHARACTERS = " \t\n"
 
-#: Quote characters used by kmd.
+#: Quote characters used by kmd. These characters are used in pairs to quote substrings of the line.
 QUOTE_CHARACTERS = "\"'"
 
-#: Word break characters used by kmd.
+#: Word break characters used by kmd. These characters define word boundaries.
 WORD_BREAK_CHARACTERS = BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS[:-3]
 
-#: Filename quote characters used by kmd.
+#: Filename quote characters used by kmd. These characters are quoted when they occur in filenames.
 FILENAME_QUOTE_CHARACTERS = BASH_FILENAME_QUOTE_CHARACTERS[:-1]
 
 # BBB
