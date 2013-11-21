@@ -27,8 +27,7 @@ following ways:
    Alias names apply to all *do_*, *complete_*, and *help_* attributes.
 
 5. Lines starting with '#' are treated as comments. The new *comment* method
-   is invoked, receiving the line as argument. By default this method clears
-   the *lastcmd*.
+   is invoked, receiving the line as argument.
 
 6. It is now possible to configure the *shell_escape_chars*.
    The default is '!'.
@@ -84,18 +83,22 @@ Example Code
 
     class MyShell(kmd.Kmd):
 
+        prompt = 'myshell> '
+
         def preloop(self):
             super(MyShell, self).preloop()
             self.completefilename = FilenameCompletion()
             self.completeenviron = EnvironmentCompletion()
 
         def do_cat(self, args):
+            """Execute the system cat command."""
             os.system('cat ' + args)
 
         def complete_cat(self, text, *ignored):
             return self.completefilename(text)
 
         def do_echo(self, args):
+            """Execute the system echo command."""
             os.system('echo ' + args)
 
         def complete_echo(self, text, *ignored):
@@ -108,15 +111,15 @@ For further details please refer to the `API Documentation`_.
 Also see gpgkeys_, a front-end for GnuPG built entirely around tab completion.
 
 .. _`API Documentation`: http://pythonhosted.org/kmd
-.. _gpgkeys: http://pypi.python.org/pypi/gpgkeys
+.. _gpgkeys: https://pypi.python.org/pypi/gpgkeys
 
 Development
 -----------
 
 kmd development is hosted on GitHub_ where it also has an `issue tracker`_.
 
-.. _GitHub: http://github.com/stefanholek/kmd
-.. _`issue tracker`: http://github.com/stefanholek/kmd/issues
+.. _GitHub: https://github.com/stefanholek/kmd
+.. _`issue tracker`: https://github.com/stefanholek/kmd/issues
 
 Installation
 ============
@@ -131,5 +134,5 @@ To install the ``kmd`` package, type::
 
     easy_install kmd
 
-.. _rl: http://pypi.python.org/pypi/rl
-.. _`installation instructions`: http://pypi.python.org/pypi/rl#installation
+.. _rl: https://pypi.python.org/pypi/rl
+.. _`installation instructions`: https://pypi.python.org/pypi/rl#installation
