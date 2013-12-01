@@ -68,8 +68,10 @@ class Kmd(cmd.Cmd, object):
             self.stderr = sys.stderr
 
         self.aliases = {'?': 'help'}
-        for char in self.shell_escape_chars:
-            self.aliases[char] = 'shell'
+
+        if hasattr(self, 'do_shell'):
+            for char in self.shell_escape_chars:
+                self.aliases[char] = 'shell'
 
     def cmdloop(self, intro=None):
         """Repeatedly issue a prompt, accept input, parse an initial prefix
