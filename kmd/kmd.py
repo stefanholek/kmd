@@ -29,11 +29,11 @@ class Kmd(cmd.Cmd, object):
        messages are printed to 'stderr'.
     #. :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop` are no longer stubs but contain important
        code bits. Subclasses must make sure to call their parents' implementations.
-    #. New methods: :meth:`~kmd.Kmd.input`, :meth:`~kmd.Kmd.comment`, :meth:`~kmd.Kmd.help`,
-       :meth:`~kmd.Kmd.run`, and :meth:`~kmd.Kmd.word_break_hook`.
+    #. New methods: :meth:`~kmd.Kmd.input`, :meth:`~kmd.Kmd.word_break_hook`, :meth:`~kmd.Kmd.comment`,
+       :meth:`~kmd.Kmd.help`, and :meth:`~kmd.Kmd.run`.
     #. Incomplete command names are automatically expanded if they are unique.
     #. Command aliases can be defined by overriding :meth:`~kmd.Kmd.__init__` and extending
-       the 'aliases' dictionary.
+       the :attr:`~kmd.Kmd.aliases` dictionary.
     #. :meth:`help_*` methods optionally receive the help topic as argument.
     #. :meth:`complete_*` methods may return any kind of iterable, not just lists.
 
@@ -183,7 +183,7 @@ class Kmd(cmd.Cmd, object):
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(begidx, endidx)
         When completing '?<topic>' make sure '?' is a word break character.
-        Ditto for '!<command>'.
+        Ditto for '!<command>' and '!'.
         Installed as :attr:`rl.completer.word_break_hook <rl:rl.Completer.word_break_hook>`.
         """
         # This has a flaw as we cannot complete names that contain
@@ -251,9 +251,15 @@ class Kmd(cmd.Cmd, object):
         cmd, arg = line[:i], line[i:].strip()
         return cmd, arg, line
 
+    def emptyline(self):
+        """Called when the input line is empty.
+        By default repeats the :attr:`lastcmd <kmd.Kmd.lastcmd>`.
+        """
+        super(Kmd, self).emptyline()
+
     def comment(self, line):
         """Called when the input line starts with a '#'.
-        By default clears the lastcmd.
+        By default clears the :attr:`lastcmd <kmd.Kmd.lastcmd>`.
         """
         self.lastcmd = ''
 
