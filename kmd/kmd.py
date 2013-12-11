@@ -151,6 +151,23 @@ class Kmd(cmd.Cmd, object):
         return raw_input(prompt)
 
     @print_exc
+    def word_break_hook(self, begidx, endidx):
+        """word_break_hook(begidx, endidx)
+        When completing '?<topic>' make sure '?' is a word break character.
+        Ditto for '!<command>' and '!'.
+        Installed as :attr:`rl.completer.word_break_hook <rl:rl.Completer.word_break_hook>`.
+        """
+        # This has a flaw as we cannot complete names that contain
+        # the new word break character.
+        origline = completion.line_buffer
+        line = origline.lstrip()
+        stripped = len(origline) - len(line)
+        if begidx - stripped == 0:
+            if line[0] == '?' or line[0] in self.shell_escape_chars:
+                if line[0] not in completer.word_break_characters:
+                    return line[0] + completer.word_break_characters
+
+    @print_exc
     def complete(self, text, state):
         """complete(text, state)
         Return the next possible completion for 'text'.
@@ -181,23 +198,6 @@ class Kmd(cmd.Cmd, object):
             return self.completion_matches.next()
         except StopIteration:
             return None
-
-    @print_exc
-    def word_break_hook(self, begidx, endidx):
-        """word_break_hook(begidx, endidx)
-        When completing '?<topic>' make sure '?' is a word break character.
-        Ditto for '!<command>' and '!'.
-        Installed as :attr:`rl.completer.word_break_hook <rl:rl.Completer.word_break_hook>`.
-        """
-        # This has a flaw as we cannot complete names that contain
-        # the new word break character.
-        origline = completion.line_buffer
-        line = origline.lstrip()
-        stripped = len(origline) - len(line)
-        if begidx - stripped == 0:
-            if line[0] == '?' or line[0] in self.shell_escape_chars:
-                if line[0] not in completer.word_break_characters:
-                    return line[0] + completer.word_break_characters
 
     def onecmd(self, line):
         """Interpret a command line.
@@ -337,6 +337,8 @@ class Kmd(cmd.Cmd, object):
         """Run the Kmd.
 
         If 'args' is None, it defaults to sys.argv[1:].
+        If arguments are present they are executed via :meth:`~kmd.Kmd.onecmd`.
+        Without arguments, enters the :meth:`~kmd.Kmd.cmdloop`.
         """
         if args is None:
             args = sys.argv[1:]
