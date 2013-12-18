@@ -30,8 +30,7 @@ Kmd Class
 
 .. autoattribute:: kmd.Kmd.history_max_entries
 
-    A positive integer value limits the history size. A negative value means
-    no limit. If set to None, the history size is left unchanged.
+    A positive integer value limits the history size.
 
 .. automethod:: kmd.Kmd.cmdloop
 .. automethod:: kmd.Kmd.preloop

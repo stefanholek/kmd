@@ -49,7 +49,7 @@ class Kmd(cmd.Cmd, object):
     alias_header = 'Command aliases (type help <topic>):'
     shell_escape_chars = '!'
     history_file = ''
-    history_max_entries = None
+    history_max_entries = -1
 
     def __init__(self, completekey='TAB', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
@@ -113,7 +113,7 @@ class Kmd(cmd.Cmd, object):
         readline completer and loads the history file.
         """
         if self.use_rawinput:
-            if self.history_max_entries is not None:
+            if self.history_max_entries >= 0:
                 history.max_entries = self.history_max_entries
 
             if self.history_file:
