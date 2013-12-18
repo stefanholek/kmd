@@ -21,11 +21,12 @@ Kmd Class
 
 .. autoattribute:: kmd.Kmd.help_escape_chars
 
-    Special, single-character aliases for :meth:`do_help`.
+    Special, single-character aliases for :meth:`~kmd.Kmd.do_help`.
 
 .. autoattribute:: kmd.Kmd.shell_escape_chars
 
-    Special, single-character aliases for :meth:`do_shell`.
+    Special, single-character aliases for :meth:`~kmd.Kmd.do_shell`, if
+    defined.
 
 .. autoattribute:: kmd.Kmd.history_file
 
@@ -52,9 +53,10 @@ Kmd Class
 
     Print the help screen for 'topic'.
 
-    If there is a help_<topic> method for the help topic, that method is called
-    with the (unexpanded) topic as argument. Otherwise, and if 'topic' is a command,
-    the docstring of the corresponding do_<command> method is used.
+    If there is a help_<topic> method for the help topic, that method is
+    called, with the (unexpanded) topic as argument. Otherwise, and if
+    'topic' is a command, the docstring of the corresponding do_<command>
+    method is used.
     If 'topic' is empty, the :meth:`~kmd.Kmd.help` method is invoked.
 
 .. automethod:: kmd.Kmd.help
