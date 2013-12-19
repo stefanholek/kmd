@@ -166,7 +166,8 @@ class Kmd(cmd.Cmd, object):
         origline = completion.line_buffer
         line = origline.lstrip()
         stripped = len(origline) - len(line)
-        if begidx - stripped == 0:
+        begidx = begidx - stripped
+        if begidx == 0:
             if line[0] in self.help_escape_chars or line[0] in self.shell_escape_chars:
                 if line[0] not in completer.word_break_characters:
                     return line[0] + completer.word_break_characters
