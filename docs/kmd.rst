@@ -9,11 +9,6 @@ Kmd Class
 
 .. autoclass:: kmd.Kmd
 
-.. attribute:: Kmd.aliases
-
-    Dictionary mapping command short-cuts to their respective long forms.
-    Instance variable.
-
 .. autoattribute:: kmd.Kmd.alias_header
 
     Header for the aliases section of the default help screen.
