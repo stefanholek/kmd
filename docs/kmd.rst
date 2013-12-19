@@ -19,14 +19,9 @@ Kmd Class
     Header for the aliases section of the default help screen.
     If set to the empty string, the aliases section is omitted.
 
-.. autoattribute:: kmd.Kmd.help_escape_chars
-
-    Special, single-character aliases for :meth:`~kmd.Kmd.do_help`.
-
 .. autoattribute:: kmd.Kmd.shell_escape_chars
 
-    Special, single-character aliases for :meth:`~kmd.Kmd.do_shell`, if
-    defined.
+    Special, single-character aliases for :meth:`~kmd.Kmd.do_shell`.
 
 .. autoattribute:: kmd.Kmd.history_file
 

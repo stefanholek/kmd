@@ -47,7 +47,6 @@ class Kmd(cmd.Cmd, object):
 
     prompt = '(Kmd) '
     alias_header = 'Command aliases (type help <topic>):'
-    help_escape_chars = '?'
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
@@ -69,9 +68,7 @@ class Kmd(cmd.Cmd, object):
             self.stderr = sys.stderr
 
         # Add escape chars to aliases so they show up in help
-        self.aliases = {}
-        for char in self.help_escape_chars:
-            self.aliases[char] = 'help'
+        self.aliases = {'?': 'help'}
 
         if hasattr(self, 'do_shell'):
             for char in self.shell_escape_chars:
@@ -168,7 +165,7 @@ class Kmd(cmd.Cmd, object):
         stripped = len(origline) - len(line)
         begidx = begidx - stripped
         if begidx == 0:
-            if line[0] in self.help_escape_chars or line[0] in self.shell_escape_chars:
+            if line[0] == '?' or line[0] in self.shell_escape_chars:
                 if line[0] not in completer.word_break_characters:
                     return line[0] + completer.word_break_characters
 
@@ -246,7 +243,7 @@ class Kmd(cmd.Cmd, object):
             return None, None, line
         elif line[0] == '#':
             return None, None, line
-        elif line[0] in self.help_escape_chars:
+        elif line[0]  == '?':
             line = 'help ' + line[1:]
         elif line[0] in self.shell_escape_chars:
             if hasattr(self, 'do_shell'):
@@ -389,10 +386,6 @@ class Kmd(cmd.Cmd, object):
         if len(expanded) == 1:
             return getattr(self, expanded.pop())
         raise AttributeError(name)
-
-    def get_names(self):
-        """Return only method names."""
-        return [x for x in super(Kmd, self).get_names() if callable(getattr(self, x))]
 
     def _clear_completer_callbacks(self):
         """Clear completer callbacks and hooks."""
