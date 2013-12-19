@@ -388,6 +388,10 @@ class Kmd(cmd.Cmd, object):
             return getattr(self, expanded.pop())
         raise AttributeError(name)
 
+    def get_names(self):
+        """Return only method names."""
+        return [x for x in super(Kmd, self).get_names() if callable(getattr(self, x))]
+
     def _clear_completer_callbacks(self):
         """Clear completer callbacks and hooks."""
         completer.completer = None
