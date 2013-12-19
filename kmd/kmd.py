@@ -68,6 +68,7 @@ class Kmd(cmd.Cmd, object):
         else:
             self.stderr = sys.stderr
 
+        # Add escape chars to aliases so they show up in help
         self.aliases = {}
         for char in self.help_escape_chars:
             self.aliases[char] = 'help'
