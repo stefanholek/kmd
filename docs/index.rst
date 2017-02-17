@@ -40,7 +40,7 @@ Upstream Documentation
 
 The standard library documentation for `cmd.Cmd`_.
 
-.. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
+.. _`cmd.Cmd`: https://docs.python.org/3/library/cmd.html
 
 Indices and Tables
 ==================

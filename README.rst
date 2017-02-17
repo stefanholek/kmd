@@ -37,8 +37,8 @@ following ways:
 
 8. The new *run* method encapsulates the full execution cycle of a Kmd.
 
-.. _`cmd.Cmd`: http://docs.python.org/library/cmd.html
-.. _readline: http://docs.python.org/library/readline.html
+.. _`cmd.Cmd`: https://docs.python.org/3/library/cmd.html
+.. _readline: https://docs.python.org/3/library/readline.html
 
 Package Contents
 ----------------
@@ -109,7 +109,7 @@ Example Code
 For further details please refer to the `API Documentation`_.
 Also see gpgkeys_, a front-end for GnuPG built entirely around tab completion.
 
-.. _`API Documentation`: http://pythonhosted.org/kmd
+.. _`API Documentation`: https://pythonhosted.org/kmd
 .. _gpgkeys: https://pypi.python.org/pypi/gpgkeys
 
 Development
