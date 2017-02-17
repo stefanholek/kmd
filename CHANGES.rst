@@ -7,6 +7,9 @@ Changelog
 - Stop using *rl.completer.reset* because it overrides ~/.inputrc.
   [stefan]
 
+- Stop using 2to3 in favor of six.
+  [stefan]
+
 - Require rl >= 2.5.
   [stefan]
 
