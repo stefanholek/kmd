@@ -24,7 +24,7 @@ from .completions.quoting import backslash_quote
 class Kmd(cmd.Cmd, object):
     """Interpreter base class.
 
-    This is a subclass of the standard library's :class:`cmd.Cmd <py:cmd.Cmd>` class,
+    This is a subclass of the standard library's :class:`cmd.Cmd <py3k:cmd.Cmd>` class,
     using the new :mod:`rl <rl:rl>` bindings for GNU Readline. The standard
     library documentation applies unless noted otherwise.
     Changes include:
@@ -210,7 +210,7 @@ class Kmd(cmd.Cmd, object):
         """Interpret a command line.
 
         This may be overridden, but should not normally need to be;
-        see the :meth:`precmd() <py:cmd.Cmd.precmd>` and :meth:`postcmd() <py:cmd.Cmd.postcmd>`
+        see the :meth:`precmd() <py3k:cmd.Cmd.precmd>` and :meth:`postcmd() <py3k:cmd.Cmd.postcmd>`
         methods for useful execution hooks.
         The return value is a flag indicating whether interpretation of
         commands by the interpreter should stop.
