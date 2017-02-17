@@ -1,5 +1,7 @@
 """File and directory name completion."""
 
+from __future__ import absolute_import
+
 import os
 import sys
 import unicodedata
@@ -8,12 +10,12 @@ from rl import completer
 from rl import completion
 from rl import print_exc
 
-from quoting import QUOTE_CHARACTERS
-from quoting import BASH_QUOTE_CHARACTERS
-from quoting import char_is_quoted
-from quoting import dequote_filename
-from quoting import quote_filename
-from quoting import backslash_quote_filename
+from .quoting import QUOTE_CHARACTERS
+from .quoting import BASH_QUOTE_CHARACTERS
+from .quoting import char_is_quoted
+from .quoting import dequote_filename
+from .quoting import quote_filename
+from .quoting import backslash_quote_filename
 
 
 def decompose(text):

@@ -1,19 +1,24 @@
 """A base class for custom command interpreters."""
 
+from __future__ import absolute_import
+
 import sys
 import cmd
+
+from six import next
+from six.moves import input
 
 from rl import completer
 from rl import completion
 from rl import history
 from rl import print_exc
 
-from completions.quoting import QUOTE_CHARACTERS
-from completions.quoting import WORD_BREAK_CHARACTERS
-from completions.quoting import FILENAME_QUOTE_CHARACTERS
-from completions.quoting import char_is_quoted
-from completions.quoting import is_fully_quoted
-from completions.quoting import backslash_quote
+from .completions.quoting import QUOTE_CHARACTERS
+from .completions.quoting import WORD_BREAK_CHARACTERS
+from .completions.quoting import FILENAME_QUOTE_CHARACTERS
+from .completions.quoting import char_is_quoted
+from .completions.quoting import is_fully_quoted
+from .completions.quoting import backslash_quote
 
 
 class Kmd(cmd.Cmd, object):
@@ -149,7 +154,7 @@ class Kmd(cmd.Cmd, object):
         (:func:`input() <py3k:input>` in Python 3).
         When the user presses the TAB key, invoke the readline completer.
         """
-        return raw_input(prompt)
+        return input(prompt)
 
     @print_exc
     def word_break_hook(self, begidx, endidx):
@@ -197,7 +202,7 @@ class Kmd(cmd.Cmd, object):
                         compfunc = self.completedefault
             self.completion_matches = iter(compfunc(text, line, begidx, endidx))
         try:
-            return self.completion_matches.next()
+            return next(self.completion_matches)
         except StopIteration:
             return None
 

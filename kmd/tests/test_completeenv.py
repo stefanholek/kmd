@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+import os
 
 from rl import completion
 from rl import generator
@@ -33,6 +34,7 @@ class CompleterTests(unittest.TestCase):
         reset()
         self.cmd = TestKmd()
         self.cmd.preloop()
+        os.environ['MYSHELL'] = '/foo/bar'
 
     def complete(self, text):
         completion.line_buffer = text
@@ -40,11 +42,11 @@ class CompleterTests(unittest.TestCase):
         return completion.line_buffer
 
     def test_simple(self):
-        self.assertEqual(self.complete('SHE'), '$SHELL ')
+        self.assertEqual(self.complete('MYSH'), '$MYSHELL ')
 
     def test_with_dollar(self):
-        self.assertEqual(self.complete('$SHE'), '$SHELL ')
+        self.assertEqual(self.complete('$MYSH'), '$MYSHELL ')
 
     def test_dollar_is_delimiter(self):
-        self.assertEqual(self.complete('FOO$SHE'), 'FOO$SHELL ')
+        self.assertEqual(self.complete('FOO$MYSH'), 'FOO$MYSHELL ')
 

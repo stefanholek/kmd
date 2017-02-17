@@ -1,6 +1,6 @@
 import unittest
 
-from StringIO import StringIO
+from six import StringIO
 from kmd import Kmd
 
 
