@@ -11,4 +11,5 @@ Filename Completion
 .. automethod:: kmd.completions.filename.FilenameCompletion.dequote_filename
 .. automethod:: kmd.completions.filename.FilenameCompletion.quote_filename
 .. automethod:: kmd.completions.filename.FilenameCompletion.backslash_quote_filename
+.. automethod:: kmd.completions.filename.FilenameCompletion.compose_filename
 
