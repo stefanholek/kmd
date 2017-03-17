@@ -53,8 +53,7 @@ class FilenameCompletion(object):
             completer.filename_quoting_function = self.backslash_quote_filename
         elif quote_char != '"':
             raise ValueError('quote_char must be one of " \' \\')
-        if sys.platform == 'darwin':
-            completer.filename_rewrite_hook = self.rewrite_filename
+        completer.filename_rewrite_hook = self.rewrite_filename
 
     def __call__(self, text):
         """Return filenames matching 'text'.
@@ -106,9 +105,12 @@ class FilenameCompletion(object):
     @print_exc
     def rewrite_filename(self, text):
         """rewrite_filename(text)
-        Return fully composed UTF-8.
-        Installed as :attr:`rl.completer.filename_rewrite_hook <rl:rl.Completer.filename_rewrite_hook>`
-        on Mac OS X.
+        Return a version of 'text' suitable for comparing against the completion word.
+        Installed as :attr:`rl.completer.filename_rewrite_hook <rl:rl.Completer.filename_rewrite_hook>`.
+        E.g. on Mac OS X this converts HFS Plus UTF-8 to fully composed UTF-8.
         """
-        return compose(filename)
+        if sys.platform == 'darwin':
+            return compose(text)
+        if sys.version_info[0] >= 3:
+            return text # Force fs encoding -> locale encoding
 
