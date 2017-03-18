@@ -45,6 +45,7 @@ class FilenameCompletion(object):
         """
         completer.quote_characters = QUOTE_CHARACTERS
         completer.char_is_quoted_function = self.char_is_quoted
+        completer.filename_dequoting_function = None # We dequote manually
         completer.filename_quoting_function = self.quote_filename
         if quote_char == "'":
             completer.quote_characters = BASH_QUOTE_CHARACTERS
@@ -83,7 +84,6 @@ class FilenameCompletion(object):
     def dequote_filename(self, text, quote_char):
         """dequote_filename(text, quote_char)
         Return a backslash-dequoted version of 'text'.
-        Installed as :attr:`rl.completer.filename_dequoting_function <rl:rl.Completer.filename_dequoting_function>`.
         """
         return dequote_filename(text, quote_char)
 
