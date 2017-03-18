@@ -53,6 +53,7 @@ class FilenameCompletion(object):
             completer.filename_quoting_function = self.backslash_quote_filename
         elif quote_char != '"':
             raise ValueError('quote_char must be one of " \' \\')
+        completer.directory_rewrite_hook = self.rewrite_directory
         completer.filename_rewrite_hook = self.rewrite_filename
 
     def __call__(self, text):
@@ -103,11 +104,22 @@ class FilenameCompletion(object):
         return backslash_quote_filename(text, single_match, quote_char)
 
     @print_exc
+    def rewrite_directory(self, text):
+        """rewrite_directory(text)
+        Convert a directory path the user typed to a format suitable for passing to 'opendir'.
+        Installed as :attr:`rl.completer.directory_rewrite_hook <rl:rl.Completer.directory_rewrite_hook>`.
+        """
+        if sys.version_info[0] >= 3:
+            return text # Force locale encoding -> fs encoding
+
+    @print_exc
     def rewrite_filename(self, text):
         """rewrite_filename(text)
-        Return a version of 'text' suitable for comparing against the completion word.
+        Convert a filename read from the filesystem to a format suitable for comparing
+        against the completion word.
         Installed as :attr:`rl.completer.filename_rewrite_hook <rl:rl.Completer.filename_rewrite_hook>`.
-        E.g. on Mac OS X this converts HFS Plus UTF-8 to fully composed UTF-8.
+        On Mac OS X this converts decomposed UTF-8 used by the HFS Plus filesystem
+        to fully composed UTF-8.
         """
         if sys.platform == 'darwin':
             return compose(text)
