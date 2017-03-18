@@ -55,6 +55,7 @@ class FilenameCompletion(object):
             raise ValueError('quote_char must be one of " \' \\')
         completer.directory_rewrite_hook = self.rewrite_directory
         completer.filename_rewrite_hook = self.rewrite_filename
+        completer.filename_stat_hook = self.rewrite_directory
 
     def __call__(self, text):
         """Return filenames matching 'text'.
@@ -106,8 +107,9 @@ class FilenameCompletion(object):
     @print_exc
     def rewrite_directory(self, text):
         """rewrite_directory(text)
-        Convert a directory path the user typed to a format suitable for passing to 'opendir'.
-        Installed as :attr:`rl.completer.directory_rewrite_hook <rl:rl.Completer.directory_rewrite_hook>`.
+        Convert a filename the user typed to a format suitable for passing to 'opendir' and 'stat'.
+        Installed as :attr:`rl.completer.directory_rewrite_hook <rl:rl.Completer.directory_rewrite_hook>`
+        and :attr:`rl.completer.filename_stat_hook <rl:rl.Completer.filename_stat_hook>`.
         """
         if sys.version_info[0] >= 3:
             return text # Force locale encoding -> fs encoding
