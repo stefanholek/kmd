@@ -84,6 +84,7 @@ class FilenameCompletion(object):
     def dequote_filename(self, text, quote_char):
         """dequote_filename(text, quote_char)
         Return a backslash-dequoted version of 'text'.
+        Called from Python and not installed as a readline hook.
         """
         return dequote_filename(text, quote_char)
 
