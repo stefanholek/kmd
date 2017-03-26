@@ -69,6 +69,11 @@ class FilenameCompletion(object):
             matches = completion.complete_username(text)
         if not matches:
             matches = completion.complete_filename(text)
+            # HFS Plus and readline < 6.1
+            if sys.platform == 'darwin' and completer.filename_rewrite_hook is None:
+                if not matches:
+                    matches = completion.complete_filename(decompose(text))
+                matches = [compose(x) for x in matches]
         return matches
 
     @print_exc
