@@ -13,12 +13,12 @@ from rl import completion
 from rl import history
 from rl import print_exc
 
-from .completions.quoting import QUOTE_CHARACTERS
-from .completions.quoting import WORD_BREAK_CHARACTERS
-from .completions.quoting import FILENAME_QUOTE_CHARACTERS
-from .completions.quoting import char_is_quoted
-from .completions.quoting import is_fully_quoted
-from .completions.quoting import backslash_quote
+from kmd.quoting import QUOTE_CHARACTERS
+from kmd.quoting import WORD_BREAK_CHARACTERS
+from kmd.quoting import FILENAME_QUOTE_CHARACTERS
+from kmd.quoting import char_is_quoted
+from kmd.quoting import is_fully_quoted
+from kmd.quoting import backslash_quote
 
 
 class Kmd(cmd.Cmd, object):

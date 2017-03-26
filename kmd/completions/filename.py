@@ -10,12 +10,12 @@ from rl import completer
 from rl import completion
 from rl import print_exc
 
-from .quoting import QUOTE_CHARACTERS
-from .quoting import BASH_QUOTE_CHARACTERS
-from .quoting import char_is_quoted
-from .quoting import dequote_filename
-from .quoting import quote_filename
-from .quoting import backslash_quote_filename
+from kmd.quoting import QUOTE_CHARACTERS
+from kmd.quoting import BASH_QUOTE_CHARACTERS
+from kmd.quoting import char_is_quoted
+from kmd.quoting import dequote_filename
+from kmd.quoting import quote_filename
+from kmd.quoting import backslash_quote_filename
 
 
 def decompose(text):
