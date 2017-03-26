@@ -12,7 +12,7 @@ from kmd import Kmd
 from kmd.testing import JailSetup
 from kmd.testing import reset
 
-from kmd.completions.filename import FilenameCompletion
+from kmd.completions import FilenameCompletion
 
 TAB = '\t'
 

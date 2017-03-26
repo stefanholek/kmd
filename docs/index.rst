@@ -19,11 +19,15 @@ Completions
 ==================
 
 The :mod:`kmd.completions` package defines the *custom completion
-protocol* and, using the protocol, implements a set of ready-to-use
+protocol* and implements a set of ready-to-use
 completions for :class:`kmd.Kmd`.
-
 Applications may use the built-in completions and/or add their own,
 domain-specific completions based on code in this package.
+
+Quoting
+==================
+
+The :mod:`kmd.quoting` module ...
 
 API Documentation
 =================
@@ -33,6 +37,7 @@ API Documentation
 
    kmd
    completions
+   quoting
    examples
 
 Upstream Documentation

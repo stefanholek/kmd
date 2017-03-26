@@ -1,18 +1,35 @@
 ==========================================
-String and Filename Quoting
+Quoting
 ==========================================
 
-.. automodule:: kmd.completions.quoting
+.. automodule:: kmd.quoting
 
-.. autofunction:: kmd.completions.quoting.backslash_dequote
-.. autofunction:: kmd.completions.quoting.backslash_quote
-.. autofunction:: kmd.completions.quoting.is_fully_quoted
-.. autofunction:: kmd.completions.quoting.char_is_quoted
-.. autofunction:: kmd.completions.quoting.dequote_string
-.. autofunction:: kmd.completions.quoting.quote_string
-.. autofunction:: kmd.completions.quoting.backslash_quote_string
+Constants
+================
 
-.. autofunction:: kmd.completions.quoting.dequote_filename
-.. autofunction:: kmd.completions.quoting.quote_filename
-.. autofunction:: kmd.completions.quoting.backslash_quote_filename
+.. autodata:: kmd.quoting.QUOTE_CHARACTERS
+.. autodata:: kmd.quoting.WORD_BREAK_CHARACTERS
+.. autodata:: kmd.quoting.FILENAME_QUOTE_CHARACTERS
+
+.. autodata:: kmd.quoting.BASH_QUOTE_CHARACTERS
+.. autodata:: kmd.quoting.BASH_COMPLETER_WORD_BREAK_CHARACTERS
+.. autodata:: kmd.quoting.BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS
+.. autodata:: kmd.quoting.BASH_FILENAME_QUOTE_CHARACTERS
+.. autodata:: kmd.quoting.BASH_COMMAND_SEPARATORS
+.. autodata:: kmd.quoting.BASH_WHITESPACE_CHARACTERS
+
+Functions
+================
+
+.. autofunction:: kmd.quoting.backslash_dequote
+.. autofunction:: kmd.quoting.backslash_quote
+.. autofunction:: kmd.quoting.is_fully_quoted
+.. autofunction:: kmd.quoting.char_is_quoted
+.. autofunction:: kmd.quoting.dequote_string
+.. autofunction:: kmd.quoting.quote_string
+.. autofunction:: kmd.quoting.backslash_quote_string
+
+.. autofunction:: kmd.quoting.dequote_filename
+.. autofunction:: kmd.quoting.quote_filename
+.. autofunction:: kmd.quoting.backslash_quote_filename
 

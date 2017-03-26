@@ -11,7 +11,7 @@ from rl import print_exc
 from kmd import Kmd
 from kmd.testing import reset
 
-from kmd.completions.environment import EnvironmentCompletion
+from kmd.completions import EnvironmentCompletion
 
 TAB = '\t'
 

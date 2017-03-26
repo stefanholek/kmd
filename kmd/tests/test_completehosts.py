@@ -14,7 +14,7 @@ from kmd import Kmd
 from kmd.testing import JailSetup
 from kmd.testing import reset
 
-from kmd.completions.hostname import HostnameCompletion
+from kmd.completions import HostnameCompletion
 
 TAB = '\t'
 

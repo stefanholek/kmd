@@ -10,7 +10,7 @@ from rl import print_exc
 from kmd import Kmd
 from kmd.testing import reset
 
-from kmd.completions.username import UsernameCompletion
+from kmd.completions import UsernameCompletion
 
 TAB = '\t'
 

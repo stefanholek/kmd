@@ -3,8 +3,8 @@
 import os
 import kmd
 
-from kmd.completions.command import CommandCompletion
-from kmd.completions.filename import FilenameCompletion
+from kmd.completions import CommandCompletion
+from kmd.completions import FilenameCompletion
 
 
 class SimpleApp(kmd.Kmd):

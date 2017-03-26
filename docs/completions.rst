@@ -4,24 +4,49 @@ Completions
 
 .. automodule:: kmd.completions
 
-Built-in Completions
-=====================
 
-.. toctree::
-   :maxdepth: 2
+Filename Completion
+==========================================
 
-   filename-completion
-   username-completion
-   hostname-completion
-   environment-completion
-   command-completion
+.. autoclass:: kmd.completions.FilenameCompletion
 
-Quoting Support
-=====================
+.. automethod:: kmd.completions.FilenameCompletion.__call__
+.. automethod:: kmd.completions.FilenameCompletion.char_is_quoted
+.. automethod:: kmd.completions.FilenameCompletion.dequote_filename
+.. automethod:: kmd.completions.FilenameCompletion.quote_filename
+.. automethod:: kmd.completions.FilenameCompletion.backslash_quote_filename
+.. automethod:: kmd.completions.FilenameCompletion.rewrite_directory
+.. automethod:: kmd.completions.FilenameCompletion.rewrite_filename
 
-.. toctree::
-   :maxdepth: 2
 
-   quoting
-   constants
+Username Completion
+==========================================
+
+.. autoclass:: kmd.completions.UsernameCompletion
+
+.. automethod:: kmd.completions.UsernameCompletion.__call__
+
+
+Hostname Completion
+==========================================
+
+.. autoclass:: kmd.completions.HostnameCompletion
+
+.. automethod:: kmd.completions.HostnameCompletion.__call__
+
+
+Environment Completion
+==========================================
+
+.. autoclass:: kmd.completions.EnvironmentCompletion
+
+.. automethod:: kmd.completions.EnvironmentCompletion.__call__
+
+
+Command Completion
+==========================================
+
+.. autoclass:: kmd.completions.CommandCompletion
+
+.. automethod:: kmd.completions.CommandCompletion.__call__
 
