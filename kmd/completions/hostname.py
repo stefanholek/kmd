@@ -19,10 +19,10 @@ class HostnameCompletion(object):
             completer.special_prefixes += '@'
 
     def __call__(self, text):
-        """Return host names matching 'text'.
+        """Return host names matching ``text``.
 
-        Host names are returned with a leading '@' character.
-        The search string may start with an '@' character which is
+        Host names are returned with a leading ``@`` character.
+        The search string may start with an ``@`` character which is
         stripped before matching.
         """
         if text[0] == '@':

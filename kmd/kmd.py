@@ -29,9 +29,8 @@ class Kmd(cmd.Cmd, object):
     library documentation applies unless noted otherwise.
     Changes include:
 
-    #. :class:`~kmd.Kmd` is a new-style class.
-    #. The :class:`~kmd.Kmd` constructor accepts an additional 'stderr' argument; all error
-       messages are printed to 'stderr'.
+    #. The :class:`~kmd.Kmd` constructor accepts an additional ``stderr`` argument; all error
+       messages are printed to ``stderr``.
     #. :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop` are no longer stubs but contain important
        code bits. Subclasses must make sure to call their parents' implementations.
     #. New methods: :meth:`~kmd.Kmd.input`, :meth:`~kmd.Kmd.word_break_hook`, :meth:`~kmd.Kmd.comment`,
@@ -59,7 +58,7 @@ class Kmd(cmd.Cmd, object):
     def __init__(self, completekey='TAB', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
 
-        The optional argument 'completekey' is the readline name of a
+        The optional argument ``completekey`` is the readline name of a
         completion key; it defaults to the TAB key.
         The optional arguments stdin, stdout, and stderr
         specify alternate input and output file objects; if not specified,
@@ -150,8 +149,8 @@ class Kmd(cmd.Cmd, object):
                 self._clear_completer_callbacks()
 
     def input(self, prompt):
-        """Read a line from the keyboard using :func:`raw_input() <py:raw_input>`
-        (:func:`input() <py3k:input>` in Python 3).
+        """Read a line from the keyboard using :func:`input() <py3k:input>`
+        (or :func:`raw_input() <py:raw_input>` in Python 2).
         When the user presses the TAB key, invoke the readline completer.
         """
         return input(prompt)
@@ -159,8 +158,8 @@ class Kmd(cmd.Cmd, object):
     @print_exc
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(begidx, endidx)
-        When completing '?<topic>' make sure '?' is a word break character.
-        Ditto for '!<command>' and '!'.
+        When completing ``?<topic>`` make sure ``?`` is a word break character.
+        Ditto for ``!<command>`` and ``!``.
         Installed as :attr:`rl.completer.word_break_hook <rl:rl.Completer.word_break_hook>`.
         """
         # This has a flaw as we cannot complete names that contain
@@ -177,10 +176,10 @@ class Kmd(cmd.Cmd, object):
     @print_exc
     def complete(self, text, state):
         """complete(text, state)
-        Return the next possible completion for 'text'.
+        Return the next possible completion for ``text``.
 
         If a command has not been entered, complete against the command list.
-        Otherwise try to call complete_<command> to get a list of completions.
+        Otherwise try to call ``complete_<command>()`` to get a list of completions.
         Installed as :attr:`rl.completer.completer <rl:rl.Completer.completer>`.
         """
         if state == 0:
@@ -215,7 +214,7 @@ class Kmd(cmd.Cmd, object):
         The return value is a flag indicating whether interpretation of
         commands by the interpreter should stop.
 
-        If there is a do_<command> method for the command prefix, that
+        If there is a ``do_<command>()`` method for the command prefix, that
         method is called, with the remainder of the line as argument,
         and its return value is returned.
         Otherwise the return value of the :meth:`~kmd.Kmd.default` method
@@ -240,8 +239,8 @@ class Kmd(cmd.Cmd, object):
 
     def parseline(self, line):
         """Parse the line into a command name and a string containing
-        the arguments. Returns a tuple containing (command, args, line).
-        'command' and 'args' may be None if the line couldn't be parsed.
+        the arguments. Returns a tuple containing (command, args, line);
+        command and args may be None if the line couldn't be parsed.
         """
         line = line.strip()
         if not line:
@@ -268,7 +267,7 @@ class Kmd(cmd.Cmd, object):
         super(Kmd, self).emptyline()
 
     def comment(self, line):
-        """Called when the input line starts with a '#'.
+        """Called when the input line starts with a ``#``.
         By default clears the :attr:`lastcmd <kmd.Kmd.lastcmd>`.
         """
         self.lastcmd = ''
@@ -343,7 +342,7 @@ class Kmd(cmd.Cmd, object):
     def run(self, args=None):
         """Run the Kmd.
 
-        If 'args' is None, it defaults to sys.argv[1:].
+        If ``args`` is None, it defaults to sys.argv[1:].
         If arguments are present they are executed via :meth:`~kmd.Kmd.onecmd`.
         Without arguments, enters the :meth:`~kmd.Kmd.cmdloop`.
         """

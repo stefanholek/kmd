@@ -17,10 +17,10 @@ class EnvironmentCompletion(object):
             completer.special_prefixes += '$'
 
     def __call__(self, text):
-        """Return environment variables matching 'text'.
+        """Return environment variables matching ``text``.
 
-        Variable names are returned with a leading '$' character.
-        The search string may start with a '$' character which is
+        Variable names are returned with a leading ``$`` character.
+        The search string may start with a ``$`` character which is
         stripped before matching.
         """
         if text[0] == '$':

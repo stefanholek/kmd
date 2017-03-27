@@ -41,8 +41,8 @@ QUOTED = dict((x, '\\'+x) for x in BASH_FILENAME_QUOTE_CHARACTERS)
 
 
 def backslash_dequote(text, chars=''):
-    """Backslash-dequote 'text'.
-    If 'chars' is given, only characters in 'chars' are dequoted.
+    """Backslash-dequote ``text``.
+    If ``chars`` is given, only characters in ``chars`` are dequoted.
     """
     for c in (chars or BASH_FILENAME_QUOTE_CHARACTERS):
         text = text.replace(QUOTED[c], c)
@@ -50,8 +50,8 @@ def backslash_dequote(text, chars=''):
 
 
 def backslash_quote(text, chars=''):
-    """Backslash-quote 'text'.
-    If 'chars' is given, only characters in 'chars' are quoted.
+    """Backslash-quote ``text``.
+    If ``chars`` is given, only characters in ``chars`` are quoted.
     """
     for c in (chars or completer.filename_quote_characters):
         text = text.replace(c, QUOTED[c])
@@ -61,7 +61,7 @@ def backslash_quote(text, chars=''):
 def is_fully_quoted(text):
     """Return True if all
     :attr:`rl.completer.filename_quote_characters <rl:rl.Completer.filename_quote_characters>`
-    in 'text' are backslash-quoted.
+    in ``text`` are backslash-quoted.
     """
     skip_next = False
     size = len(text)
@@ -79,7 +79,7 @@ def is_fully_quoted(text):
 
 
 def char_is_quoted(text, index):
-    """Return True if the character at 'index' is quoted."""
+    """Return True if the character at ``index`` is quoted."""
     skip_next = False
     quote_char = ''
     for i in range(index):
@@ -102,8 +102,8 @@ def char_is_quoted(text, index):
 
 
 def dequote_string(text, quote_char=''):
-    """Return a backslash-dequoted version of 'text'.
-    If 'quote_char' is the single-quote, backslash-dequoting is
+    """Return a backslash-dequoted version of ``text``.
+    If ``quote_char`` is the single-quote, backslash-dequoting is
     limited to single-quotes.
     """
     if len(text) > 1:
@@ -118,9 +118,9 @@ def dequote_string(text, quote_char=''):
 
 
 def quote_string(text, single_match=True, quote_char=''):
-    """Return a quote-char quoted version of 'text'.
-    If 'single_match' is False, the quotes are not closed.
-    The default 'quote_char' is the first character in
+    """Return a quote-char quoted version of ``text``.
+    If ``single_match`` is False, the quotes are not closed.
+    The default ``quote_char`` is the first character in
     :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
     """
     if text:
@@ -140,8 +140,8 @@ def quote_string(text, single_match=True, quote_char=''):
 
 
 def backslash_quote_string(text, single_match=True, quote_char=''):
-    """Return a backslash-quoted version of 'text'.
-    If a 'quote_char' is given, behave like :func:`~kmd.completions.quoting.quote_string`.
+    """Return a backslash-quoted version of ``text``.
+    If a ``quote_char`` is given, behave like :func:`~kmd.completions.quoting.quote_string`.
     """
     if text:
         # If the user has typed a quote character, use it.
@@ -153,8 +153,8 @@ def backslash_quote_string(text, single_match=True, quote_char=''):
 
 
 def dequote_filename(text, quote_char=''):
-    """Return a backslash-dequoted version of 'text'.
-    If 'quote_char' is the single-quote, backslash-dequoting is
+    """Return a backslash-dequoted version of ``text``.
+    If ``quote_char`` is the single-quote, backslash-dequoting is
     limited to single-quotes.
     """
     if len(text) > 1:
@@ -169,9 +169,9 @@ def dequote_filename(text, quote_char=''):
 
 
 def quote_filename(text, single_match=True, quote_char=''):
-    """Return a quote-char quoted version of 'text'.
-    If 'single_match' is False, the quotes are not closed.
-    The default 'quote_char' is the first character in
+    """Return a quote-char quoted version of ``text``.
+    If ``single_match`` is False, the quotes are not closed.
+    The default ``quote_char`` is the first character in
     :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
     """
     if text:
@@ -198,8 +198,8 @@ def quote_filename(text, single_match=True, quote_char=''):
 
 
 def backslash_quote_filename(text, single_match=True, quote_char=''):
-    """Return a backslash-quoted version of 'text'.
-    If a 'quote_char' is given, behave like :func:`~kmd.completions.quoting.quote_filename`.
+    """Return a backslash-quoted version of ``text``.
+    If a ``quote_char`` is given, behave like :func:`~kmd.completions.quoting.quote_filename`.
     """
     if text:
         # If the user has typed a quote character, use it.

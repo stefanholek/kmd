@@ -10,7 +10,7 @@ class CommandCompletion(object):
         """Configure the readline completer."""
 
     def __call__(self, text):
-        """Return executables matching 'text'.
+        """Return executables matching ``text``.
         Does not include shell built-ins or aliases.
         """
         matches = []
