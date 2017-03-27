@@ -262,13 +262,13 @@ class Kmd(cmd.Cmd, object):
 
     def emptyline(self):
         """Called when the input line is empty.
-        By default repeats the :attr:`lastcmd <kmd.Kmd.lastcmd>`.
+        By default repeats the :attr:`lastcmd <py3k:cmd.Cmd.lastcmd>`.
         """
         super(Kmd, self).emptyline()
 
     def comment(self, line):
         """Called when the input line starts with a ``#``.
-        By default clears the :attr:`lastcmd <kmd.Kmd.lastcmd>`.
+        By default clears the :attr:`lastcmd <py3k:cmd.Cmd.lastcmd>`.
         """
         self.lastcmd = ''
 
