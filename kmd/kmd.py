@@ -179,7 +179,7 @@ class Kmd(cmd.Cmd, object):
         Return the next possible completion for ``text``.
 
         If a command has not been entered, complete against the command list.
-        Otherwise try to call ``complete_<command>()`` to get a list of completions.
+        Otherwise try to call :meth:`complete_\<command\>` to get a list of completions.
         Installed as :attr:`rl.completer.completer <rl:rl.Completer.completer>`.
         """
         if state == 0:
@@ -214,7 +214,7 @@ class Kmd(cmd.Cmd, object):
         The return value is a flag indicating whether interpretation of
         commands by the interpreter should stop.
 
-        If there is a ``do_<command>()`` method for the command prefix, that
+        If there is a :meth:`do_\<command\>` method for the command prefix, that
         method is called, with the remainder of the line as argument,
         and its return value is returned.
         Otherwise the return value of the :meth:`~kmd.Kmd.default` method

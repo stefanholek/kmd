@@ -43,10 +43,10 @@ Kmd Class
 
     Print the help screen for ``topic``.
 
-    If there is a ``help_<topic>()`` method, that method is
+    If there is a :meth:`help_\<topic\>` method, that method is
     called, with the (unexpanded) topic as argument. Otherwise, and if
     ``topic`` is a command, the docstring of the corresponding
-    ``do_<command>()`` method is used.
+    :meth:`do_\<command\>` method is used.
     If ``topic`` is empty the :meth:`~kmd.Kmd.help` method is invoked.
 
 .. automethod:: kmd.Kmd.help
