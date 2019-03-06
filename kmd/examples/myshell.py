@@ -1,4 +1,4 @@
-"""A simple shell with two commands."""
+# A simple shell with two commands
 
 import os
 import kmd
