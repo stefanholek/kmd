@@ -4,8 +4,6 @@ Overview
 
 .. automodule:: kmd
 
-.. image:: _static/sandwich.png
-
 Interpreters
 ====================
 
@@ -29,7 +27,8 @@ domain-specific completions based on code in this package.
 Quoting
 ==================
 
-The :mod:`kmd.quoting` module ...
+The :mod:`kmd.quoting` module defines constants and functions for writing
+custom completions.
 
 Upstream Documentation
 ======================
