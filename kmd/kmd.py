@@ -5,9 +5,6 @@ from __future__ import absolute_import
 import sys
 import cmd
 
-from six import next
-from six.moves import input
-
 from rl import completer
 from rl import completion
 from rl import history
@@ -155,7 +152,10 @@ class Kmd(cmd.Cmd, object):
         (or :func:`raw_input() <py:raw_input>` in Python 2).
         When the user presses the TAB key, invoke the readline completer.
         """
-        return input(prompt)
+        if sys.version_info[0] >= 3:
+            return input(prompt)
+        else:
+            return raw_input(prompt)
 
     @print_exc
     def word_break_hook(self, begidx, endidx):

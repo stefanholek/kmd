@@ -1,6 +1,11 @@
+import sys
 import unittest
 
-from six import StringIO
+if sys.version_info[0] >= 3:
+    from io import StringIO
+else:
+    from StringIO import StringIO
+
 from kmd import Kmd
 
 
