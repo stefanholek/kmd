@@ -350,18 +350,14 @@ class Kmd(cmd.Cmd, object):
         """
         if args is None:
             args = sys.argv[1:]
-
-        if args:
-            line = self.rejoin(args)
-            line = self.precmd(line)
-            stop = self.onecmd(line)
-            self.postcmd(stop, line)
-        else:
-            try:
+        try:
+            if args:
+                self.onecmd(self.rejoin(args))
+            else:
                 self.cmdloop()
-            except KeyboardInterrupt:
-                self.stdout.write('\n')
-                return 1
+        except KeyboardInterrupt:
+            self.stdout.write('\n')
+            return 1
         return 0
 
     def rejoin(self, args):
