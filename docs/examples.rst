@@ -2,14 +2,15 @@
 Examples
 ============
 
-Introductory code examples.
+Example code.
 
-Simple App
+My Shell
 ==================
 
-A bare-bones application demonstrating command and filename completion:
+A bare-bones application demonstrating filename and environment variable
+completion:
 
-.. literalinclude:: ../kmd/examples/simpleapp.py
+.. literalinclude:: ../kmd/examples/myshell.py
 
 Custom Completion
 =================
