@@ -11,15 +11,17 @@ from rl import completion
 from rl import print_exc
 
 from kmd.quoting import QUOTE_CHARACTERS
+from kmd.quoting import WORD_BREAK_CHARACTERS
+from kmd.quoting import FILENAME_QUOTE_CHARACTERS
 from kmd.quoting import BASH_QUOTE_CHARACTERS
 from kmd.quoting import char_is_quoted
-from kmd.quoting import dequote_filename
 from kmd.quoting import quote_filename
 from kmd.quoting import backslash_quote_filename
+from kmd.quoting import backslash_dequote_filename
 
 
 def decompose(text):
-    """Return fully decomposed UTF-8 for HFS Plus."""
+    """Return fully decomposed UTF-8."""
     if sys.version_info[0] >= 3:
         return unicodedata.normalize('NFD', text)
     else:
@@ -37,25 +39,36 @@ def compose(text):
 class FilenameCompletion(object):
     """Complete file and directory names.
     The ``quote_char`` argument specifies the preferred quoting style.
-    Available styles are single-quote, double-quote, and backslash (the default).
+    Available styles are single-quote, double-quote, and backslash (the
+    default).
+
+    To ensure proper configuration of readline, :class:`~FilenameCompletion`
+    should always be instantiated before other completions.
     """
 
     def __init__(self, quote_char='\\'):
         """Configure the readline completer.
         """
         completer.quote_characters = QUOTE_CHARACTERS
+        completer.word_break_characters = WORD_BREAK_CHARACTERS
+        completer.special_prefixes = ''
+        completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
+
         completer.char_is_quoted_function = self.char_is_quoted
-        completer.filename_dequoting_function = None # We dequote manually
         completer.filename_quoting_function = self.quote_filename
+        completer.filename_dequoting_function = None
+
+        completer.directory_rewrite_hook = self.rewrite_dirname
+        completer.filename_rewrite_hook = self.rewrite_filename
+        completer.filename_stat_hook = self.rewrite_dirname
+
+        self.backslash_quoting = False
         if quote_char == "'":
             completer.quote_characters = BASH_QUOTE_CHARACTERS
         elif quote_char == '\\':
-            completer.filename_quoting_function = self.backslash_quote_filename
+            self.backslash_quoting = True
         elif quote_char != '"':
-            raise ValueError('quote_char must be one of " \' \\')
-        completer.directory_rewrite_hook = self.rewrite_directory
-        completer.filename_rewrite_hook = self.rewrite_filename
-        completer.filename_stat_hook = self.rewrite_directory
+            raise ValueError('quote_char must be single-quote, double-quote, or backslash')
 
     def __call__(self, text):
         """Return filenames matching ``text``.
@@ -69,11 +82,6 @@ class FilenameCompletion(object):
             matches = completion.complete_username(text)
         if not matches:
             matches = completion.complete_filename(text)
-            # HFS Plus and readline < 6.1
-            if sys.platform == 'darwin' and completer.filename_rewrite_hook is None:
-                if not matches:
-                    matches = completion.complete_filename(decompose(text))
-                matches = [compose(x) for x in matches]
         return matches
 
     @print_exc
@@ -84,52 +92,46 @@ class FilenameCompletion(object):
         """
         return char_is_quoted(text, index)
 
-    def dequote_filename(self, text, quote_char):
-        """dequote_filename(text, quote_char)
-        Return a backslash-dequoted version of ``text``.
-        Called from Python and not installed as a readline hook.
-        """
-        return dequote_filename(text, quote_char)
-
     @print_exc
     def quote_filename(self, text, single_match, quote_char):
         """quote_filename(text, single_match, quote_char)
-        Return a quote-char quoted version of ``text``.
-        Installed as :attr:`rl.completer.filename_quoting_function <rl:rl.Completer.filename_quoting_function>`
-        if the preferred quoting style is single- or double-quote.
+        Return a quoted version of ``text``. Installed as
+        :attr:`rl.completer.filename_quoting_function <rl:rl.Completer.filename_quoting_function>`.
         """
-        return quote_filename(text, single_match, quote_char)
+        if self.backslash_quoting:
+            return backslash_quote_filename(text, single_match, quote_char)
+        else:
+            return quote_filename(text, single_match, quote_char)
+
+    def dequote_filename(self, text, quote_char):
+        """dequote_filename(text, quote_char)
+        Return a dequoted version of ``text``.
+        Called from Python and not installed as a readline hook.
+        """
+        return backslash_dequote_filename(text, quote_char)
 
     @print_exc
-    def backslash_quote_filename(self, text, single_match, quote_char):
-        """backslash_quote_filename(text, single_match, quote_char)
-        Return a backslash-quoted version of ``text``.
-        Installed as :attr:`rl.completer.filename_quoting_function <rl:rl.Completer.filename_quoting_function>`
-        if the preferred quoting style is backslash (the default).
-        """
-        return backslash_quote_filename(text, single_match, quote_char)
-
-    @print_exc
-    def rewrite_directory(self, text):
-        """rewrite_directory(text)
-        Convert a filename the user typed to a format suitable for passing to ``opendir()`` and ``stat()``.
+    def rewrite_dirname(self, text):
+        """rewrite_dirname(text)
+        Convert a filename the user typed to a format suitable for passing
+        to ``opendir()`` and ``stat()``.
         Installed as :attr:`rl.completer.directory_rewrite_hook <rl:rl.Completer.directory_rewrite_hook>`
         and :attr:`rl.completer.filename_stat_hook <rl:rl.Completer.filename_stat_hook>`.
         """
+        # Force preferred encoding -> fs encoding
         if sys.version_info[0] >= 3:
-            return text # Force locale encoding -> fs encoding
+            return text
 
     @print_exc
     def rewrite_filename(self, text):
         """rewrite_filename(text)
-        Convert a filename read from the filesystem to a format suitable for comparing
-        against the completion word.
+        Convert a filename read from the filesystem to a format suitable for
+        comparing against the completion word.
         Installed as :attr:`rl.completer.filename_rewrite_hook <rl:rl.Completer.filename_rewrite_hook>`.
-        E.g. on Mac OS X this converts decomposed UTF-8 used by the HFS Plus filesystem
-        to fully composed UTF-8.
         """
+        # Compose filenames received from HFS Plus
         if sys.platform == 'darwin':
             return compose(text)
+        # Force fs encoding -> preferred encoding
         if sys.version_info[0] >= 3:
-            return text # Force fs encoding -> locale encoding
-
+            return text
