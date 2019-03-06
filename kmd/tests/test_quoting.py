@@ -14,10 +14,10 @@ from kmd.quoting import backslash_dequote
 from kmd.quoting import backslash_quote
 from kmd.quoting import is_fully_quoted
 from kmd.quoting import char_is_quoted
-from kmd.quoting import dequote_string
+from kmd.quoting import backslash_dequote_string
 from kmd.quoting import quote_string
 from kmd.quoting import backslash_quote_string
-from kmd.quoting import dequote_filename
+from kmd.quoting import backslash_dequote_filename
 from kmd.quoting import quote_filename
 from kmd.quoting import backslash_quote_filename
 
@@ -194,7 +194,7 @@ class DequoteStringTests(FileSetup):
         self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
-        completer.filename_dequoting_function = print_exc(dequote_string)
+        completer.filename_dequoting_function = print_exc(backslash_dequote_string)
         completer.filename_quoting_function = lambda x,y,z: x
 
     def test_dequote_string(self):
@@ -225,7 +225,7 @@ class QuoteStringTests(FileSetup):
         self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
-        completer.filename_dequoting_function = print_exc(dequote_string)
+        completer.filename_dequoting_function = print_exc(backslash_dequote_string)
         completer.filename_quoting_function = print_exc(quote_string)
 
     def test_quote_string(self):
@@ -263,7 +263,7 @@ class BackslashQuoteStringTests(FileSetup):
         self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
-        completer.filename_dequoting_function = print_exc(dequote_string)
+        completer.filename_dequoting_function = print_exc(backslash_dequote_string)
         completer.filename_quoting_function = print_exc(backslash_quote_string)
 
     def test_backslash_quote_string(self):
@@ -301,7 +301,7 @@ class DequoteFilenameTests(FileSetup):
         self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
-        completer.filename_dequoting_function = print_exc(dequote_filename)
+        completer.filename_dequoting_function = print_exc(backslash_dequote_filename)
         completer.filename_quoting_function = lambda x,y,z: x
 
     def test_dequote_filename(self):
@@ -332,7 +332,7 @@ class QuoteFilenameTests(FileSetup):
         self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
-        completer.filename_dequoting_function = print_exc(dequote_filename)
+        completer.filename_dequoting_function = print_exc(backslash_dequote_filename)
         completer.filename_quoting_function = print_exc(quote_filename)
 
     def test_quote_filename(self):
@@ -370,7 +370,7 @@ class BackslashQuoteFilenameTests(FileSetup):
         self.cmd = Kmd()
         self.cmd.preloop()
         completer.completer = completefilename
-        completer.filename_dequoting_function = print_exc(dequote_filename)
+        completer.filename_dequoting_function = print_exc(backslash_dequote_filename)
         completer.filename_quoting_function = print_exc(backslash_quote_filename)
 
     def test_backslash_quote_filename(self):
@@ -398,4 +398,19 @@ class BackslashQuoteFilenameTests(FileSetup):
     def test_user_quote_directory(self):
         self.mkdir('funny dir')
         self.assertEqual(self.complete('"fun'), '"funny dir/') # NB: no closing quote on dir
+
+
+class SetTests(unittest.TestCase):
+
+    def test_union(self):
+        self.assertEqual(set('abc').union('def'), set('abcdef'))
+
+    def test_operator(self):
+        self.assertEqual(set('abc') | set('def'), set('abcdef'))
+
+    def test_iterate(self):
+        i = 0
+        for x in set('abc'):
+            i += 1
+        self.assertEqual(i, 3)
 

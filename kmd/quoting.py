@@ -12,11 +12,11 @@ BASH_QUOTE_CHARACTERS = "'\""
 #: Word break characters used by Bash.
 BASH_COMPLETER_WORD_BREAK_CHARACTERS = " \t\n\"'@><;|&=(:"
 
-#: Word break characters used by Bash with hostname completion off.
+#: Word break characters used by Bash when hostname completion is off.
 BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS = " \t\n\"'><;|&=(:"
 
 #: Filename quote characters used by Bash.
-BASH_FILENAME_QUOTE_CHARACTERS = "\\ \t\n\"'@><;|&=()#$`?*[!:{~" # Backslash must be first
+BASH_FILENAME_QUOTE_CHARACTERS = "\\ \t\n\"'@><;|&=()#$`?*[!:{~"
 
 #: Command separators used by Bash.
 BASH_COMMAND_SEPARATORS = ";|&{(`"
@@ -24,28 +24,36 @@ BASH_COMMAND_SEPARATORS = ";|&{(`"
 #: Whitespace characters used by Bash.
 BASH_WHITESPACE_CHARACTERS = " \t\n"
 
-#: Quote characters used by kmd. These characters are used in pairs to quote substrings of the line.
+#: Slashify characters used by Bash.
+BASH_SLASHIFY_IN_QUOTES = "\\\"$`\n"
+
+#: These characters may be used in pairs to quote substrings of the line.
 QUOTE_CHARACTERS = "\"'"
 
-#: Word break characters used by kmd. These characters define word boundaries.
-WORD_BREAK_CHARACTERS = BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS[:-3]
+#: These characters define word boundaries.
+WORD_BREAK_CHARACTERS = BASH_NOHOSTNAME_WORD_BREAK_CHARACTERS
 
-#: Filename quote characters used by kmd. These characters are quoted when they occur in filenames.
+#: These characters are quoted when they occur in filenames.
 FILENAME_QUOTE_CHARACTERS = BASH_FILENAME_QUOTE_CHARACTERS[:-1]
 
 # BBB
 WHITESPACE_CHARACTERS = BASH_WHITESPACE_CHARACTERS
 
-# Dict used for backslash quoting
-QUOTED = dict((x, '\\'+x) for x in BASH_FILENAME_QUOTE_CHARACTERS)
+#: These characters are backslash-quoted even between double quotes.
+SLASHIFY_IN_QUOTES = BASH_SLASHIFY_IN_QUOTES[:-1]
 
 
 def backslash_dequote(text, chars=''):
     """Backslash-dequote ``text``.
     If ``chars`` is given, only characters in ``chars`` are dequoted.
     """
-    for c in (chars or BASH_FILENAME_QUOTE_CHARACTERS):
-        text = text.replace(QUOTED[c], c)
+    if not chars:
+        chars = set(completer.filename_quote_characters).union(BASH_FILENAME_QUOTE_CHARACTERS)
+    if '\\' in chars:
+        text = text.replace('\\\\', '\\')
+    for c in chars:
+        if c != '\\':
+            text = text.replace('\\'+c, c)
     return text
 
 
@@ -53,8 +61,13 @@ def backslash_quote(text, chars=''):
     """Backslash-quote ``text``.
     If ``chars`` is given, only characters in ``chars`` are quoted.
     """
-    for c in (chars or completer.filename_quote_characters):
-        text = text.replace(c, QUOTED[c])
+    if not chars:
+        chars = completer.filename_quote_characters
+    if '\\' in chars:
+        text = text.replace('\\', '\\\\')
+    for c in chars:
+        if c != '\\':
+            text = text.replace(c, '\\'+c)
     return text
 
 
@@ -101,7 +114,7 @@ def char_is_quoted(text, index):
     return bool(quote_char)
 
 
-def dequote_string(text, quote_char=''):
+def backslash_dequote_string(text, quote_char=''):
     """Return a backslash-dequoted version of ``text``.
     If ``quote_char`` is the single-quote, backslash-dequoting is
     limited to single-quotes.
@@ -129,7 +142,7 @@ def quote_string(text, single_match=True, quote_char=''):
         if qc == "'":
             text = text.replace("'", "'\\''")
         else:
-            text = backslash_quote(text, '\\'+qc)
+            text = backslash_quote(text, SLASHIFY_IN_QUOTES)
         # Don't add quotes if the string is already fully quoted
         if qc == "'" or quote_char or not is_fully_quoted(text):
             if single_match:
@@ -152,7 +165,7 @@ def backslash_quote_string(text, single_match=True, quote_char=''):
     return text
 
 
-def dequote_filename(text, quote_char=''):
+def backslash_dequote_filename(text, quote_char=''):
     """Return a backslash-dequoted version of ``text``.
     If ``quote_char`` is the single-quote, backslash-dequoting is
     limited to single-quotes.
@@ -170,7 +183,8 @@ def dequote_filename(text, quote_char=''):
 
 def quote_filename(text, single_match=True, quote_char=''):
     """Return a quote-char quoted version of ``text``.
-    If ``single_match`` is False, the quotes are not closed.
+    If ``single_match`` is False or ``text`` is a directory, the
+    quotes are not closed.
     The default ``quote_char`` is the first character in
     :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
     """
@@ -180,7 +194,7 @@ def quote_filename(text, single_match=True, quote_char=''):
         if qc == "'":
             text = text.replace("'", "'\\''")
         else:
-            text = backslash_quote(text, '\\'+qc)
+            text = backslash_quote(text, SLASHIFY_IN_QUOTES)
         # Don't add quotes if the filename is already fully quoted
         if qc == "'" or quote_char or not is_fully_quoted(text):
             # Quoting inhibits tilde-expansion by the shell so we
