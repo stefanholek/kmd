@@ -171,7 +171,7 @@ class Kmd(cmd.Cmd, object):
         stripped = len(origline) - len(line)
         begidx = begidx - stripped
         if begidx == 0:
-            if line[0] == '?' or line[0] in self.shell_escape_chars:
+            if line[0] == '?' or (line[0] in self.shell_escape_chars and hasattr(self, 'do_shell')):
                 if line[0] not in completer.word_break_characters:
                     return line[0] + completer.word_break_characters
 
