@@ -125,13 +125,13 @@ class Kmd(cmd.Cmd, object):
                 history.read_file(self.history_file)
 
             if self.completekey:
-                self._clear_completer_callbacks()
+                self.clear_hooks()
                 completer.quote_characters = QUOTE_CHARACTERS
                 completer.word_break_characters = WORD_BREAK_CHARACTERS
                 completer.special_prefixes = ''
                 completer.filename_quote_characters = FILENAME_QUOTE_CHARACTERS
-                completer.char_is_quoted_function = char_is_quoted
                 completer.word_break_hook = self.word_break_hook
+                completer.char_is_quoted_function = char_is_quoted
                 completer.completer = self.complete
                 completer.parse_and_bind(self.completekey+': complete')
 
@@ -146,7 +146,9 @@ class Kmd(cmd.Cmd, object):
                 history.write_file(self.history_file)
 
             if self.completekey:
-                self._clear_completer_callbacks()
+                self.clear_hooks()
+
+            history.clear()
 
     def input(self, prompt):
         """Read a line from the keyboard using :func:`input() <py3k:input>`
@@ -391,14 +393,17 @@ class Kmd(cmd.Cmd, object):
             return getattr(self, expanded.pop())
         raise AttributeError(name)
 
-    def _clear_completer_callbacks(self):
-        """Clear completer callbacks and hooks."""
+    def clear_hooks(self):
+        """Clear all completer callbacks and hooks."""
         completer.completer = None
         completer.startup_hook = None
         completer.pre_input_hook = None
         completer.word_break_hook = None
+        completer.directory_rewrite_hook = None
         completer.directory_completion_hook = None
         completer.display_matches_hook = None
+        completer.filename_rewrite_hook = None
+        completer.filename_stat_hook = None
         completer.char_is_quoted_function = None
         completer.filename_quoting_function = None
         completer.filename_dequoting_function = None
