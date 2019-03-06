@@ -12,11 +12,10 @@ Filename Completion
 
 .. automethod:: kmd.completions.FilenameCompletion.__call__
 .. automethod:: kmd.completions.FilenameCompletion.char_is_quoted
-.. automethod:: kmd.completions.FilenameCompletion.dequote_filename
 .. automethod:: kmd.completions.FilenameCompletion.quote_filename
-.. automethod:: kmd.completions.FilenameCompletion.backslash_quote_filename
-.. automethod:: kmd.completions.FilenameCompletion.rewrite_directory
+.. automethod:: kmd.completions.FilenameCompletion.dequote_filename
 .. automethod:: kmd.completions.FilenameCompletion.rewrite_filename
+.. automethod:: kmd.completions.FilenameCompletion.rewrite_dirname
 
 
 Username Completion
