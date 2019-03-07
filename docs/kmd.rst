@@ -39,14 +39,14 @@ Kmd Class
 .. automethod:: kmd.Kmd.comment
 .. automethod:: kmd.Kmd.default
 
-.. method:: Kmd.do_help(topic='')
+.. automethod:: kmd.Kmd.do_help
 
     Print the help screen for ``topic``.
 
     If there is a :meth:`help_\<topic\>` method, that method is
-    called, with the (unexpanded) topic as argument. Otherwise, and if
-    ``topic`` is a command, the docstring of the
-    :meth:`do_\<command\>` method is used.
+    called, with the unexpanded topic as argument. Otherwise, and if
+    ``topic`` is a command, the docstring of the :meth:`do_\<command\>`
+    method is printed to stdout.
     If ``topic`` is empty the :meth:`~kmd.Kmd.help` method is invoked.
 
 .. automethod:: kmd.Kmd.help

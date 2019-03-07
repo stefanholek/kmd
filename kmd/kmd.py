@@ -281,6 +281,7 @@ class Kmd(cmd.Cmd, object):
         self.stderr.write('*** Unknown syntax: %s\n' % (line,))
 
     def do_help(self, topic=''):
+        """"""
         # Print the help screen for 'topic' or the default help.
         if topic:
             try:
@@ -305,8 +306,7 @@ class Kmd(cmd.Cmd, object):
             self.help()
 
     def help(self):
-        """Called when no help topic is specified.
-        Prints the default help screen; empty sections and sections with
+        """Print the default help screen. Empty sections and sections with
         empty headers are omitted.
         """
         names = self.get_names()
