@@ -26,15 +26,13 @@ class Kmd(cmd.Cmd, object):
     library documentation applies unless noted otherwise.
     Changes include:
 
-    #. The :class:`~kmd.Kmd` constructor accepts an additional ``stderr`` argument; all error
-       messages are printed to ``stderr``.
-    #. :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop` are no longer stubs but contain important
+    #. The :class:`~kmd.Kmd` constructor accepts an additional ``stderr`` argument.
+    #. :meth:`~kmd.Kmd.preloop` and :meth:`~kmd.Kmd.postloop` are not stubs but contain important
        code bits. Subclasses must make sure to call their parents' implementations.
     #. New methods: :meth:`~kmd.Kmd.input`, :meth:`~kmd.Kmd.word_break_hook`, :meth:`~kmd.Kmd.comment`,
        :meth:`~kmd.Kmd.help`, and :meth:`~kmd.Kmd.run`.
     #. Incomplete command names are automatically expanded if they are unique.
-    #. Command aliases can be defined by overriding :meth:`~kmd.Kmd.__init__` and extending
-       the :attr:`~kmd.Kmd.aliases` dictionary.
+    #. Command aliases can be defined by extending the :attr:`~kmd.Kmd.aliases` dictionary.
     #. :meth:`help_*` methods optionally receive the help topic as argument.
     #. :meth:`complete_*` methods may return any kind of iterable, not just lists.
 
@@ -344,7 +342,7 @@ class Kmd(cmd.Cmd, object):
     def run(self, args=None):
         """Run the Kmd.
 
-        If ``args`` is None, it defaults to sys.argv[1:].
+        If ``args`` is None it defaults to ``sys.argv[1:]``.
         If arguments are present they are executed via :meth:`~kmd.Kmd.onecmd`.
         Without arguments, enters the :meth:`~kmd.Kmd.cmdloop`.
         """
