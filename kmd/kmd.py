@@ -194,7 +194,7 @@ class Kmd(cmd.Cmd, object):
                 compfunc = self.completenames
             else:
                 cmd, arg, foo = self.parseline(line)
-                if cmd == '':
+                if not cmd:
                     compfunc = self.completedefault
                 else:
                     try:
@@ -242,7 +242,7 @@ class Kmd(cmd.Cmd, object):
     def parseline(self, line):
         """Parse the line into a command name and a string containing
         the arguments. Returns a tuple containing (command, args, line);
-        command and args may be None if the line couldn't be parsed.
+        command and args may be None if the line could not be parsed.
         """
         line = line.strip()
         if not line:
