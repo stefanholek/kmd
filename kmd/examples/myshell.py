@@ -9,7 +9,7 @@ from kmd.completions import EnvironmentCompletion
 
 class MyShell(kmd.Kmd):
 
-    intro = 'Completion example (type Ctrl+D to exit)\n'
+    intro = 'myshell example (type Ctrl+C to exit)\n'
     prompt = 'myshell> '
 
     def preloop(self):
@@ -18,18 +18,24 @@ class MyShell(kmd.Kmd):
         self.completeenviron = EnvironmentCompletion()
 
     def do_cat(self, args):
-        """Execute the system cat command."""
+        """Execute the system cat command"""
         os.system('cat ' + args)
 
     def complete_cat(self, text, *ignored):
         return self.completefilename(text)
 
     def do_echo(self, args):
-        """Execute the system echo command."""
+        """Execute the system echo command"""
         os.system('echo ' + args)
 
     def complete_echo(self, text, *ignored):
         return self.completeenviron(text)
+
+    def help_help(self):
+        self.stdout.write('Interactive help\n')
+
+    def emptyline(self):
+        pass
 
 
 def main():
