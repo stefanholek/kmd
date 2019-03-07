@@ -23,6 +23,6 @@ class EnvironmentCompletion(object):
         The search string may start with a ``$`` character which is
         stripped before matching.
         """
-        if text[0] == '$':
+        if text.startswith('$'):
             text = text[1:]
         return ['$'+x for x in os.environ if x.startswith(text)]
