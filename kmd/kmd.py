@@ -228,6 +228,8 @@ class Kmd(cmd.Cmd, object):
         if cmd is None:
             return self.default(line)
         self.lastcmd = line
+        if cmd == 'EOF':
+            self.lastcmd = ''
         if cmd == '':
             return self.default(line)
         else:
