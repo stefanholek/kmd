@@ -17,8 +17,13 @@ class OverrideTests(unittest.TestCase):
         shell = Kmd(stdout='X')
         self.assertEqual(shell.stdout, 'X')
 
+    def test_stderr(self):
+        shell = Kmd(stderr='X')
+        self.assertEqual(shell.stderr, 'X')
+
     def test_all(self):
-        shell = Kmd('X', 'Y', 'Z')
+        shell = Kmd('X', 'Y', 'Z', 'A')
         self.assertEqual(shell.completekey, 'X')
         self.assertEqual(shell.stdin, 'Y')
         self.assertEqual(shell.stdout, 'Z')
+        self.assertEqual(shell.stderr, 'A')
