@@ -18,21 +18,21 @@ class MyShell(kmd.Kmd):
         self.completeenviron = EnvironmentCompletion()
 
     def do_cat(self, args):
-        """Execute the system cat command"""
+        """Usage: cat <filename>"""
         os.system('cat ' + args)
+
+    def do_echo(self, args):
+        """Usage: echo <varname>"""
+        os.system('echo ' + args)
 
     def complete_cat(self, text, *ignored):
         return self.completefilename(text)
-
-    def do_echo(self, args):
-        """Execute the system echo command"""
-        os.system('echo ' + args)
 
     def complete_echo(self, text, *ignored):
         return self.completeenviron(text)
 
     def help_help(self):
-        self.stdout.write('Interactive help\n')
+        self.stdout.write('Usage: help <topic>\n')
 
     def emptyline(self):
         pass
