@@ -2,7 +2,9 @@
 kmd |version| -- Interpreter Framework
 =========================================================
 
-.. automodule:: kmd
+.. module:: kmd
+
+A framework for building command interpreters and shells.
 
 .. toctree::
    :maxdepth: 2
