@@ -5,13 +5,13 @@ kmd
 An interpreter framework
 --------------------------------------------------------
 
-Introduction
+Overview
 ============
 
-**kmd** allows to easily build command line driven shells
+**kmd** allows to build command line driven shells
 with powerful tab-completion capabilities.
 
-The kmd.Kmd class derives from `cmd.Cmd`_ and modifies it in the
+The kmd.Kmd class derives from `cmd.Cmd`_ and extends it in the
 following ways:
 
 1. Instead of Python's readline_ module, kmd.Kmd uses the alternative
@@ -41,22 +41,22 @@ following ways:
 .. _readline: https://docs.python.org/3/library/readline.html
 
 Package Contents
-----------------
+================
 
 kmd.Kmd
-    Implements the mechanics of a command shell, similar to `cmd.Cmd`_.
+    Implements the mechanics of a command shell, based on `cmd.Cmd`_.
 
 kmd.completions
     Implements a set of ready-to-use completions.
 
+kmg.quoting
+    Defines constants and functions for writing completions.
+
 Completions
------------
+===========
 
 FilenameCompletion
-    Complete names of files and directories on the filesystem. This is
-    the real deal, thanks to rl_ providing access to all the necessary readline
-    features.  Includes full quoting support as well as support for decomposed
-    UTF-8 on HFS Plus!
+    Complete names of files and directories on the filesystem.
 
 UsernameCompletion
     Complete names of users known to the system.
@@ -70,50 +70,15 @@ EnvironmentCompletion
 CommandCompletion
     Complete names of executables on the system PATH.
 
-Example Code
-------------
-::
-
-    import os
-    import kmd
-
-    from kmd.completions.filename import FilenameCompletion
-    from kmd.completions.environment import EnvironmentCompletion
-
-    class MyShell(kmd.Kmd):
-
-        prompt = 'myshell> '
-
-        def preloop(self):
-            super(MyShell, self).preloop()
-            self.completefilename = FilenameCompletion()
-            self.completeenviron = EnvironmentCompletion()
-
-        def do_cat(self, args):
-            """Execute the system cat command."""
-            os.system('cat ' + args)
-
-        def complete_cat(self, text, *ignored):
-            return self.completefilename(text)
-
-        def do_echo(self, args):
-            """Execute the system echo command."""
-            os.system('echo ' + args)
-
-        def complete_echo(self, text, *ignored):
-            return self.completeenviron(text)
-
-    def main():
-        MyShell().run()
+Documentation
+=============
 
 For further details please refer to the `API Documentation`_.
-Also see gpgkeys_, a front-end for GnuPG built entirely around tab completion.
 
-.. _`API Documentation`: https://pythonhosted.org/kmd
-.. _gpgkeys: https://pypi.python.org/pypi/gpgkeys
+.. _`API Documentation`: https://kmd.readthedocs.io/en/stable/
 
 Development
------------
+===========
 
 kmd development is hosted on GitHub_ where it also has an `issue tracker`_.
 
@@ -123,15 +88,16 @@ kmd development is hosted on GitHub_ where it also has an `issue tracker`_.
 Installation
 ============
 
-Installation requires Python 2.5 or higher.
+Installation requires Python 2.7 or higher.
 
-Note: kmd uses the rl_ library. Since rl contains a C extension, it is a good idea
+Note: kmd uses the rl_ library which contains a C extension. It is a good idea
 to review its `installation instructions`_ and make sure all dependencies are
 in place.
 
 To install the ``kmd`` package, type::
 
-    easy_install kmd
+    pip install kmd
 
-.. _rl: https://pypi.python.org/pypi/rl
-.. _`installation instructions`: https://pypi.python.org/pypi/rl#installation
+.. _rl: https://github.com/stefanholek/rl
+.. _`installation instructions`: https://github.com/stefanholek/rl#installation
+
