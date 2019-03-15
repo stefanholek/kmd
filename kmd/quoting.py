@@ -117,6 +117,20 @@ def char_is_quoted(text, index):
     return bool(quote_char)
 
 
+def char_is_backslash_quoted(text, index):
+    """Return True if the character at ``index`` is backslash-quoted."""
+    skip_next = False
+    for i in range(index):
+        c = text[i]
+        if skip_next:
+            skip_next = False
+        elif c == '\\':
+            skip_next = True
+            if i == index-1:
+                return True
+    return False
+
+
 def backslash_dequote_string(text, quote_char=''):
     """Return a backslash-dequoted version of ``text``.
     If ``quote_char`` is the single-quote, backslash-dequoting is
@@ -128,6 +142,8 @@ def backslash_dequote_string(text, quote_char=''):
         # except single-quotes.
         if qc == "'":
             text = text.replace("'\\''", "'")
+        elif qc != '':
+            text = backslash_dequote(text, SLASHIFY_IN_QUOTES)
         elif '\\' in text:
             text = backslash_dequote(text)
     return text
@@ -140,7 +156,7 @@ def quote_string(text, single_match=True, quote_char=''):
     :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
     """
     if text:
-        qc = quote_char or completer.quote_characters[0]
+        qc = quote_char or completer.quote_characters[:1]
         # Don't backslash-quote backslashes between single quotes
         if qc == "'":
             text = text.replace("'", "'\\''")
@@ -179,6 +195,8 @@ def backslash_dequote_filename(text, quote_char=''):
         # except single-quotes.
         if qc == "'":
             text = text.replace("'\\''", "'")
+        elif qc != '':
+            text = backslash_dequote(text, SLASHIFY_IN_QUOTES)
         elif '\\' in text:
             text = backslash_dequote(text)
     return text
@@ -192,7 +210,7 @@ def quote_filename(text, single_match=True, quote_char=''):
     :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
     """
     if text:
-        qc = quote_char or completer.quote_characters[0]
+        qc = quote_char or completer.quote_characters[:1]
         # Don't backslash-quote backslashes between single quotes
         if qc == "'":
             text = text.replace("'", "'\\''")
