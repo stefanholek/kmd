@@ -12,7 +12,8 @@ Constants
 .. autodata:: kmd.quoting.FILENAME_QUOTE_CHARACTERS
 .. autodata:: kmd.quoting.SLASHIFY_IN_QUOTES
 
-Extracted from Bash:
+Extracted from Bash
+-------------------
 
 .. autodata:: kmd.quoting.BASH_QUOTE_CHARACTERS
 .. autodata:: kmd.quoting.BASH_COMPLETER_WORD_BREAK_CHARACTERS
@@ -28,7 +29,9 @@ Functions
 .. autofunction:: kmd.quoting.backslash_quote
 .. autofunction:: kmd.quoting.backslash_dequote
 .. autofunction:: kmd.quoting.is_fully_quoted
+
 .. autofunction:: kmd.quoting.char_is_quoted
+
 .. autofunction:: kmd.quoting.quote_string
 .. autofunction:: kmd.quoting.backslash_quote_string
 .. autofunction:: kmd.quoting.backslash_dequote_string

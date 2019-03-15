@@ -37,3 +37,6 @@ The standard library documentation for `cmd.Cmd`_.
 
 .. _`cmd.Cmd`: https://docs.python.org/3/library/cmd.html
 
+The rl_ GNU Readline Bindings.
+
+.. _rl: https://rl.readthedocs.io/en/stable/
