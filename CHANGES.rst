@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.3 - Unreleased
+2.3 - 2019-03-20
 ----------------
 
 - Clear lastcmd when EOF is hit to avoid an infinite loop. See Python
