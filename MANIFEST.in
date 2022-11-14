@@ -1,2 +1,3 @@
 include LICENSE tox.ini *.rst
 recursive-include kmd *.rst
+recursive-include kmd/tests *.py
