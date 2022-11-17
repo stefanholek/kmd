@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.4 - Unreleased
+2.4 - 2022-11-17
 ----------------
 
 - Upgrade to rl 3.1.
