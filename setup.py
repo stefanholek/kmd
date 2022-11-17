@@ -32,7 +32,6 @@ setup(name='kmd',
       include_package_data=False,
       zip_safe=False,
       install_requires=[
-          'setuptools',
           'rl >= 3.1',
       ],
       project_urls={
