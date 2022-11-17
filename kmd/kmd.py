@@ -49,6 +49,7 @@ class Kmd(cmd.Cmd, object):
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
+    hidden = ('EOF',)
 
     def __init__(self, completekey='TAB', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
@@ -280,6 +281,10 @@ class Kmd(cmd.Cmd, object):
         """
         self.stderr.write('*** Unknown syntax: %s\n' % (line,))
 
+    def completenames(self, text, *ignored):
+        cmds = super(Kmd, self).completenames(text, *ignored)
+        return [x for x in cmds if x not in self.hidden]
+
     def do_help(self, topic=''):
         """"""
         # Print the help screen for 'topic' or the default help.
@@ -324,6 +329,8 @@ class Kmd(cmd.Cmd, object):
                     continue
                 prevname = name
                 cmd = name[3:]
+                if cmd in self.hidden:
+                    continue
                 if cmd in help:
                     cmds_doc.append(cmd)
                     del help[cmd]
