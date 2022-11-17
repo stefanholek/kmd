@@ -1,4 +1,4 @@
-# A simple shell with two commands
+# TAB-complete command names, help topics, filenames, and environment variables
 
 import os
 import kmd
@@ -9,11 +9,11 @@ from kmd.completions import EnvironmentCompletion
 
 class MyShell(kmd.Kmd):
 
-    intro = 'myshell example (type Ctrl+C to exit)\n'
+    intro = 'myshell 1.0 (type help for help)\n'
     prompt = 'myshell> '
 
     def preloop(self):
-        super(MyShell, self).preloop()
+        super().preloop()
         self.completefilename = FilenameCompletion()
         self.completeenviron = EnvironmentCompletion()
 
@@ -22,8 +22,15 @@ class MyShell(kmd.Kmd):
         os.system('cat ' + args)
 
     def do_echo(self, args):
-        """Usage: echo <varname>"""
+        """Usage: echo $<varname>"""
         os.system('echo ' + args)
+
+    def do_quit(self, args):
+        """Usage: quit"""
+        return True
+
+    def do_EOF(self, args):
+        return True
 
     def complete_cat(self, text, *ignored):
         return self.completefilename(text)
@@ -32,14 +39,14 @@ class MyShell(kmd.Kmd):
         return self.completeenviron(text)
 
     def help_help(self):
-        self.stdout.write('Usage: help <topic>\n')
+        self.stdout.write('Usage: help [<topic>]\n')
 
     def emptyline(self):
         pass
 
 
 def main():
-    MyShell().run()
+    return MyShell().run()
 
 
 if __name__ == '__main__':
