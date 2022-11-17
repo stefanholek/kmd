@@ -16,6 +16,7 @@ Filename Completion
 .. automethod:: kmd.completions.FilenameCompletion.dequote_filename
 .. automethod:: kmd.completions.FilenameCompletion.rewrite_dirname
 .. automethod:: kmd.completions.FilenameCompletion.rewrite_filename
+.. automethod:: kmd.completions.FilenameCompletion.stat_filename
 
 
 Username Completion

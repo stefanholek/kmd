@@ -41,7 +41,12 @@ class Kmd(cmd.Cmd, object):
         import kmd
 
         class MyShell(kmd.Kmd):
-            ...
+            prompt = 'myshell> '
+
+            def do_quit(self, args):
+                return True
+
+        MyShell().run()
     """
 
     prompt = '(Kmd) '
@@ -160,6 +165,7 @@ class Kmd(cmd.Cmd, object):
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(begidx, endidx)
         When completing ``?<topic>`` make sure ``?`` is a word break character.
+
         Ditto for ``!<command>`` and ``!``.
         Installed as :attr:`rl.completer.word_break_hook <rl:rl.Completer.word_break_hook>`.
         """
