@@ -72,6 +72,7 @@ class BackslashDequoteTests(unittest.TestCase):
         self.assertEqual(backslash_dequote('\\ '), ' ')
         self.assertEqual(backslash_dequote('a'), 'a')
         self.assertEqual(backslash_dequote('\\@'), '@')
+        self.assertEqual(backslash_dequote('\\~'), '~')
 
     def test_backslash_dequote_string(self):
         self.assertEqual(backslash_dequote(r'\ foo\ bar\#baz\&'), r' foo bar#baz&')
@@ -99,6 +100,7 @@ class BackslashQuoteTests(unittest.TestCase):
         self.assertEqual(backslash_quote(' '), '\\ ')
         self.assertEqual(backslash_quote('a'), 'a')
         self.assertEqual(backslash_quote('@'), '\\@')
+        self.assertEqual(backslash_quote('~'), '~')
 
     def test_backslash_quote_string(self):
         self.assertEqual(backslash_quote(r' foo bar#baz&'), r'\ foo\ bar\#baz\&')

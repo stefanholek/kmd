@@ -13,19 +13,11 @@ from rl import print_exc
 from kmd.quoting import QUOTE_CHARACTERS
 from kmd.quoting import WORD_BREAK_CHARACTERS
 from kmd.quoting import FILENAME_QUOTE_CHARACTERS
-from kmd.quoting import BASH_QUOTE_CHARACTERS
+
 from kmd.quoting import char_is_quoted
 from kmd.quoting import quote_filename
 from kmd.quoting import backslash_quote_filename
 from kmd.quoting import backslash_dequote_filename
-
-
-def decompose(text):
-    """Return fully decomposed UTF-8."""
-    if sys.version_info[0] >= 3:
-        return unicodedata.normalize('NFD', text)
-    else:
-        return unicodedata.normalize('NFD', text.decode('utf-8')).encode('utf-8')
 
 
 def compose(text):
@@ -56,17 +48,17 @@ class FilenameCompletion(object):
 
         completer.char_is_quoted_function = self.char_is_quoted
         completer.filename_quoting_function = self.quote_filename
-        completer.filename_dequoting_function = None
+        completer.filename_dequoting_function = self.dequote_filename
 
         completer.directory_rewrite_hook = self.rewrite_dirname
         completer.filename_rewrite_hook = self.rewrite_filename
-        completer.filename_stat_hook = self.rewrite_dirname
+        completer.filename_stat_hook = self.stat_filename
 
         self.backslash_quoting = False
-        if quote_char == "'":
-            completer.quote_characters = BASH_QUOTE_CHARACTERS
-        elif quote_char == '\\':
+        if quote_char == '\\':
             self.backslash_quoting = True
+        elif quote_char == "'":
+            completer.quote_characters = QUOTE_CHARACTERS[::-1]
         elif quote_char != '"':
             raise ValueError('quote_char must be single-quote, double-quote, or backslash')
 
@@ -75,9 +67,6 @@ class FilenameCompletion(object):
         Starts at the current working directory.
         """
         matches = []
-        # Dequoting early allows us to skip some hooks
-        if completion.found_quote:
-            text = self.dequote_filename(text, completion.quote_character)
         if text.startswith('~') and (os.sep not in text):
             matches = completion.complete_username(text)
         if not matches:
@@ -103,22 +92,26 @@ class FilenameCompletion(object):
         else:
             return quote_filename(text, single_match, quote_char)
 
+    @print_exc
     def dequote_filename(self, text, quote_char):
         """dequote_filename(text, quote_char)
-        Return a dequoted version of ``text``.
-        Called from Python and not installed as a readline hook.
+        Return a dequoted version of ``text``. Installed as
+        :attr:`rl.completer.filename_dequoting_function <rl:rl.Completer.filename_dequoting_function>`.
         """
         return backslash_dequote_filename(text, quote_char)
 
     @print_exc
     def rewrite_dirname(self, text):
         """rewrite_dirname(text)
-        Convert a filename the user typed to a format suitable for passing
-        to ``opendir()`` and ``stat()``.
-        Installed as :attr:`rl.completer.directory_rewrite_hook <rl:rl.Completer.directory_rewrite_hook>`
-        and :attr:`rl.completer.filename_stat_hook <rl:rl.Completer.filename_stat_hook>`.
+        Convert a directory name the user typed to a format suitable for passing
+        to ``opendir()``.
+        Installed as :attr:`rl.completer.directory_rewrite_hook <rl:rl.Completer.directory_rewrite_hook>`.
         """
-        # Force preferred encoding -> fs encoding
+        # Dequote dirname
+        if completion.found_quote:
+            return backslash_dequote_filename(text, completion.quote_character)
+
+        # Convert locale encoding -> fs encoding
         if sys.version_info[0] >= 3:
             return text
 
@@ -129,9 +122,22 @@ class FilenameCompletion(object):
         comparing against the completion word.
         Installed as :attr:`rl.completer.filename_rewrite_hook <rl:rl.Completer.filename_rewrite_hook>`.
         """
-        # Compose filenames received from HFS Plus
+        # Compose filename received from HFS Plus
         if sys.platform == 'darwin':
             return compose(text)
-        # Force fs encoding -> preferred encoding
+
+        # Convert fs encoding -> locale encoding
         if sys.version_info[0] >= 3:
             return text
+
+    @print_exc
+    def stat_filename(self, text):
+        """stat_filename(text)
+        Convert a filename the user typed to a format suitable for passing
+        to ``stat()``.
+        Installed as :attr:`rl.completer.filename_stat_hook <rl:rl.Completer.filename_stat_hook>`.
+        """
+        # Convert locale encoding -> fs encoding
+        if sys.version_info[0] >= 3:
+            return text
+

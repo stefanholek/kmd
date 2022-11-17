@@ -2,9 +2,7 @@
 Examples
 ============
 
-.. module:: kmd.examples
-
-Example code.
+.. automodule:: kmd.examples
 
 Simple App
 ==================

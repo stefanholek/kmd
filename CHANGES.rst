@@ -4,6 +4,36 @@ Changelog
 2.4 - Unreleased
 ----------------
 
+- Upgrade to rl 3.1.
+  [stefan]
+
+- Update filename completion for readline 8.2.
+  [stefan]
+
+- Hide do_EOF from completion and help.
+  [stefan]
+
+- Quote newline characters between double quotes.
+  [stefan]
+
+- Improve documentation and examples.
+  [stefan]
+
+- Replace deprecated ``python setup.py test`` in tox.ini.
+  [stefan]
+
+- Remove deprecated ``test_suite`` from setup.py.
+  [stefan]
+
+- Remove setuptools from ``install_requires``.
+  [stefan]
+
+- Add a pyproject.toml file.
+  [stefan]
+
+- Include tests in sdist but not in wheel.
+  [stefan]
+
 
 2.3 - 2019-03-20
 ----------------

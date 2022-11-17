@@ -40,11 +40,13 @@ FILENAME_QUOTE_CHARACTERS = BASH_FILENAME_QUOTE_CHARACTERS[:-1]
 WHITESPACE_CHARACTERS = BASH_WHITESPACE_CHARACTERS
 
 #: These characters are backslash-quoted even between double quotes.
-SLASHIFY_IN_QUOTES = BASH_SLASHIFY_IN_QUOTES[:-1]
+SLASHIFY_IN_QUOTES = BASH_SLASHIFY_IN_QUOTES
 
 
 def backslash_dequote(text, chars=''):
-    """Backslash-dequote ``text``.
+    """Backslash-dequote all
+    :attr:`rl.completer.filename_quote_characters <rl:rl.Completer.filename_quote_characters>`
+    in ``text``.
     If ``chars`` is given, only characters in ``chars`` are dequoted.
     """
     if not chars:
@@ -58,7 +60,9 @@ def backslash_dequote(text, chars=''):
 
 
 def backslash_quote(text, chars=''):
-    """Backslash-quote ``text``.
+    """Backslash-quote all
+    :attr:`rl.completer.filename_quote_characters <rl:rl.Completer.filename_quote_characters>`
+    in ``text``.
     If ``chars`` is given, only characters in ``chars`` are quoted.
     """
     if not chars:
@@ -148,16 +152,18 @@ def backslash_dequote_string(text, quote_char=''):
             text = backslash_dequote(text)
     return text
 
+backslash_dequote_filename = backslash_dequote_string
+
 
 def quote_string(text, single_match=True, quote_char=''):
-    """Return a quote-char quoted version of ``text``.
+    """Return a ``quote_char``-quoted version of ``text``.
     If ``single_match`` is False, the quotes are not closed.
     The default ``quote_char`` is the first character in
     :attr:`rl.completer.quote_characters <rl:rl.Completer.quote_characters>`.
     """
     if text:
         qc = quote_char or completer.quote_characters[:1]
-        # Don't backslash-quote backslashes between single quotes
+        # Don't backslash-quote single-quotes between single-quotes
         if qc == "'":
             text = text.replace("'", "'\\''")
         else:
@@ -184,26 +190,8 @@ def backslash_quote_string(text, single_match=True, quote_char=''):
     return text
 
 
-def backslash_dequote_filename(text, quote_char=''):
-    """Return a backslash-dequoted version of ``text``.
-    If ``quote_char`` is the single-quote, backslash-dequoting is
-    limited to single-quotes.
-    """
-    if len(text) > 1:
-        qc = quote_char
-        # Don't backslash-dequote characters between single-quotes,
-        # except single-quotes.
-        if qc == "'":
-            text = text.replace("'\\''", "'")
-        elif qc != '':
-            text = backslash_dequote(text, SLASHIFY_IN_QUOTES)
-        elif '\\' in text:
-            text = backslash_dequote(text)
-    return text
-
-
 def quote_filename(text, single_match=True, quote_char=''):
-    """Return a quote-char quoted version of ``text``.
+    """Return a ``quote_char``-quoted version of ``text``.
     If ``single_match`` is False or ``text`` is a directory, the
     quotes are not closed.
     The default ``quote_char`` is the first character in
@@ -211,7 +199,7 @@ def quote_filename(text, single_match=True, quote_char=''):
     """
     if text:
         qc = quote_char or completer.quote_characters[:1]
-        # Don't backslash-quote backslashes between single quotes
+        # Don't backslash-quote single-quotes between single-quotes
         if qc == "'":
             text = text.replace("'", "'\\''")
         else:

@@ -41,7 +41,12 @@ class Kmd(cmd.Cmd, object):
         import kmd
 
         class MyShell(kmd.Kmd):
-            ...
+            prompt = 'myshell> '
+
+            def do_quit(self, args):
+                return True
+
+        MyShell().run()
     """
 
     prompt = '(Kmd) '
@@ -49,6 +54,7 @@ class Kmd(cmd.Cmd, object):
     shell_escape_chars = '!'
     history_file = ''
     history_max_entries = -1
+    hidden = ('EOF',)
 
     def __init__(self, completekey='TAB', stdin=None, stdout=None, stderr=None):
         """Instantiate a line-oriented interpreter framework.
@@ -159,6 +165,7 @@ class Kmd(cmd.Cmd, object):
     def word_break_hook(self, begidx, endidx):
         """word_break_hook(begidx, endidx)
         When completing ``?<topic>`` make sure ``?`` is a word break character.
+
         Ditto for ``!<command>`` and ``!``.
         Installed as :attr:`rl.completer.word_break_hook <rl:rl.Completer.word_break_hook>`.
         """
@@ -280,6 +287,10 @@ class Kmd(cmd.Cmd, object):
         """
         self.stderr.write('*** Unknown syntax: %s\n' % (line,))
 
+    def completenames(self, text, *ignored):
+        cmds = super(Kmd, self).completenames(text, *ignored)
+        return [x for x in cmds if x not in self.hidden]
+
     def do_help(self, topic=''):
         """"""
         # Print the help screen for 'topic' or the default help.
@@ -324,6 +335,8 @@ class Kmd(cmd.Cmd, object):
                     continue
                 prevname = name
                 cmd = name[3:]
+                if cmd in self.hidden:
+                    continue
                 if cmd in help:
                     cmds_doc.append(cmd)
                     del help[cmd]
