@@ -52,24 +52,6 @@ kmd.completions
 kmg.quoting
     Defines constants and functions for writing completions.
 
-Completions
-===========
-
-FilenameCompletion
-    Complete names of files and directories on the filesystem.
-
-UsernameCompletion
-    Complete names of users known to the system.
-
-HostnameCompletion
-    Complete names of hosts in the system's ``/etc/hosts`` file.
-
-EnvironmentCompletion
-    Complete names of variables in the process environment.
-
-CommandCompletion
-    Complete names of executables on the system PATH.
-
 Documentation
 =============
 
