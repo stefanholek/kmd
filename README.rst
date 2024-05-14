@@ -49,7 +49,7 @@ kmd.Kmd
 kmd.completions
     Implements a set of ready-to-use completions.
 
-kmg.quoting
+kmd.quoting
     Defines constants and functions for writing completions.
 
 Documentation
