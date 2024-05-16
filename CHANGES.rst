@@ -7,6 +7,9 @@ Changelog
 - Update tox.ini for latest tox.
   [stefan]
 
+- Replace deprecated ``python setup.py build_sphinx`` in tox.ini.
+  [stefan]
+
 
 2.4 - 2022-11-17
 ----------------
