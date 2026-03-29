@@ -16,6 +16,9 @@ Changelog
 - Replace deprecated ``python setup.py build_sphinx`` in tox.ini.
   [stefan]
 
+- Remove support for universal wheels.
+  [stefan]
+
 
 2.4 - 2022-11-17
 ----------------
