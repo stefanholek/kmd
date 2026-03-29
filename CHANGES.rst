@@ -19,6 +19,9 @@ Changelog
 - Remove support for universal wheels.
   [stefan]
 
+- Remove deprecated license classifier.
+  [stefan]
+
 
 2.4 - 2022-11-17
 ----------------
