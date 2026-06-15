@@ -16,10 +16,19 @@ Changelog
 - Replace deprecated ``python setup.py build_sphinx`` in tox.ini.
   [stefan]
 
+- Remove deprecated license classifier.
+  [stefan]
+
 - Remove support for universal wheels.
   [stefan]
 
-- Remove deprecated license classifier.
+- Upgrade GitHub workflow.
+  [stefan]
+
+- Upgrade .readthedocs.yaml.
+  [stefan]
+
+- Upgrade sphinx and sphinx-rtd-theme in docs extra.
   [stefan]
 
 
