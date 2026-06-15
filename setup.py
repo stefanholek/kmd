@@ -39,8 +39,8 @@ setup(name='kmd',
       },
       extras_require={
           'docs': [
-              'sphinx == 5.3.0',
-              'sphinx-rtd-theme == 1.0.0',
+              'sphinx == 9.1.0',
+              'sphinx-rtd-theme == 3.1.0',
           ],
       },
 )
