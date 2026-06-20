@@ -3,7 +3,7 @@
 import os
 
 
-class CommandCompletion(object):
+class CommandCompletion():
     """Complete names of commands on the system PATH."""
 
     def __init__(self):

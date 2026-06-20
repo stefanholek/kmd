@@ -5,7 +5,7 @@ import os
 from rl import completer
 
 
-class EnvironmentCompletion(object):
+class EnvironmentCompletion():
 
     def __init__(self):
         """Configure the readline completer

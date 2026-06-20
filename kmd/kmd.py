@@ -1,7 +1,5 @@
 """A base class for custom command interpreters."""
 
-from __future__ import absolute_import
-
 import sys
 import cmd
 
@@ -18,7 +16,7 @@ from kmd.quoting import is_fully_quoted
 from kmd.quoting import backslash_quote
 
 
-class Kmd(cmd.Cmd, object):
+class Kmd(cmd.Cmd):
     """Interpreter base class.
 
     This is a subclass of the standard library's :class:`cmd.Cmd <py3k:cmd.Cmd>` class,
@@ -152,14 +150,10 @@ class Kmd(cmd.Cmd, object):
             history.clear()
 
     def input(self, prompt):
-        """Read a line from the keyboard using :func:`input() <py3k:input>`
-        (or :func:`raw_input() <py:raw_input>` in Python 2).
+        """Read a line from the keyboard using :func:`input() <py3k:input>`.
         When the user presses the TAB key, invoke the readline completer.
         """
-        if sys.version_info[0] >= 3:
-            return input(prompt)
-        else:
-            return raw_input(prompt)
+        return input(prompt)
 
     @print_exc
     def word_break_hook(self, begidx, endidx):

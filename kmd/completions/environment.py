@@ -5,7 +5,7 @@ import os
 from rl import completer
 
 
-class EnvironmentCompletion(object):
+class EnvironmentCompletion():
     """Complete names of variables in the process environment."""
 
     def __init__(self):

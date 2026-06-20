@@ -16,8 +16,6 @@ A *custom completion* is a class that implements at least two methods:
     Returns an iterable of matches for ``text``.
 """
 
-from __future__ import absolute_import
-
 from .filename import FilenameCompletion
 from .username import UsernameCompletion
 from .hostname import HostnameCompletion

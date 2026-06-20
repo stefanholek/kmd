@@ -1,7 +1,5 @@
 """File and directory name completion."""
 
-from __future__ import absolute_import
-
 import os
 import sys
 import unicodedata
@@ -22,13 +20,10 @@ from kmd.quoting import backslash_dequote_filename
 
 def compose(text):
     """Return fully composed UTF-8."""
-    if sys.version_info[0] >= 3:
-        return unicodedata.normalize('NFC', text)
-    else:
-        return unicodedata.normalize('NFC', text.decode('utf-8')).encode('utf-8')
+    return unicodedata.normalize('NFC', text)
 
 
-class FilenameCompletion(object):
+class FilenameCompletion():
     """Complete file and directory names.
     The ``quote_char`` argument specifies the preferred quoting style.
     Available styles are single-quote, double-quote, and backslash (the
@@ -112,8 +107,7 @@ class FilenameCompletion(object):
             return backslash_dequote_filename(text, completion.quote_character)
 
         # Convert locale encoding -> fs encoding
-        if sys.version_info[0] >= 3:
-            return text
+        return text
 
     @print_exc
     def rewrite_filename(self, text):
@@ -127,8 +121,7 @@ class FilenameCompletion(object):
             return compose(text)
 
         # Convert fs encoding -> locale encoding
-        if sys.version_info[0] >= 3:
-            return text
+        return text
 
     @print_exc
     def stat_filename(self, text):
@@ -138,6 +131,5 @@ class FilenameCompletion(object):
         Installed as :attr:`rl.completer.filename_stat_hook <rl:rl.Completer.filename_stat_hook>`.
         """
         # Convert locale encoding -> fs encoding
-        if sys.version_info[0] >= 3:
-            return text
+        return text
 

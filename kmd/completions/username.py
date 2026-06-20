@@ -3,7 +3,7 @@
 from rl import completion
 
 
-class UsernameCompletion(object):
+class UsernameCompletion():
     """Complete user names."""
 
     def __init__(self):

@@ -5,7 +5,7 @@ import os
 from rl import completer
 
 
-class HostnameCompletion(object):
+class HostnameCompletion():
     """Complete host names found in the system's hosts file."""
 
     def __init__(self, hostsfile='/etc/hosts'):
