@@ -63,7 +63,7 @@ class Kmd(cmd.Cmd):
         specify alternate input and output file objects; if not specified,
         sys.stdin, sys.stdout, and sys.stderr are used.
         """
-        super(Kmd, self).__init__(completekey, stdin, stdout)
+        super().__init__(completekey, stdin, stdout)
 
         if stderr is not None:
             self.stderr = stderr
@@ -267,7 +267,7 @@ class Kmd(cmd.Cmd):
         """Called when the input line is empty.
         By default repeats the :attr:`lastcmd <py3k:cmd.Cmd.lastcmd>`.
         """
-        super(Kmd, self).emptyline()
+        super().emptyline()
 
     def comment(self, line):
         """Called when the input line starts with a ``#``.
@@ -282,7 +282,7 @@ class Kmd(cmd.Cmd):
         self.stderr.write('*** Unknown syntax: %s\n' % (line,))
 
     def completenames(self, text, *ignored):
-        cmds = super(Kmd, self).completenames(text, *ignored)
+        cmds = super().completenames(text, *ignored)
         return [x for x in cmds if x not in self.hidden]
 
     def do_help(self, topic=''):
