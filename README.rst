@@ -70,16 +70,9 @@ kmd development is hosted on GitHub_ where it also has an `issue tracker`_.
 Installation
 ============
 
-Installation requires Python 3.5 or higher.
-
-Note: kmd uses the rl_ library which contains a C extension. It is a good idea
-to review its `installation instructions`_ and make sure all dependencies are
-in place.
-
 To install the ``kmd`` package, type::
 
     pip install kmd
 
 .. _rl: https://github.com/stefanholek/rl
-.. _`installation instructions`: https://github.com/stefanholek/rl#installation
 

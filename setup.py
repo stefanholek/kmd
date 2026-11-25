@@ -30,7 +30,7 @@ setup(name='kmd',
       include_package_data=False,
       zip_safe=False,
       install_requires=[
-          'rl >= 3.2',
+          'rl >= 4.0',
       ],
       python_requires='>=3.5',
       project_urls={

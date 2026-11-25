@@ -4,7 +4,7 @@ Changelog
 3.0 - Unreleased
 ----------------
 
-- Upgrade to rl 3.2.
+- Upgrade to rl 4.0.
   [stefan]
 
 - Add ``python_requires``.
