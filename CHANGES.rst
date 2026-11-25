@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0 - Unreleased
+3.0 - 2026-11-25
 ----------------
 
 - Upgrade to rl 4.0.
